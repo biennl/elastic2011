@@ -13,16 +13,18 @@ namespace MessagesLibrary
          public string Key { get; set; }
          public bool IsMandatory { get; set; }
          public Object value { get; set; }
+         public String descr { get; set; }
 
-         public MessageItem(string Type, string Codage, string Key, bool IsMandatory, Object value) 
+         public MessageItem(string Type, string Codage, string Key, bool IsMandatory,Object value, String descr) 
          {
              this.count = 0;
              this.Type = Type;
              this.Codage = Codage;
              this.Key = Key;
              this.IsMandatory = IsMandatory;
+             this.value = value;
+             this.descr = descr;
          }
-
          
     }
 }
