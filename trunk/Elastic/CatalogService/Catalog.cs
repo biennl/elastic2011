@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using EncodingLibrary;
 using MessagesLibrary;
-using System.Collections;
+using System.Collections.Generic;
 
 // la librairy CatalogService reference MessageLibrary
 // et 
@@ -12,7 +12,11 @@ namespace CatalogService
 {
     public class Catalog : ICatalog
     {
-        private Dictionary<string, ServiceInfo> services;
+
+        /// <summary>
+        /// services fait correspondre un service à son adresse
+        /// </summary>
+        private Dictionary<string,ServiceInfo> services;
 
         public Catalog()
         {
@@ -20,22 +24,19 @@ namespace CatalogService
         }
         void Register(string service, string title, string address, string port)
         {
-
+   
+            if (services.ContainsKey(title)) throw new Exception("Service registering error: no duplicate service! ");
             services.Add(title, new ServiceInfo(service, address, port));
         }
 
         void Unregister(string service)
         {
-            //for(int i= 0; i < ServiceInfo si in services){
-            //    if( si.Title.Equals(service) )
-            //    {
-            //        services.ElementAt(
-            //    }
-            //}
-
+            if (string.IsNullOrEmpty(service)) throw new Exception("unregister service : pram null");
+                services.Remove(service); 
         }
 
         public CatalogMessage GetInfos(string title)
+
         {
             List<string> listParams = new List<string>();
             if (title != "")
@@ -70,6 +71,7 @@ namespace CatalogService
 
             CatalogMessage msg = new CatalogMessage(listParams);
             return msg;
+
         }
 
     }
