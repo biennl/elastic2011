@@ -28,8 +28,9 @@ namespace EchoService.cs
             this.port = port;
             this.encoding = new MsgEncoding();
             this.manager = new NetworkManager();
-            this.listener = manager.createListner("localhost", port);
+            this.listener = manager.createListner("127.0.0.1", port);
             this.threadListener = new Thread(this.EchoServiceClients);
+            this.threadListener.Start();
         }
 
         public void EchoServiceClients()
