@@ -7,5 +7,9 @@ namespace CatalogService
 {
     public class Catalog  : ICatalog
     {
+        public void GetInfos(string service)
+        {
+            
+        }
     }
 }

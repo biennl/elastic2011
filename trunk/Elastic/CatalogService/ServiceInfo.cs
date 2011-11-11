@@ -7,7 +7,7 @@ namespace CatalogService
 {
     class ServiceInfo
     {
-        public string Service { get; }
+        public string Service { set; get; }
         public string Title   { set; get; }
         public string Address { set; get; }
         public string Port    { set; get; }
