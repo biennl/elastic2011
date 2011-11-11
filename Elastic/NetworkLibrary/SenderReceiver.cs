@@ -6,7 +6,8 @@ using System.Net;
 using System.Net.Sockets;
 
 namespace NetworkLibrary {
-  class SenderReceiver {
+  
+     class SenderReceiver :ISenderReceiver {
 
     private Socket senderReceiver;
 

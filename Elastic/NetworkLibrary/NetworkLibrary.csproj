@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IListener.cs" />
+    <Compile Include="ISenderReceiver.cs" />
+    <Compile Include="NetworkManger.cs" />
     <Compile Include="Listener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SenderReceiver.cs" />
