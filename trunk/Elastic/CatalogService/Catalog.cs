@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CatalogService
 {
-    public class Class1
+    public class Catalog  : ICatalog
     {
     }
 }
