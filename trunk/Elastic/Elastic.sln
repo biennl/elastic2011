@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncodingLibrary", "Encoding
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{B71B066C-3985-4EA0-910B-BC731CD62AA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkLibrary", "NetWorkLibrary\NetworkLibrary.csproj", "{859F584F-AD22-4D56-84C9-47266BC8188E}"
-EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -53,16 +51,6 @@ Global
 		{B71B066C-3985-4EA0-910B-BC731CD62AA8}.Release|Mixed Platforms.Build.0 = Release|x86
 		{B71B066C-3985-4EA0-910B-BC731CD62AA8}.Release|x86.ActiveCfg = Release|x86
 		{B71B066C-3985-4EA0-910B-BC731CD62AA8}.Release|x86.Build.0 = Release|x86
-		{859F584F-AD22-4D56-84C9-47266BC8188E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{859F584F-AD22-4D56-84C9-47266BC8188E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{859F584F-AD22-4D56-84C9-47266BC8188E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{859F584F-AD22-4D56-84C9-47266BC8188E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{859F584F-AD22-4D56-84C9-47266BC8188E}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{859F584F-AD22-4D56-84C9-47266BC8188E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{859F584F-AD22-4D56-84C9-47266BC8188E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{859F584F-AD22-4D56-84C9-47266BC8188E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{859F584F-AD22-4D56-84C9-47266BC8188E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{859F584F-AD22-4D56-84C9-47266BC8188E}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
