@@ -10,31 +10,37 @@ using System.Collections;
 // et 
 namespace CatalogService
 {
-    public class Catalog  : ICatalog
+    public class Catalog : ICatalog
     {
+        private Hashtable services;
 
-        private List<ServiceInfo> services;
-              
-        public Catalog(){
-            services = new List<ServiceInfo>();
+        public Catalog()
+        {
+            services = new Hashtable();
         }
         void Register(string service, string title, string address, string port)
         {
-            services.Add(new ServiceInfo(service,title,address,port));
+
+            services.Add(title, new ServiceInfo(service, address, port));
         }
 
         void Unregister(string service)
-        { 
+        {
+            //for(int i= 0; i < ServiceInfo si in services){
+            //    if( si.Title.Equals(service) )
+            //    {
+            //        services.ElementAt(
+            //    }
+            //}
+
         }
 
         public CatalogMessage GetInfos(string service)
         {
-            List<string> listParams = new List<string>();
-            
-            CatalogMessage msg = new CatalogMessage(listParams);
 
 
-            return msg;
+
+            return null;
         }
 
     }

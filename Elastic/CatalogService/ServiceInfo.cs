@@ -8,13 +8,13 @@ namespace CatalogService
     class ServiceInfo
     {
         public string Service { set; get; }
-        public string Title   { set; get; }
+        //public string Title   { set; get; }
         public string Address { set; get; }
         public string Port    { set; get; }
 
-        public ServiceInfo(string service, string title, string address, string port) 
+        public ServiceInfo(string service, string address, string port) 
         {
-            this.Title   = title;
+           // this.Title   = title;
             this.Address = address;
             this.Port = port;   
         }
