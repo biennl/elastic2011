@@ -22,14 +22,14 @@ namespace CatalogService
         {
             services = new Dictionary<string, ServiceInfo>();
         }
-        void Register(string service, string title, string address, string port)
+        public void Register(string service, string title, string address, string port)
         {
    
             if (services.ContainsKey(title)) throw new Exception("Service registering error: no duplicate service! ");
             services.Add(title, new ServiceInfo(service, address, port));
         }
 
-        void Unregister(string service)
+        public void Unregister(string service)
         {
             if (string.IsNullOrEmpty(service)) throw new Exception("unregister service : pram null");
                 services.Remove(service); 
