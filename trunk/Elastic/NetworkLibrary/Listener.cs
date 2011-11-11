@@ -6,21 +6,28 @@ using System.Net;
 using System.Net.Sockets;
 
 namespace NetworkLibrary {
-  public class Listener {
+  
+    
+    class Listener : IListener{
 
-    private TcpListener tcpListener;
+    public TcpListener tcpListener{ get; set; }
+    public String adress { get; set; }
+    public int port { get; set; }
 
-    public Listener( String adress, int port ) {
-      this.tcpListener = new TcpListener( IPAddress.Parse( adress ), port );
-      this.tcpListener.Start();
+    public Listener( String adress, int port ) 
+    {
+        this.adress = adress;
+        this.port=port;
+        this.tcpListener = new TcpListener( IPAddress.Parse( adress ), port );
+        this.tcpListener.Start();
     }
 
     /// <summary>
     /// Accepts a connexion from a client
     /// </summary>
     /// <returns></returns>
-    public SenderReceiver accept() {
-      return new SenderReceiver( this.tcpListener.AcceptSocket() );
+     public ISenderReceiver accept() {
+      return (ISenderReceiver)(new SenderReceiver( this.tcpListener.AcceptSocket() ));
     }
 
   }
