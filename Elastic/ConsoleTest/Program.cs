@@ -11,7 +11,8 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            MsgEncoding encoding = new MsgEncoding();
+            //MsgEncoding encoding = new MsgEncoding();
+            IEncoding encoding = new MsgEncoding();
             Message msg = new Message();
             msg.Count = 899;
             msg.Source = "Machine A";
