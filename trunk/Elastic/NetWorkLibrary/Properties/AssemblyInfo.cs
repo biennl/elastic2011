@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Les informations générales relatives à un assembly dépendent de 
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle( "NetWorkLibrary" )]
+[assembly: AssemblyTitle( "NetworkLibrary" )]
 [assembly: AssemblyDescription( "" )]
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "Hewlett-Packard" )]
-[assembly: AssemblyProduct( "NetWorkLibrary" )]
+[assembly: AssemblyProduct( "NetworkLibrary" )]
 [assembly: AssemblyCopyright( "Copyright © Hewlett-Packard 2011" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
