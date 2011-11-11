@@ -12,12 +12,11 @@ namespace CatalogService
         public string Address { set; get; }
         public string Port    { set; get; }
 
-        public ServiceInfo(string title, string address, string port) 
+        public ServiceInfo(string service, string title, string address, string port) 
         {
             this.Title   = title;
             this.Address = address;
-            this.Port = port;
- 
+            this.Port = port;   
         }
 
     }
