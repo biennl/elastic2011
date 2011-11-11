@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using EncodingLibrary;
 using MessagesLibrary;
+using System.Collections;
 
 // la librairy CatalogService reference MessageLibrary
 // et 
@@ -13,7 +14,7 @@ namespace CatalogService
     {
 
         private List<ServiceInfo> services;
-       
+              
         public Catalog(){
             services = new List<ServiceInfo>();
         }
@@ -26,9 +27,14 @@ namespace CatalogService
         { 
         }
 
-        public void GetInfos(string service)
+        public CatalogMessage GetInfos(string service)
         {
+            List<string> listParams = new List<string>();
             
+            CatalogMessage msg = new CatalogMessage(listParams);
+
+
+            return msg;
         }
 
     }
