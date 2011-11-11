@@ -12,11 +12,11 @@ namespace CatalogService
 {
     public class Catalog : ICatalog
     {
-        private Hashtable services;
+        private Dictionary<string, ServiceInfo> services;
 
         public Catalog()
         {
-            services = new Hashtable();
+            services = new Dictionary<string, ServiceInfo>();
         }
         void Register(string service, string title, string address, string port)
         {
@@ -35,12 +35,41 @@ namespace CatalogService
 
         }
 
-        public CatalogMessage GetInfos(string service)
+        public CatalogMessage GetInfos(string title)
         {
+            List<string> listParams = new List<string>();
+            if (title != "")
+            {
+                if (!services.ContainsKey(title))
+                {
+                    ServiceInfo serviceInfo = services[title];
+                    listParams.Add(serviceInfo.Service);
+                    listParams.Add(title);
+                    listParams.Add(serviceInfo.Address);
+                    listParams.Add(serviceInfo.Port);
+                }
+                else
+                {
+                    listParams.Add("");
+                    listParams.Add("");
+                    listParams.Add("");
+                    listParams.Add("");
+                }
+            }
+            else
+            {
+                foreach (string key in services.Keys)
+                {
+                    ServiceInfo sInfo = services[key];
+                    listParams.Add(sInfo.Service);
+                    listParams.Add(key);
+                    listParams.Add(sInfo.Address);
+                    listParams.Add(sInfo.Port);
+                }
+            }
 
-
-
-            return null;
+            CatalogMessage msg = new CatalogMessage(listParams);
+            return msg;
         }
 
     }
