@@ -7,7 +7,6 @@ namespace MessagesLibrary
 {
     interface IMessage
     {
-       public List<MessageItem> getMessageItems();
-       public int getCount();
+       int getCount();
     }
 }
