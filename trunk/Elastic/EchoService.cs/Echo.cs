@@ -30,7 +30,6 @@ namespace EchoService
             this.encoding = new MsgEncoding();
             this.manager = new NetworkManager();
             this.listener = manager.createListner(adress, port);
-            
         }
 
         public void EchoServiceClients()
@@ -41,7 +40,16 @@ namespace EchoService
                 Message receive = encoding.Decode(sndr.receive());
                 sndr.send(encoding.Encode(receive));
             }
-        }      
+        }
 
+        public void RegisterService() 
+        {
+
+        }
+
+        public void UnRegisterMessage()
+        {
+
+        }
     }
 }

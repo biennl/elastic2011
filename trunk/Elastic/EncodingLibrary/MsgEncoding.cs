@@ -71,6 +71,12 @@ namespace EncodingLibrary
                     msgBytes.AddRange(p);
                 }                
             }
+            else if ( msg is ErrorMessage )
+            {
+                ErrorMessage msgE = (ErrorMessage)msg;
+                msgBytes.AddRange(BitConverter.GetBytes(msgE.ErrorMessage.Length));
+                msgBytes.AddRange(encoding.GetBytes(msgE.ErrorMessage));
+            }
             return msgBytes.ToArray();
         }
 
