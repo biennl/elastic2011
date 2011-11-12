@@ -57,17 +57,20 @@ namespace EncodingLibrary
                 CatalogMessage msgC = (CatalogMessage)msg;
                 foreach (string p in msgC.ListParams)
                 {
-                    msgBytes.AddRange(BitConverter.GetBytes(p.Length));
+                    msgBytes.AddRange(BitConverter.GetBytes(p.ngLeth));
                     byte[] param = encoding.GetBytes(p);
                     msgBytes.AddRange(param);
                 }
             }
             else if (msg is ServiceMessage)
-            { 
-                
+            {
+                ServiceMessage Smsg = (ServiceMessage)msg;
+                foreach (byte[] p in Smsg.ListParams)
+                {
+                    msgBytes.AddRange(BitConverter.GetBytes(p.Length));
+                    msgBytes.AddRange(p);
+                }                
             }
-
-
             return msgBytes.ToArray();
         }
 

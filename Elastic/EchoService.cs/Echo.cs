@@ -8,7 +8,8 @@ using NetworkLibrary;
 using EncodingLibrary;
 
 namespace EchoService
-{   //class represent the echo service
+{ 
+    //class represent the echo service
     public class Echo
     {
         public String name {get; set;}
