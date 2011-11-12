@@ -77,6 +77,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EncodingLibrary\EncodingLibrary.csproj">
+      <Project>{52D73216-A8B8-443C-88E3-076C8D42568B}</Project>
+      <Name>EncodingLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MessagesLibrary\MessagesLibrary.csproj">
+      <Project>{F0E78280-02F3-41BA-A2C6-F33DF72CC61C}</Project>
+      <Name>MessagesLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NetworkLibrary\NetworkLibrary.csproj">
       <Project>{13FEC2C6-8E9D-4E6D-BC55-8F838B68B71D}</Project>
       <Name>NetworkLibrary</Name>

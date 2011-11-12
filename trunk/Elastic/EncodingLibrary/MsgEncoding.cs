@@ -131,6 +131,36 @@ namespace EncodingLibrary
             index = index + INTEGER32_SIZE;
 
 
+            if (msg is CatalogMessage)
+            {
+                CatalogMessage msgC = (CatalogMessage)msg;
+                //List<byte[]> paramList = msgC.ListParams;
+
+                //if (operation.Equals("register"))
+                //{
+                //    for (int i = 0; i < paramList.Count; i++)
+                //    {
+                //        int countI = BitConverter.ToInt32(paramList[i], 0);
+
+                //    }
+                //}
+                //else if (operation.Equals("unregister"))
+                //{
+
+                //}
+                //else if (operation.Equals("getinfos"))
+                //{
+
+                //}
+
+
+            }
+            else if (msg is ServiceMessage)
+            {
+               
+            }
+
+
             return msg;
         }
     }

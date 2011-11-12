@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using NetworkLibrary;
+using MessagesLibrary;
+using EncodingLibrary;
 
 namespace ServerExample
 {
@@ -17,10 +19,13 @@ namespace ServerExample
         IListener listener;
         ISenderReceiver senderReceiver;
 
+        MsgEncoding encodMsg; 
+
         public Server()
         {
             InitializeComponent();
             this.networkManager = new NetworkManager();
+            encodMsg = new MsgEncoding();
         }
 
         private void portBox_TextChanged(object sender, EventArgs e)
@@ -47,13 +52,28 @@ namespace ServerExample
                 if ((this.senderReceiver != null) && (senderReceiver.available() != 0))
                 {
                     UTF8Encoding utf8Encoding = new UTF8Encoding();
-                    //this.messageReceivedLabel.Text = utf8Encoding.GetString(senderReceiver.receive());
-                    setText(utf8Encoding.GetString(senderReceiver.receive()));
-                    senderReceiver.send(utf8Encoding.GetBytes(this.messageReceivedLabel.Text));
-
+                    byte[] reqMsg = senderReceiver.receive();
+                    ServiceMessage msg =(ServiceMessage) encodMsg.Decode(reqMsg);
+                    //setText(utf8Encoding.GetString(senderReceiver.receive()));
+                    senderReceiver.send(utf8Encoding.GetBytes(this.messageReceivedLabel.Text)); 
                 }
 
             }
+        }
+
+
+        public void analyseMsg(ServiceMessage msg)
+        {
+            int count = msg.Count;
+            string source = msg.Source;
+            string target = msg.Target;
+            string operation = (msg.Operation).ToLower();
+            string stamp = msg.Stamp;
+            int paramCount = msg.ParamCount;
+            List<byte[]> paramList = msg.ListParams;     
+            
+
+
         }
 
         private delegate void setTextDelegate(string s);
