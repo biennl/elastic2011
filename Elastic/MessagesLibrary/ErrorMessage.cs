@@ -5,13 +5,13 @@ using System.Text;
 
 namespace MessagesLibrary
 {
-    class ErrorMessage : Message
+     public class ErrorMessage : Message
     {
-        public String errorMessage { get; set; }
+        public string ErrorMessage { get; set; }
 
         public ErrorMessage(String errorMessage,String source,String target,string stamp)
         {
-            this.errorMessage = errorMessage;
+            this.ErrorMessage = errorMessage;
             this.Source = source;
             this.Target=target;
             this.Stamp = stamp;
