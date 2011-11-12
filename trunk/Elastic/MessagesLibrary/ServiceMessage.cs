@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MessagesLibrary
 {
-    class ServiceMessage : Message
+    public  class ServiceMessage : Message
     {
         public List<byte[]> ListParams { get; set; }
 

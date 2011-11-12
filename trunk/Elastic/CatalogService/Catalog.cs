@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using EncodingLibrary;
 using MessagesLibrary;
-using System.Collections.Generic;
 
 // la librairy CatalogService reference MessageLibrary
 // et 
