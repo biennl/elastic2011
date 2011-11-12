@@ -32,8 +32,8 @@ namespace ServeurIHM
         private void button1_Click(object sender, EventArgs e)
         {
             MessagesLibrary.Message msg = new MessagesLibrary.Message();
-            msg.Source = "127.0.0.1*50000";
-            msg.Target = "127.0.0.1*134";
+            msg.Source = "127.0.0.1";
+            msg.Target = "127.0.0.1:134";
             msg.Operation = "Register";
             msg.Stamp = "check in";
             msg.ParamCount = 4;
