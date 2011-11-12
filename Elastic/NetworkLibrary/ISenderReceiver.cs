@@ -10,6 +10,7 @@ namespace NetworkLibrary
         void send(byte[] bytes);
         byte[] receive();
         byte[] receive(int count);
+        int available();
         void close();
     }
 }

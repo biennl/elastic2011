@@ -30,5 +30,9 @@ namespace NetworkLibrary {
       return (ISenderReceiver)(new SenderReceiver( this.tcpListener.AcceptSocket() ));
     }
 
+    public bool pending (){
+      return this.tcpListener.Pending();
+    }
+
   }
 }

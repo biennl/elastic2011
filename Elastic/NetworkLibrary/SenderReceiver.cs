@@ -73,6 +73,10 @@ namespace NetworkLibrary {
       return bytes;
     }
 
+    public int available() {
+      return this.senderReceiver.Available;
+    }
+
     /// <summary>
     /// Closes the connexion
     /// </summary>
