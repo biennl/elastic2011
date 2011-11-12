@@ -9,8 +9,13 @@ namespace MessagesLibrary
     {
         public List<byte[]> ListParams { get; set; }
 
-        public ServiceMessage(List<byte[]> listParams)
+        public ServiceMessage(List<byte[]> listParams,String source,String target,String operation,int paramsCount)
+            : base()
         {
+            base.Operation = operation;
+            base.Source = source;
+            base.Target = target;
+            base.ParamCount = paramsCount;
             this.ListParams = listParams;
         }
     }
