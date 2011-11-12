@@ -52,7 +52,22 @@ namespace EncodingLibrary
             msgBytes.AddRange(BitConverter.GetBytes(paramCount.Length));// add count to paramCount item of the message
             msgBytes.AddRange(paramCount);
 
-            
+            if (msg is CatalogMessage)
+            {
+                CatalogMessage msgC = (CatalogMessage)msg;
+                foreach (string p in msgC.ListParams)
+                {
+                    msgBytes.AddRange(BitConverter.GetBytes(p.Length));
+                    byte[] param = encoding.GetBytes(p);
+                    msgBytes.AddRange(param);
+                }
+            }
+            else if (msg is ServiceMessage)
+            { 
+                
+            }
+
+
             return msgBytes.ToArray();
         }
 
