@@ -8,7 +8,9 @@ namespace NetworkLibrary
     public interface IListener
     {
 
-         ISenderReceiver accept();
+      ISenderReceiver accept();
+
+      bool pending();
     
     
     }
