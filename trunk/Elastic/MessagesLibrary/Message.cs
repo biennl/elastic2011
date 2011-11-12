@@ -16,7 +16,7 @@ namespace MessagesLibrary
         public string Operation { get; set; }
         public string Stamp { get; set; }
         public int ParamCount { get; set; }
-        //to do : liste des params 
+       
 
         public Message()
         { }
@@ -37,6 +37,7 @@ namespace MessagesLibrary
             str.Append("Operation: " + Operation + "\n");
             str.Append("Stamp: " + Stamp + "\n");
             str.Append("ParamCount: " + ParamCount + "\n");
+            
 
             return str.ToString();
         }
