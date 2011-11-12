@@ -7,7 +7,7 @@ using MessagesLibrary;
 using NetworkLibrary;
 using EncodingLibrary;
 
-namespace EchoService.cs
+namespace EchoService
 {   //class represent the echo service
     public class Echo
     {
