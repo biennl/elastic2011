@@ -10,7 +10,7 @@ using MessagesLibrary;
 
 namespace MessagesLibrary
 {
-    public class CatalogMessage:Message
+    public class CatalogMessage : Message
     {
         public List<string> ListParams { get; set; }
 

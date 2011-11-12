@@ -57,7 +57,7 @@ namespace EncodingLibrary
                 CatalogMessage msgC = (CatalogMessage)msg;
                 foreach (string p in msgC.ListParams)
                 {
-                    msgBytes.AddRange(BitConverter.GetBytes(p.ngLeth));
+                    msgBytes.AddRange(BitConverter.GetBytes(p.Length));
                     byte[] param = encoding.GetBytes(p);
                     msgBytes.AddRange(param);
                 }
