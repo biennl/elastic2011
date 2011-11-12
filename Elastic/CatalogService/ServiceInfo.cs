@@ -14,7 +14,7 @@ namespace CatalogService
 
         public ServiceInfo(string service, string address, string port) 
         {
-           // this.Title   = title;
+            this.Service   = service;
             this.Address = address;
             this.Port = port;   
         }
