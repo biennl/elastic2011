@@ -8,41 +8,67 @@ using System.Text;
 using System.Windows.Forms;
 using NetworkLibrary;
 
-namespace ServerExample {
-  public partial class Server : Form {
+namespace ServerExample
+{
+    public partial class Server : Form
+    {
 
-    NetworkManager networkManager;
-    IListener listener;
-    ISenderReceiver senderReceiver;
+        NetworkManager networkManager;
+        IListener listener;
+        ISenderReceiver senderReceiver;
 
-    public Server() {
-      InitializeComponent();
-      this.networkManager = new NetworkManager();
-    }
-
-    private void portBox_TextChanged( object sender, EventArgs e ) {
-
-    }
-
-    private void connexionButton_Click( object sender, EventArgs e ) {
-      this.listener = this.networkManager.createListner("127.0.0.1", Convert.ToInt32( this.portBox.Text ));
-      this.connexionButton.Enabled = false;
-      this.backgroundWorker1.RunWorkerAsync();
-    }
-
-    private void backgroundWorker1_DoWork( object sender, DoWorkEventArgs e ) {
-      while ( true ) {
-        if ( this.listener.pending() == true ) {
-          senderReceiver = this.listener.accept();
+        public Server()
+        {
+            InitializeComponent();
+            this.networkManager = new NetworkManager();
         }
 
-        if ( (this.senderReceiver != null) && (senderReceiver.available() != 0) ) {
-          UTF8Encoding utf8Encoding = new UTF8Encoding();
-          this.messageReceivedLabel.Text = utf8Encoding.GetString( senderReceiver.receive() );
-          senderReceiver.send( utf8Encoding.GetBytes( this.messageReceivedLabel.Text ) );
+        private void portBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
-         
-      }
+
+        private void connexionButton_Click(object sender, EventArgs e)
+        {
+            this.listener = this.networkManager.createListner("127.0.0.1", Convert.ToInt32(this.portBox.Text));
+            this.connexionButton.Enabled = false;
+            this.backgroundWorker1.RunWorkerAsync();
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (true)
+            {
+                if (this.listener.pending() == true)
+                {
+                    senderReceiver = this.listener.accept();
+                }
+
+                if ((this.senderReceiver != null) && (senderReceiver.available() != 0))
+                {
+                    UTF8Encoding utf8Encoding = new UTF8Encoding();
+                    //this.messageReceivedLabel.Text = utf8Encoding.GetString(senderReceiver.receive());
+                    setText(utf8Encoding.GetString(senderReceiver.receive()));
+                    senderReceiver.send(utf8Encoding.GetBytes(this.messageReceivedLabel.Text));
+
+                }
+
+            }
+        }
+
+        private delegate void setTextDelegate(string s);
+        private void setText(string s)
+        {
+            if (messageReceivedLabel.InvokeRequired)
+            {
+                setTextDelegate sd = new setTextDelegate(setText);
+                this.Invoke(sd, new object[] { s });
+            }
+            else
+            {
+                messageReceivedLabel.Text = s;
+            }
+        }
+
     }
-  }
 }
