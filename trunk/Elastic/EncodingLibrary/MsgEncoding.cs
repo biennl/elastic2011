@@ -59,22 +59,7 @@ namespace EncodingLibrary
                 byte[] param = encoding.GetBytes(p);
                 msgBytes.AddRange(param);
             }
-            //}
-            //else if (msg is ServiceMessage)
-            //{
-            //    ServiceMessage Smsg = (ServiceMessage)msg;
-            //    foreach (byte[] p in Smsg.ListParams)
-            //    {
-            //        msgBytes.AddRange(BitConverter.GetBytes(p.Length));
-            //        msgBytes.AddRange(p);
-            //    }                
-            //}
-            //else if ( msg is ErrorMessage )
-            //{
-            //    ErrorMessage msgE = (ErrorMessage)msg;
-            //    msgBytes.AddRange(BitConverter.GetBytes(msgE.errorMessage.Length));
-            //    msgBytes.AddRange(encoding.GetBytes(msgE.errorMessage));
-            //}
+          
             return msgBytes.ToArray();
         }
 

@@ -13,7 +13,7 @@ namespace ConsoleTest
         {
             //MsgEncoding encoding = new MsgEncoding();
             IEncoding encoding = new MsgEncoding();
-            Message msg = new Message();
+            ServiceMessage msg = new ServiceMessage();
             msg.Count = 899;
             msg.Source = "Machine A";
             msg.Target = "Machine B";
@@ -25,7 +25,7 @@ namespace ConsoleTest
 
             Console.WriteLine("Avant: "+msg.ToString());
 
-            Message returnMsg = encoding.Decode(count);
+            ServiceMessage returnMsg = encoding.Decode(count);
 
             Console.WriteLine("Apres: " + returnMsg.ToString());
         }

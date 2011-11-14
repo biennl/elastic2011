@@ -5,8 +5,9 @@ using System.Text;
 
 namespace MessagesLibrary
 {
-    interface IMessage
+    public interface IMessage
     {
        int getCount();
+       string ToString();
     }
 }

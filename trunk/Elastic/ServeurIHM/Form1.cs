@@ -31,16 +31,14 @@ namespace ServeurIHM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessagesLibrary.Message msg = new MessagesLibrary.Message();
+            MessagesLibrary.ServiceMessage msg = new MessagesLibrary.ServiceMessage();
             msg.Source = "127.0.0.1";
             msg.Target = "127.0.0.1:134";
             msg.Operation = "Register";
             msg.Stamp = "check in";
-            msg.ParamCount = 4;
-            
+            msg.ParamCount = 4;             
 
-            this.threadListener.Start();
-                  
+            this.threadListener.Start();                  
 
 
         }

@@ -30,10 +30,6 @@ namespace EchoService
             this.encoding = new MsgEncoding();
             this.manager = new NetworkManager();
             this.listener = manager.createListner(adress, port);
-<<<<<<< .mine
-
-=======
->>>>>>> .r55
         }
 
         public void EchoServiceClients()
@@ -41,7 +37,7 @@ namespace EchoService
             while (true)
             {
                 ISenderReceiver sndr = listener.accept();
-                Message receive = encoding.Decode(sndr.receive());
+                ServiceMessage receive = encoding.Decode(sndr.receive());
                 sndr.send(encoding.Encode(receive));
             }
         }
