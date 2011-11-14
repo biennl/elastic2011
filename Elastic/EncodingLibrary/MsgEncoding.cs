@@ -128,27 +128,35 @@ namespace EncodingLibrary
             msg.ParamCount = paramCount;
             index = index + INTEGER32_SIZE;
 
+            //read list of param
+            for (int i = 0; i < countParam; i++)
+            {
+                int countParami = BitConverter.ToInt32(msgBytes, index);
+                index = index + INTEGER32_SIZE;
+                string parami = decoding.GetString(msgBytes, index, countParami);
+                msg.ListParams.Add(parami);
+                index = index + countParami;
+            }
+                //List<byte[]> paramList = msgC.ListParams;
 
-            //List<byte[]> paramList = msgC.ListParams;
+                //if (operation.Equals("register"))
+                //{
+                //    for (int i = 0; i < paramList.Count; i++)
+                //    {
+                //        int countI = BitConverter.ToInt32(paramList[i], 0);
 
-            //if (operation.Equals("register"))
-            //{
-            //    for (int i = 0; i < paramList.Count; i++)
-            //    {
-            //        int countI = BitConverter.ToInt32(paramList[i], 0);
+                //    }
+                //}
+                //else if (operation.Equals("unregister"))
+                //{
 
-            //    }
-            //}
-            //else if (operation.Equals("unregister"))
-            //{
+                //}
+                //else if (operation.Equals("getinfos"))
+                //{
 
-            //}
-            //else if (operation.Equals("getinfos"))
-            //{
+                //}
 
-            //}
-
-            return msg;
+                return msg;
         }
     }
 }
