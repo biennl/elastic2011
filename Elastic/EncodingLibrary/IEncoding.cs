@@ -8,7 +8,7 @@ namespace EncodingLibrary
 {
     public interface IEncoding
     {
-        byte[] Encode(Message msg);
-        Message Decode(byte[] msgBytes);
+        byte[] Encode(ServiceMessage msg);
+        ServiceMessage Decode(byte[] msgBytes);
     }
 }

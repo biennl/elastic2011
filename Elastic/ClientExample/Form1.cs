@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using NetworkLibrary;
+using MessagesLibrary;
+using EncodingLibrary;
 
 namespace ClientExample
 {
@@ -15,11 +17,13 @@ namespace ClientExample
 
         NetworkManager networkManager;
         ISenderReceiver senderReceiver;
+        IEncoding encode;
 
         public Form1()
         {
             InitializeComponent();
             networkManager = new NetworkManager();
+            encode = new MsgEncoding();
         }
 
         private void connexionButton_Click(object sender, EventArgs e)
@@ -33,14 +37,30 @@ namespace ClientExample
         private void sendButton_Click(object sender, EventArgs e)
         {
             UTF8Encoding utf8Encoding = new UTF8Encoding();
-            senderReceiver.send(utf8Encoding.GetBytes(this.messageToSendBox.Text));
+            ServiceMessage msg = new ServiceMessage();
+            msg.Count = 899;
+            msg.Source = "Machine A";
+            msg.Target = "Machine B";
+            msg.Operation = "register";
+            msg.Stamp = "Service Temp";
+            msg.ParamCount = 4;
+           
+            List<string> msgParams = new List<string> ();
+            msgParams.Add("service");
+            msgParams.Add("echo");
+            msgParams.Add("127.0.0.1");
+            msgParams.Add("1500");
+
+            msg.ListParams = msgParams;
+            senderReceiver.send(encode.Encode(msg));
+
+         //senderReceiver.send(utf8Encoding.GetBytes(this.messageToSendBox.Text));
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
-            {
-                
+            {                 
                 if ((this.senderReceiver != null) && (this.senderReceiver.available() != 0))
                 {
                     UTF8Encoding utf8Encoding = new UTF8Encoding();
