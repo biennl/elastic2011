@@ -7,11 +7,11 @@ namespace MessagesLibrary
 {
      public class ErrorMessage : Message
     {
-        public string ErrorMessage { get; set; }
+        public string errorMessage { get; set; }
 
         public ErrorMessage(String errorMessage,String source,String target,string stamp)
         {
-            this.ErrorMessage = errorMessage;
+            this.errorMessage = errorMessage;
             this.Source = source;
             this.Target=target;
             this.Stamp = stamp;
