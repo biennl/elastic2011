@@ -9,7 +9,7 @@ namespace MessagesLibrary
     {
         public string errorMessage { get; set; }
 
-        public ErrorMessage(String errorMessage,String source,String target,string stamp)
+        public ErrorMessage(string errorMessage,string source,string target,string stamp)
         {
             this.errorMessage = errorMessage;
             this.Source = source;

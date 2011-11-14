@@ -18,11 +18,11 @@ namespace EncodingLibrary
         /// </summary>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public byte[] Encode(Message msg)
+        public byte[] Encode(ServiceMessage msg)
         {
             List<byte> msgBytes = new List<byte>();
             UTF8Encoding encoding = new UTF8Encoding();
-            
+
             //add byte value of Count
             byte[] count = BitConverter.GetBytes(msg.Count);
             msgBytes.AddRange(count);
@@ -52,31 +52,29 @@ namespace EncodingLibrary
             msgBytes.AddRange(BitConverter.GetBytes(paramCount.Length));// add count to paramCount item of the message
             msgBytes.AddRange(paramCount);
 
-            if (msg is CatalogMessage)
+
+            foreach (string p in msg.ListParams)
             {
-                CatalogMessage msgC = (CatalogMessage)msg;
-                foreach (string p in msgC.ListParams)
-                {
-                    msgBytes.AddRange(BitConverter.GetBytes(p.Length));
-                    byte[] param = encoding.GetBytes(p);
-                    msgBytes.AddRange(param);
-                }
+                msgBytes.AddRange(BitConverter.GetBytes(p.Length));
+                byte[] param = encoding.GetBytes(p);
+                msgBytes.AddRange(param);
             }
-            else if (msg is ServiceMessage)
-            {
-                ServiceMessage Smsg = (ServiceMessage)msg;
-                foreach (byte[] p in Smsg.ListParams)
-                {
-                    msgBytes.AddRange(BitConverter.GetBytes(p.Length));
-                    msgBytes.AddRange(p);
-                }                
-            }
-            else if ( msg is ErrorMessage )
-            {
-                ErrorMessage msgE = (ErrorMessage)msg;
-                msgBytes.AddRange(BitConverter.GetBytes(msgE.ErrorMessage.Length));
-                msgBytes.AddRange(encoding.GetBytes(msgE.ErrorMessage));
-            }
+            //}
+            //else if (msg is ServiceMessage)
+            //{
+            //    ServiceMessage Smsg = (ServiceMessage)msg;
+            //    foreach (byte[] p in Smsg.ListParams)
+            //    {
+            //        msgBytes.AddRange(BitConverter.GetBytes(p.Length));
+            //        msgBytes.AddRange(p);
+            //    }                
+            //}
+            //else if ( msg is ErrorMessage )
+            //{
+            //    ErrorMessage msgE = (ErrorMessage)msg;
+            //    msgBytes.AddRange(BitConverter.GetBytes(msgE.errorMessage.Length));
+            //    msgBytes.AddRange(encoding.GetBytes(msgE.errorMessage));
+            //}
             return msgBytes.ToArray();
         }
 
@@ -85,11 +83,11 @@ namespace EncodingLibrary
         /// </summary>
         /// <param name="msgBytes"></param>
         /// <returns></returns>
-        public Message Decode(byte[] msgBytes)
+        public ServiceMessage Decode(byte[] msgBytes)
         {
             int index = 0;
             const int INTEGER32_SIZE = 4;
-            Message msg = new Message();
+            ServiceMessage msg = new ServiceMessage();
             int count = BitConverter.ToInt32(msgBytes, index);
             msg.Count = count;
             index = index + INTEGER32_SIZE;
@@ -131,35 +129,24 @@ namespace EncodingLibrary
             index = index + INTEGER32_SIZE;
 
 
-            if (msg is CatalogMessage)
-            {
-                CatalogMessage msgC = (CatalogMessage)msg;
-                //List<byte[]> paramList = msgC.ListParams;
+            //List<byte[]> paramList = msgC.ListParams;
 
-                //if (operation.Equals("register"))
-                //{
-                //    for (int i = 0; i < paramList.Count; i++)
-                //    {
-                //        int countI = BitConverter.ToInt32(paramList[i], 0);
+            //if (operation.Equals("register"))
+            //{
+            //    for (int i = 0; i < paramList.Count; i++)
+            //    {
+            //        int countI = BitConverter.ToInt32(paramList[i], 0);
 
-                //    }
-                //}
-                //else if (operation.Equals("unregister"))
-                //{
+            //    }
+            //}
+            //else if (operation.Equals("unregister"))
+            //{
 
-                //}
-                //else if (operation.Equals("getinfos"))
-                //{
+            //}
+            //else if (operation.Equals("getinfos"))
+            //{
 
-                //}
-
-
-            }
-            else if (msg is ServiceMessage)
-            {
-               
-            }
-
+            //}
 
             return msg;
         }
