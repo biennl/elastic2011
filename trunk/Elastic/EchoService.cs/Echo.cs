@@ -14,6 +14,7 @@ namespace EchoService
     {
         public String name { get; set; }
         public int port { get; set; }
+        public string adress{get; set;}
         //objetcs for communication througth the network 
         NetworkManager manager { get; set; }
         IListener listener { get; set; }
@@ -25,6 +26,7 @@ namespace EchoService
 
         public Echo(string adress, int port)
         {
+            this.adress=adress;
             this.name = "echoService";
             this.port = port;
             this.encoding = new MsgEncoding();
@@ -44,7 +46,9 @@ namespace EchoService
 
         public void RegisterService() 
         {
-
+            ServiceMessage register = new ServiceMessage();
+            register.Operation = "register";
+            register.Source="
         }
 
         public void UnRegisterMessage()
