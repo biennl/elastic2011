@@ -12,14 +12,14 @@ using EncodingLibrary;
 
 namespace ClientExample
 {
-    public partial class Form1 : Form
+    public partial class echoServer : Form
     {
 
         NetworkManager networkManager;
         ISenderReceiver senderReceiver;
         IEncoding encode;
 
-        public Form1()
+        public echoServer()
         {
             InitializeComponent();
             networkManager = new NetworkManager();
@@ -31,11 +31,6 @@ namespace ClientExample
             senderReceiver = networkManager.createSenderReceiver("127.0.0.1", Convert.ToInt32(this.portBox.Text));
             this.sendButton.Enabled = true;
             this.connexionButton.Enabled = false;
-            this.backgroundWorker1.RunWorkerAsync();
-        }
-
-        private void sendButton_Click(object sender, EventArgs e)
-        {
             UTF8Encoding utf8Encoding = new UTF8Encoding();
             ServiceMessage msg = new ServiceMessage();
             msg.Count = 899;
@@ -44,15 +39,21 @@ namespace ClientExample
             msg.Operation = "register";
             msg.Stamp = "Service Temp";
             msg.ParamCount = 4;
-           
-            List<string> msgParams = new List<string> ();
+
+            List<string> msgParams = new List<string>();
             msgParams.Add("service");
             msgParams.Add("echo");
             msgParams.Add("127.0.0.1");
-            msgParams.Add("1500");
+            msgParams.Add(this.portBox.Text);
 
             msg.ListParams = msgParams;
             senderReceiver.send(encode.Encode(msg));
+            this.backgroundWorker1.RunWorkerAsync();
+        }
+
+        private void sendButton_Click(object sender, EventArgs e)
+        {
+            
 
          //senderReceiver.send(utf8Encoding.GetBytes(this.messageToSendBox.Text));
         }
@@ -65,7 +66,7 @@ namespace ClientExample
                 {
                     UTF8Encoding utf8Encoding = new UTF8Encoding();
                     //this.MessageReceivedLabel.Text = utf8Encoding.GetString(senderReceiver.receive());
-                    setText(utf8Encoding.GetString(senderReceiver.receive()));
+                    setText("message receive :"+utf8Encoding.GetString(senderReceiver.receive()));
                 }
             }
         }

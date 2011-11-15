@@ -1,5 +1,5 @@
 ﻿namespace ClientExample {
-  partial class Form1 {
+  partial class echoServer {
     /// <summary>
     /// Variable nécessaire au concepteur.
     /// </summary>
