@@ -15,12 +15,21 @@ namespace CatalogService
         /// <summary>
         /// services fait correspondre un service à son adresse
         /// </summary>
-        private Dictionary<string,ServiceInfo> services;
-      
+        public Dictionary<string, ServiceInfo> services;
+
+        //public Dictionary<string, ServiceInfo> getServices()
+        //{
+        //    return services;
+        //}
+
+        public Dictionary<string, ServiceInfo> getListServices()
+        {
+            return services;
+        }
 
         public Catalog()
         {
-            services = new Dictionary<string, ServiceInfo>();
+            this.services = new Dictionary<string, ServiceInfo>();
 
         }
         public void Register(string service, string title, string address, string port)
