@@ -10,6 +10,7 @@ using NetworkLibrary;
 using MessagesLibrary;
 using CatalogService;
 
+
 namespace ServerExample
 {
     public partial class Server : Form
@@ -18,6 +19,7 @@ namespace ServerExample
         NetworkManager networkManager;
         IListener listener;
         ISenderReceiver senderReceiver;
+       
 
         ICatalog catalog;
        
@@ -55,7 +57,7 @@ namespace ServerExample
                     UTF8Encoding utf8Encoding = new UTF8Encoding();
                    byte[] reqMsg  = senderReceiver.receive();
 
-                    addService(reqMsg);
+                   // addService(reqMsg);
 
                     byte[] respMsg = catalog.analyseMessage(reqMsg);
                     senderReceiver.send(respMsg);
@@ -103,8 +105,15 @@ namespace ServerExample
             {
                 registeredServices.Text = s;
             }
-
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+          List<string> services = catalog.GetInfos("");
+          foreach (string s in services)
+          {
+              registeredServices.Text = s+"\n";
+          }
+        }
     }
 }

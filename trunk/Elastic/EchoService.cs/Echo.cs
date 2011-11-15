@@ -48,7 +48,10 @@ namespace EchoService
         {
             ServiceMessage register = new ServiceMessage();
             register.Operation = "register";
-            register.Source="
+            register.Target = "127.0.0.1";
+            register.Source = this.adress;
+            register.Stamp = "";
+            register.ParamCount = 3;
         }
 
         public void UnRegisterMessage()
