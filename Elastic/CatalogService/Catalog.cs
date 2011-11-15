@@ -15,17 +15,12 @@ namespace CatalogService
         /// <summary>
         /// services fait correspondre un service à son adresse
         /// </summary>
-        public Dictionary<string, ServiceInfo> services;
+        Dictionary<string, ServiceInfo> services  ;
 
         //public Dictionary<string, ServiceInfo> getServices()
         //{
-        //    return services;
+           //return services;
         //}
-
-        public Dictionary<string, ServiceInfo> getListServices()
-        {
-            return services;
-        }
 
         public Catalog()
         {
