@@ -39,21 +39,7 @@ namespace ClientExample
             
         }
 
-        //modify IHM label
-        private delegate void setTextDelegate(string s);
-        private void setText(string s)
-        {
-            if (MessageReceivedLabel.InvokeRequired)
-            {
-                setTextDelegate sd = new setTextDelegate(setText);
-                this.Invoke(sd, new object[] { s });
-            }
-            else
-            {
-                MessageReceivedLabel.Text = s;
-            }
-        }
-
+        
         private void btdeconnexion_Click(object sender, EventArgs e)
         {
             echo.UnregisterService();
