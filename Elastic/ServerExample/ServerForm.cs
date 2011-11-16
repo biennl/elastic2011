@@ -13,7 +13,7 @@ using CatalogService;
 
 namespace ServerExample
 {
-    public partial class Server : Form
+    public partial class ServerForm : Form
     {
 
         NetworkManager networkManager;
@@ -24,7 +24,7 @@ namespace ServerExample
         ICatalog catalog;
 
 
-        public Server()
+        public ServerForm()
         {
             InitializeComponent();
             this.networkManager = new NetworkManager();

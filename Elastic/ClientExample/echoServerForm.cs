@@ -13,12 +13,12 @@ using EchoService;
 
 namespace ClientExample
 {
-    public partial class echoServer : Form
+    public partial class EchoServerForm : Form
     {
         Echo echo;
         public string adrCatalog = "127.0.0.1";
 
-        public echoServer()
+        public EchoServerForm()
         {
             InitializeComponent();
             
@@ -26,11 +26,11 @@ namespace ClientExample
 
         private void registerButton_Click(object sender, EventArgs e)
         {
-            this.registerButton.Enabled = false;
-            this.btdeconnexion.Enabled = false;
-            echo = new Echo(this.adrCatalog, Convert.ToInt32(this.portEcouteTextBox.Text));
-            echo.RegisterService(Convert.ToInt32(this.portBox.Text));
-            this.backgroundWorker1.RunWorkerAsync();
+            this.btnRegister.Enabled = false;
+            this.btnDeconnexion.Enabled = false;
+            echo = new Echo(this.adrCatalog, Convert.ToInt32(this.tbPortEcoute.Text));
+            echo.RegisterService(Convert.ToInt32(this.tbPortBox.Text));
+            this.backgroundWorker.RunWorkerAsync();
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -57,9 +57,14 @@ namespace ClientExample
         private void btdeconnexion_Click(object sender, EventArgs e)
         {
             echo.UnregisterService();
-            this.registerButton.Enabled = true;
-            this.btdeconnexion.Enabled = false;
-            this.backgroundWorker1.CancelAsync();
+            this.btnRegister.Enabled = true;
+            this.btnDeconnexion.Enabled = false;
+            this.backgroundWorker.CancelAsync();
+        }
+
+        private void MessageReceivedLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

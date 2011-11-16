@@ -34,26 +34,26 @@
             this.disconnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabServiceInfo = new System.Windows.Forms.TabPage();
-            this.tabService = new System.Windows.Forms.TabPage();
-            this.rtbDisplay = new System.Windows.Forms.RichTextBox();
-            this.rtbInput = new System.Windows.Forms.RichTextBox();
-            this.btnSend = new System.Windows.Forms.Button();
-            this.dgvServicesInfo = new System.Windows.Forms.DataGridView();
-            this.btnReach = new System.Windows.Forms.Button();
-            this.lbInfo = new System.Windows.Forms.Label();
-            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.lbService = new System.Windows.Forms.Label();
-            this.tbService = new System.Windows.Forms.TextBox();
             this.btnRequest = new System.Windows.Forms.Button();
+            this.tbService = new System.Windows.Forms.TextBox();
+            this.lbService = new System.Windows.Forms.Label();
+            this.lbInfo = new System.Windows.Forms.Label();
+            this.btnReach = new System.Windows.Forms.Button();
+            this.dgvServicesInfo = new System.Windows.Forms.DataGridView();
             this.Service = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IPAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Port = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabService = new System.Windows.Forms.TabPage();
+            this.btnSend = new System.Windows.Forms.Button();
+            this.rtbInput = new System.Windows.Forms.RichTextBox();
+            this.rtbDisplay = new System.Windows.Forms.RichTextBox();
+            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.menuStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabServiceInfo.SuspendLayout();
-            this.tabService.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvServicesInfo)).BeginInit();
+            this.tabService.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -78,14 +78,14 @@
             // connectToolStripMenuItem
             // 
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.connectToolStripMenuItem.Text = "&Connect";
             this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
             // 
             // disconnectToolStripMenuItem
             // 
             this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
-            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.disconnectToolStripMenuItem.Text = "&Disconnect";
             // 
             // tabControl
@@ -114,43 +114,50 @@
             this.tabServiceInfo.Text = "Services Information";
             this.tabServiceInfo.UseVisualStyleBackColor = true;
             // 
-            // tabService
+            // btnRequest
             // 
-            this.tabService.Controls.Add(this.btnSend);
-            this.tabService.Controls.Add(this.rtbInput);
-            this.tabService.Controls.Add(this.rtbDisplay);
-            this.tabService.Location = new System.Drawing.Point(4, 22);
-            this.tabService.Name = "tabService";
-            this.tabService.Padding = new System.Windows.Forms.Padding(3);
-            this.tabService.Size = new System.Drawing.Size(411, 340);
-            this.tabService.TabIndex = 1;
-            this.tabService.Text = "Service";
-            this.tabService.UseVisualStyleBackColor = true;
+            this.btnRequest.Location = new System.Drawing.Point(298, 253);
+            this.btnRequest.Name = "btnRequest";
+            this.btnRequest.Size = new System.Drawing.Size(75, 23);
+            this.btnRequest.TabIndex = 5;
+            this.btnRequest.Text = "Request";
+            this.btnRequest.UseVisualStyleBackColor = true;
+            this.btnRequest.Click += new System.EventHandler(this.btnRequest_Click);
             // 
-            // rtbDisplay
+            // tbService
             // 
-            this.rtbDisplay.Location = new System.Drawing.Point(9, 7);
-            this.rtbDisplay.Name = "rtbDisplay";
-            this.rtbDisplay.Size = new System.Drawing.Size(276, 207);
-            this.rtbDisplay.TabIndex = 0;
-            this.rtbDisplay.Text = "";
+            this.tbService.Location = new System.Drawing.Point(113, 255);
+            this.tbService.Name = "tbService";
+            this.tbService.Size = new System.Drawing.Size(125, 20);
+            this.tbService.TabIndex = 4;
             // 
-            // rtbInput
+            // lbService
             // 
-            this.rtbInput.Location = new System.Drawing.Point(9, 235);
-            this.rtbInput.Name = "rtbInput";
-            this.rtbInput.Size = new System.Drawing.Size(276, 96);
-            this.rtbInput.TabIndex = 1;
-            this.rtbInput.Text = "";
+            this.lbService.AutoSize = true;
+            this.lbService.Location = new System.Drawing.Point(9, 255);
+            this.lbService.Name = "lbService";
+            this.lbService.Size = new System.Drawing.Size(74, 13);
+            this.lbService.TabIndex = 3;
+            this.lbService.Text = "Service Name";
             // 
-            // btnSend
+            // lbInfo
             // 
-            this.btnSend.Location = new System.Drawing.Point(292, 271);
-            this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(75, 60);
-            this.btnSend.TabIndex = 2;
-            this.btnSend.Text = "Send";
-            this.btnSend.UseVisualStyleBackColor = true;
+            this.lbInfo.AutoSize = true;
+            this.lbInfo.Location = new System.Drawing.Point(132, 307);
+            this.lbInfo.Name = "lbInfo";
+            this.lbInfo.Size = new System.Drawing.Size(149, 13);
+            this.lbInfo.TabIndex = 2;
+            this.lbInfo.Text = "Select one sercie to connect..";
+            // 
+            // btnReach
+            // 
+            this.btnReach.Location = new System.Drawing.Point(8, 295);
+            this.btnReach.Name = "btnReach";
+            this.btnReach.Size = new System.Drawing.Size(96, 37);
+            this.btnReach.TabIndex = 1;
+            this.btnReach.Text = "Reach Service";
+            this.btnReach.UseVisualStyleBackColor = true;
+            this.btnReach.Click += new System.EventHandler(this.btnReach_Click);
             // 
             // dgvServicesInfo
             // 
@@ -165,55 +172,6 @@
             this.dgvServicesInfo.Name = "dgvServicesInfo";
             this.dgvServicesInfo.Size = new System.Drawing.Size(397, 227);
             this.dgvServicesInfo.TabIndex = 0;
-            // 
-            // btnReach
-            // 
-            this.btnReach.Location = new System.Drawing.Point(8, 295);
-            this.btnReach.Name = "btnReach";
-            this.btnReach.Size = new System.Drawing.Size(96, 37);
-            this.btnReach.TabIndex = 1;
-            this.btnReach.Text = "Reach Service";
-            this.btnReach.UseVisualStyleBackColor = true;
-            this.btnReach.Click += new System.EventHandler(this.btnReach_Click);
-            // 
-            // lbInfo
-            // 
-            this.lbInfo.AutoSize = true;
-            this.lbInfo.Location = new System.Drawing.Point(132, 307);
-            this.lbInfo.Name = "lbInfo";
-            this.lbInfo.Size = new System.Drawing.Size(149, 13);
-            this.lbInfo.TabIndex = 2;
-            this.lbInfo.Text = "Select one sercie to connect..";
-            // 
-            // backgroundWorker
-            // 
-            this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
-            // 
-            // lbService
-            // 
-            this.lbService.AutoSize = true;
-            this.lbService.Location = new System.Drawing.Point(9, 255);
-            this.lbService.Name = "lbService";
-            this.lbService.Size = new System.Drawing.Size(74, 13);
-            this.lbService.TabIndex = 3;
-            this.lbService.Text = "Service Name";
-            // 
-            // tbService
-            // 
-            this.tbService.Location = new System.Drawing.Point(113, 255);
-            this.tbService.Name = "tbService";
-            this.tbService.Size = new System.Drawing.Size(125, 20);
-            this.tbService.TabIndex = 4;
-            // 
-            // btnRequest
-            // 
-            this.btnRequest.Location = new System.Drawing.Point(298, 253);
-            this.btnRequest.Name = "btnRequest";
-            this.btnRequest.Size = new System.Drawing.Size(75, 23);
-            this.btnRequest.TabIndex = 5;
-            this.btnRequest.Text = "Request";
-            this.btnRequest.UseVisualStyleBackColor = true;
-            this.btnRequest.Click += new System.EventHandler(this.btnRequest_Click);
             // 
             // Service
             // 
@@ -235,6 +193,49 @@
             this.Port.HeaderText = "Port";
             this.Port.Name = "Port";
             // 
+            // tabService
+            // 
+            this.tabService.Controls.Add(this.btnSend);
+            this.tabService.Controls.Add(this.rtbInput);
+            this.tabService.Controls.Add(this.rtbDisplay);
+            this.tabService.Location = new System.Drawing.Point(4, 22);
+            this.tabService.Name = "tabService";
+            this.tabService.Padding = new System.Windows.Forms.Padding(3);
+            this.tabService.Size = new System.Drawing.Size(411, 340);
+            this.tabService.TabIndex = 1;
+            this.tabService.Text = "Service";
+            this.tabService.UseVisualStyleBackColor = true;
+            // 
+            // btnSend
+            // 
+            this.btnSend.Location = new System.Drawing.Point(292, 271);
+            this.btnSend.Name = "btnSend";
+            this.btnSend.Size = new System.Drawing.Size(75, 60);
+            this.btnSend.TabIndex = 2;
+            this.btnSend.Text = "Send";
+            this.btnSend.UseVisualStyleBackColor = true;
+            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
+            // 
+            // rtbInput
+            // 
+            this.rtbInput.Location = new System.Drawing.Point(9, 235);
+            this.rtbInput.Name = "rtbInput";
+            this.rtbInput.Size = new System.Drawing.Size(276, 96);
+            this.rtbInput.TabIndex = 1;
+            this.rtbInput.Text = "";
+            // 
+            // rtbDisplay
+            // 
+            this.rtbDisplay.Location = new System.Drawing.Point(9, 7);
+            this.rtbDisplay.Name = "rtbDisplay";
+            this.rtbDisplay.Size = new System.Drawing.Size(276, 207);
+            this.rtbDisplay.TabIndex = 0;
+            this.rtbDisplay.Text = "";
+            // 
+            // backgroundWorker
+            // 
+            this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -250,8 +251,8 @@
             this.tabControl.ResumeLayout(false);
             this.tabServiceInfo.ResumeLayout(false);
             this.tabServiceInfo.PerformLayout();
-            this.tabService.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvServicesInfo)).EndInit();
+            this.tabService.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

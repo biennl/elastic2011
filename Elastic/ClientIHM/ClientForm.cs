@@ -16,6 +16,7 @@ namespace ClientIHM
     {
         NetworkManager networkManager;
         ISenderReceiver senderReceiver;
+        ISenderReceiver senderReceiverEcho;
         IEncoding encode;
 
         private string catalogAddress = "127.0.0.1";
@@ -42,7 +43,7 @@ namespace ClientIHM
 
         private void ConnectService(string address, int port)
         {
-            senderReceiver = networkManager.createSenderReceiver(address, port);
+            senderReceiverEcho = networkManager.createSenderReceiver(address, port);
         }
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -53,9 +54,17 @@ namespace ClientIHM
                 {
                     displayAvailableServices(senderReceiver.receive());
                 }
+
+                if ((this.senderReceiverEcho != null) && (this.senderReceiverEcho.available() != 0))
+                {
+                    //displayAvailableServices(senderReceiver.receive());
+                    string str = encode.Decode(senderReceiverEcho.receive()).ListParams[0];
+                    displayText(str);
+                }
             }
         }
 
+        #region Delegate methods
         private delegate void displayDelegate(byte[] repBytes);
         private void displayAvailableServices(byte[] repBytes)
         {
@@ -91,6 +100,21 @@ namespace ClientIHM
             }
         }
 
+        private delegate void displayTextDelegate(string s);
+        private void displayText(string s)
+        {
+            if (rtbDisplay.InvokeRequired)
+            {
+                displayTextDelegate sd = new displayTextDelegate(displayText);
+                this.Invoke(sd, new object[] { s });
+            }
+            else
+            {
+                rtbDisplay.Text += s + "\n";
+            }
+        }
+        #endregion
+
         private void btnRequest_Click(object sender, EventArgs e)
         {
             ServiceMessage msg = new ServiceMessage();
@@ -111,6 +135,9 @@ namespace ClientIHM
             if (dgvServicesInfo.SelectedRows.Count > 0)
             {
                 string name = dgvServicesInfo.SelectedRows[0].Cells[1].Value.ToString();
+                ConnectService(dgvServicesInfo.SelectedRows[0].Cells[2].Value.ToString(),
+                    Convert.ToInt32(dgvServicesInfo.SelectedRows[0].Cells[3].Value.ToString()));
+
                 lbInfo.ForeColor = Color.Black;
                 setText("You are connecting to the " + name + " service.");
             }
@@ -119,6 +146,20 @@ namespace ClientIHM
                 lbInfo.ForeColor = Color.Red;
                 setText("You must select a service in the list.");
             }
+        }
+
+        private void btnSend_Click(object sender, EventArgs e)
+        {
+            ServiceMessage msg = new ServiceMessage();
+            msg.Count = 899;
+            msg.Source = "Machine A";
+            msg.Target = "echoService";
+            msg.Operation = "echo";
+            msg.Stamp = "Echo Service Stamp";
+            msg.ParamCount = 1;
+
+            msg.ListParams.Add(rtbInput.Text);
+            senderReceiverEcho.send(encode.Encode(msg));
         }
     }
 }
