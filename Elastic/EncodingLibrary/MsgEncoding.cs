@@ -114,7 +114,7 @@ namespace EncodingLibrary
             index = index + INTEGER32_SIZE;
 
             //read list of param
-            for (int i = 0; i < countParam; i++)
+            for (int i = 0; i < paramCount; i++)
             {
                 int countParami = BitConverter.ToInt32(msgBytes, index);
                 index = index + INTEGER32_SIZE;
