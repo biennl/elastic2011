@@ -12,7 +12,9 @@ namespace ClientExample {
     static void Main() {
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault( false );
-      Application.Run( new echoServer() );
+
+      Application.Run(new echoServer());
+
     }
   }
 }
