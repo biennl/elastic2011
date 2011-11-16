@@ -60,7 +60,10 @@ namespace ServerExample
                    // addService(reqMsg);
 
                     byte[] respMsg = catalog.analyseMessage(reqMsg);
-                    senderReceiver.send(respMsg);
+                    if (respMsg != null)
+                    {
+                        senderReceiver.send(respMsg);
+                    }
 
 
                     //ServiceMessage msg =(ServiceMessage) encodMsg.Decode(reqMsg);
