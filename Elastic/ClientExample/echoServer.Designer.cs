@@ -104,7 +104,7 @@
         this.Controls.Add(this.portBox);
         this.Controls.Add(this.portLabel);
         this.Name = "echoServer";
-        this.Text = "Form1";
+        this.Text = "EchoServer";
         this.ResumeLayout(false);
         this.PerformLayout();
 
