@@ -25,7 +25,7 @@ namespace ServeurIHM
             
             InitializeComponent();
             echoService = new Echo("127.0.0.1", 50000);
-            this.threadListener = new Thread(echoService.EchoServiceClients);
+            this.threadListener = new Thread(echoService.EchoServiceListener);
             
         }
 

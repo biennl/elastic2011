@@ -77,6 +77,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EchoService.cs\EchoService.cs.csproj">
+      <Project>{62BEFAD0-0D50-42A0-AD98-AB00E515B492}</Project>
+      <Name>EchoService.cs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EncodingLibrary\EncodingLibrary.csproj">
       <Project>{52D73216-A8B8-443C-88E3-076C8D42568B}</Project>
       <Name>EncodingLibrary</Name>

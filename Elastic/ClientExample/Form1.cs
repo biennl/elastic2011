@@ -9,68 +9,37 @@ using System.Windows.Forms;
 using NetworkLibrary;
 using MessagesLibrary;
 using EncodingLibrary;
+using EchoService;
 
 namespace ClientExample
 {
     public partial class echoServer : Form
     {
-
-        NetworkManager networkManager;
-        ISenderReceiver senderReceiver;
-        IEncoding encode;
+        Echo echo;
+        public string adrCatalog = "127.0.0.1";
 
         public echoServer()
         {
             InitializeComponent();
-            networkManager = new NetworkManager();
-            encode = new MsgEncoding();
+            
         }
 
         private void connexionButton_Click(object sender, EventArgs e)
         {
-            senderReceiver = networkManager.createSenderReceiver("127.0.0.1", Convert.ToInt32(this.portBox.Text));
-            this.sendButton.Enabled = true;
             this.connexionButton.Enabled = false;
-            UTF8Encoding utf8Encoding = new UTF8Encoding();
-            ServiceMessage msg = new ServiceMessage();
-            msg.Count = 899;
-            msg.Source = "Machine A";
-            msg.Target = "Machine B";
-            msg.Operation = "register";
-            msg.Stamp = "Service Temp";
-            msg.ParamCount = 4;
-
-            List<string> msgParams = new List<string>();
-            msgParams.Add("service");
-            msgParams.Add("echo");
-            msgParams.Add("127.0.0.1");
-            msgParams.Add(this.portBox.Text);
-
-            msg.ListParams = msgParams;
-            senderReceiver.send(encode.Encode(msg));
+            this.btdeconnexion.Enabled = true;
+            echo = new Echo(this.adrCatalog, Convert.ToInt32(this.portBox.Text));
+            echo.RegisterService();
             this.backgroundWorker1.RunWorkerAsync();
-        }
-
-        private void sendButton_Click(object sender, EventArgs e)
-        {
-            
-
-         //senderReceiver.send(utf8Encoding.GetBytes(this.messageToSendBox.Text));
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (true)
-            {                 
-                if ((this.senderReceiver != null) && (this.senderReceiver.available() != 0))
-                {
-                    UTF8Encoding utf8Encoding = new UTF8Encoding();
-                    //this.MessageReceivedLabel.Text = utf8Encoding.GetString(senderReceiver.receive());
-                    setText("message receive :"+utf8Encoding.GetString(senderReceiver.receive()));
-                }
-            }
+            echo.EchoServiceListener();
+            
         }
 
+        //modify IHM label
         private delegate void setTextDelegate(string s);
         private void setText(string s)
         {
@@ -83,6 +52,13 @@ namespace ClientExample
             {
                 MessageReceivedLabel.Text = s;
             }
+        }
+
+        private void btdeconnexion_Click(object sender, EventArgs e)
+        {
+            echo.UnregisterService();
+            this.connexionButton.Enabled = true;
+            this.btdeconnexion.Enabled = false;
         }
     }
 }

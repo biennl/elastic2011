@@ -21,7 +21,9 @@ namespace EchoService
         //encoding object
         public MsgEncoding encoding { get; set; }
         //thread execute listeningCLient method
-        private Thread threadListener;
+        public List<ISenderReceiver> sendersReceivers { get; set; }
+        string currentMsg ;
+        
 
 
         public Echo(string adress, int port)
@@ -34,29 +36,74 @@ namespace EchoService
             this.listener = manager.createListner(adress, port);
         }
 
-        public void EchoServiceClients()
+        public string echoOperation(string echo)
+        {
+            return echo;
+        }
+
+        public void EchoServiceListener()
         {
             while (true)
             {
                 ISenderReceiver sndr = listener.accept();
-                ServiceMessage receive = encoding.Decode(sndr.receive());
-                sndr.send(encoding.Encode(receive));
+                this.sendersReceivers.Add(sndr);
+                foreach (ISenderReceiver sr in this.sendersReceivers)
+                {
+                    if (sr.available() != 0)
+                    {
+                        ServiceMessage m = encoding.Decode(sr.receive());
+                        if (m.Target.Equals("echoService"))
+                        {
+                            if(m.Operation.Equals("echo"))
+                            {
+                                if (m.ListParams.Count == 1)
+                                {
+                                    ServiceMessage retMsg = new ServiceMessage(m.Target, m.Source, "callbackEcho", m.Stamp, 1);
+                                    retMsg.ListParams.Add(this.echoOperation(m.ListParams.ElementAt(0)));
+                                    sr.send(encoding.Encode(retMsg));
+                                }
+                            }
+                        }
+                        else
+                        {
+                            ServiceMessage msgError = new ServiceMessage(this.adress,m.Source,"Diagnostic",m.Stamp,1);
+                            msgError.ListParams.Add("we don't supply the service you want ");
+                            sr.send(encoding.Encode(msgError));
+                        }
+                    }
+                }
             }
         }
 
         public void RegisterService() 
         {
             ServiceMessage register = new ServiceMessage();
-            register.Operation = "register";
+            register.Operation = "Register";
             register.Target = "127.0.0.1";
             register.Source = this.adress;
             register.Stamp = "";
-            register.ParamCount = 3;
+            register.ParamCount = 4;
+            register.ListParams.Add("service");
+            register.ListParams.Add("echo");
+            register.ListParams.Add(this.adress);
+            register.ListParams.Add(this.port.ToString());
+            ISenderReceiver registerSender = this.manager.createSenderReceiver(this.adress, this.port);
+            registerSender.send(this.encoding.Encode(register));
+            registerSender.close();
         }
 
-        public void UnRegisterMessage()
+        public void UnregisterService()
         {
-
+            ServiceMessage register = new ServiceMessage();
+            register.Operation = "Unregister";
+            register.Target = "127.0.0.1";
+            register.Source = this.adress;
+            register.Stamp = "";
+            register.ParamCount = 1;
+            register.ListParams.Add("echo");
+            ISenderReceiver registerSender = this.manager.createSenderReceiver(this.adress, this.port);
+            registerSender.send(this.encoding.Encode(register));
+            registerSender.close();
         }
     }
 }
