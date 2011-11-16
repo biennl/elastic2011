@@ -18,6 +18,7 @@ namespace ClientIHM
         ISenderReceiver senderReceiver;
         ISenderReceiver senderReceiverEcho;
         IEncoding encode;
+        bool isConnect = false;
 
         private string catalogAddress = "127.0.0.1";
         private int catalogPort = 50000;
@@ -39,6 +40,7 @@ namespace ClientIHM
         private void ConnectCatalogService()
         {
             senderReceiver = networkManager.createSenderReceiver(catalogAddress, catalogPort);
+            isConnect = true;
         }
 
         private void ConnectService(string address, int port)
@@ -57,7 +59,6 @@ namespace ClientIHM
 
                 if ((this.senderReceiverEcho != null) && (this.senderReceiverEcho.available() != 0))
                 {
-                    //displayAvailableServices(senderReceiver.receive());
                     string str = encode.Decode(senderReceiverEcho.receive()).ListParams[0];
                     displayText(str);
                 }
@@ -117,17 +118,23 @@ namespace ClientIHM
 
         private void btnRequest_Click(object sender, EventArgs e)
         {
-            ServiceMessage msg = new ServiceMessage();
-            msg.Count = 899;
-            msg.Source = "Machine A";
-            msg.Target = "Catalog Service";
-            msg.Operation = "getInfos";
-            msg.Stamp = "Catalog Service Temp";
-            msg.ParamCount = 1;
+            if (isConnect)
+            {
+                ServiceMessage msg = new ServiceMessage();
+                msg.Count = 899;
+                msg.Source = "Machine A";
+                msg.Target = "Catalog Service";
+                msg.Operation = "getInfos";
+                msg.Stamp = "Catalog Service Temp";
+                msg.ParamCount = 1;
 
-            msg.ListParams.Add(tbService.Text);
-            senderReceiver.send(encode.Encode(msg));
-
+                msg.ListParams.Add(tbService.Text);
+                senderReceiver.send(encode.Encode(msg));
+            }
+            else
+            {
+                setText("You are not connected.");
+            }
         }
 
         private void btnReach_Click(object sender, EventArgs e)
@@ -160,6 +167,7 @@ namespace ClientIHM
 
             msg.ListParams.Add(rtbInput.Text);
             senderReceiverEcho.send(encode.Encode(msg));
+
         }
     }
 }
