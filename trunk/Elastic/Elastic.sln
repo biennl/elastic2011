@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerExample", "ServerExam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientExample", "ClientExample\ClientExample.csproj", "{CF066DCC-610A-42E7-9EDA-88878F8EEBA8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientIHM", "ClientIHM\ClientIHM.csproj", "{4E3F4C7E-2FEF-47B1-9484-E6A93FE75CB9}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -123,6 +125,16 @@ Global
 		{CF066DCC-610A-42E7-9EDA-88878F8EEBA8}.Release|Mixed Platforms.Build.0 = Release|x86
 		{CF066DCC-610A-42E7-9EDA-88878F8EEBA8}.Release|x86.ActiveCfg = Release|x86
 		{CF066DCC-610A-42E7-9EDA-88878F8EEBA8}.Release|x86.Build.0 = Release|x86
+		{4E3F4C7E-2FEF-47B1-9484-E6A93FE75CB9}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{4E3F4C7E-2FEF-47B1-9484-E6A93FE75CB9}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{4E3F4C7E-2FEF-47B1-9484-E6A93FE75CB9}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{4E3F4C7E-2FEF-47B1-9484-E6A93FE75CB9}.Debug|x86.ActiveCfg = Debug|x86
+		{4E3F4C7E-2FEF-47B1-9484-E6A93FE75CB9}.Debug|x86.Build.0 = Debug|x86
+		{4E3F4C7E-2FEF-47B1-9484-E6A93FE75CB9}.Release|Any CPU.ActiveCfg = Release|x86
+		{4E3F4C7E-2FEF-47B1-9484-E6A93FE75CB9}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{4E3F4C7E-2FEF-47B1-9484-E6A93FE75CB9}.Release|Mixed Platforms.Build.0 = Release|x86
+		{4E3F4C7E-2FEF-47B1-9484-E6A93FE75CB9}.Release|x86.ActiveCfg = Release|x86
+		{4E3F4C7E-2FEF-47B1-9484-E6A93FE75CB9}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
