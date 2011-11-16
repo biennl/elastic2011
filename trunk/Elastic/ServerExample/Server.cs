@@ -19,10 +19,10 @@ namespace ServerExample
         NetworkManager networkManager;
         IListener listener;
         ISenderReceiver senderReceiver;
-       
+
 
         ICatalog catalog;
-       
+
 
         public Server()
         {
@@ -55,20 +55,20 @@ namespace ServerExample
                 if ((this.senderReceiver != null) && (senderReceiver.available() != 0))
                 {
                     UTF8Encoding utf8Encoding = new UTF8Encoding();
-                   byte[] reqMsg  = senderReceiver.receive();
+                    byte[] reqMsg = senderReceiver.receive();
 
-                   // addService(reqMsg);
+                    //addService(reqMsg);
 
                     byte[] respMsg = catalog.analyseMessage(reqMsg);
+
                     if (respMsg != null)
-                    {
                         senderReceiver.send(respMsg);
-                    }
+
 
 
                     //ServiceMessage msg =(ServiceMessage) encodMsg.Decode(reqMsg);
                     // setText(utf8Encoding.GetString(senderReceiver.receive()));
-                    senderReceiver.send(utf8Encoding.GetBytes(this.messageReceivedLabel.Text)); 
+                    //senderReceiver.send(utf8Encoding.GetBytes(this.messageReceivedLabel.Text));
                 }
 
             }
@@ -81,8 +81,8 @@ namespace ServerExample
 
             Catalog acatalog = (Catalog)catalog;
             ServiceMessage msg = acatalog.decode(bytes);
-            setText("\n SERVICE = " + msg.ListParams[1] + " ip: " + msg.ListParams[2] + " port :" +msg.ListParams[3]);
-           
+            setText("\n SERVICE = " + msg.ListParams[1] + " ip: " + msg.ListParams[2] + " port :" + msg.ListParams[3]);
+
         }
 
 
@@ -112,11 +112,14 @@ namespace ServerExample
 
         private void button1_Click(object sender, EventArgs e)
         {
-          List<string> services = catalog.GetInfos("");
-          foreach (string s in services)
-          {
-              registeredServices.Text = s+"\n";
-          }
+            registeredServices.Text = "";
+            List<string> services = catalog.GetInfos("");
+            int j = 0;
+            for (int i = 0; i < services.Count(); i += 4)
+            {
+                registeredServices.Text += services[i + 0] +
+                " " + services[i + 1] + " " + services[i + 2] + " " + services[i + 3] + " \n";
+            }
         }
     }
 }
