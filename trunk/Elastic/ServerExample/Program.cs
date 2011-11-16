@@ -12,7 +12,7 @@ namespace ServerExample {
     static void Main() {
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault( false );
-      Application.Run( new Server() );
+      Application.Run( new ServerForm() );
     }
   }
 }

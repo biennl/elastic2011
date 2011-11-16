@@ -14,7 +14,7 @@ namespace EchoService
     {
         public String name { get; set; }
         public int port { get; set; }
-        public string adress{get; set;}
+        public string adress { get; set; }
         //objetcs for communication througth the network 
         NetworkManager manager { get; set; }
         IListener listener { get; set; }
@@ -22,13 +22,13 @@ namespace EchoService
         public MsgEncoding encoding { get; set; }
         //thread execute listeningCLient method
         public List<ISenderReceiver> sendersReceivers { get; set; }
-        string currentMsg ;
-        
+        string currentMsg;
+
 
 
         public Echo(string adress, int port)
         {
-            this.adress=adress;
+            this.adress = adress;
             this.name = "echoService";
             this.port = port;
             this.encoding = new MsgEncoding();
@@ -50,37 +50,41 @@ namespace EchoService
                 {
                     ISenderReceiver sndr = listener.accept();
                     this.sendersReceivers.Add(sndr);
-                    foreach (ISenderReceiver sr in this.sendersReceivers)
+                }
+
+                foreach (ISenderReceiver sr in this.sendersReceivers)
+                {
+                    if (sr.available() != 0)
                     {
-                        if (sr.available() != 0)
+                        ServiceMessage m = encoding.Decode(sr.receive());
+                        Console.WriteLine(m.ListParams[0]);
+                        if (m.Target.Equals("echoService"))
                         {
-                            ServiceMessage m = encoding.Decode(sr.receive());
-                            if (m.Target.Equals("echoService"))
+                            if (m.Operation.Equals("echo"))
                             {
-                                if (m.Operation.Equals("echo"))
+                                if (m.ListParams.Count == 1)
                                 {
-                                    if (m.ListParams.Count == 1)
-                                    {
-                                        ServiceMessage retMsg = new ServiceMessage(m.Target, m.Source, "callbackEcho", m.Stamp, 1);
-                                        retMsg.ListParams.Add(this.echoOperation(m.ListParams.ElementAt(0)));
-                                        sr.send(encoding.Encode(retMsg));
-                                    }
+                                    ServiceMessage retMsg = new ServiceMessage(m.Target, m.Source, "callbackEcho", m.Stamp, 1);
+                                    retMsg.Count = 899;
+                                    retMsg.ListParams.Add(this.echoOperation(m.ListParams.ElementAt(0)));
+                                    sr.send(encoding.Encode(retMsg));
                                 }
                             }
-                            else
-                            {
-                                ServiceMessage msgError = new ServiceMessage(this.adress, m.Source, "Diagnostic", m.Stamp, 1);
-                                msgError.ListParams.Add("we don't supply the service you want ");
-                                sr.send(encoding.Encode(msgError));
-                            }
                         }
-
+                        else
+                        {
+                            ServiceMessage msgError = new ServiceMessage(this.adress, m.Source, "Diagnostic", m.Stamp, 1);
+                            msgError.ListParams.Add("we don't supply the service you want ");
+                            sr.send(encoding.Encode(msgError));
+                        }
                     }
+
+
                 }
             }
         }
 
-        public void RegisterService(int portRegister) 
+        public void RegisterService(int portRegister)
         {
             ServiceMessage register = new ServiceMessage();
             register.Operation = "Register";

@@ -26,8 +26,8 @@ namespace CatalogService
         {
             this.services = new Dictionary<string, ServiceInfo>();
             //add a static service for tester.
-            this.services.Add("echo1",new ServiceInfo("service","127.0.0.1","20000"));
-            this.services.Add("echo2", new ServiceInfo("service", "127.0.0.1", "22000"));
+            //this.services.Add("echo1",new ServiceInfo("service","127.0.0.1","20000"));
+            //this.services.Add("echo2", new ServiceInfo("service", "127.0.0.1", "22000"));
 
         }
         public void Register(string service, string title, string address, string port)
