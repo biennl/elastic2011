@@ -125,7 +125,7 @@
         this.Controls.Add(this.PortLabel);
         this.Controls.Add(this.portBox);
         this.Name = "Server";
-        this.Text = "Server";
+        this.Text = "ServerCatalog";
         this.ResumeLayout(false);
         this.PerformLayout();
 
