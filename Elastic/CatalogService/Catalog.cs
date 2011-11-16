@@ -25,6 +25,9 @@ namespace CatalogService
         public Catalog()
         {
             this.services = new Dictionary<string, ServiceInfo>();
+            //add a static service for tester.
+            this.services.Add("echo1",new ServiceInfo("service","127.0.0.1","20000"));
+            this.services.Add("echo2", new ServiceInfo("service", "127.0.0.1", "22000"));
 
         }
         public void Register(string service, string title, string address, string port)
@@ -133,7 +136,7 @@ namespace CatalogService
             else if (operation.Equals("getinfos"))
             {                  
                 List<string> listParams = this.GetInfos(paramList[0]);
-                ServiceMessage msgInfos = new ServiceMessage(target, source, "Diagnostic", stamp, listParams.Count());
+                ServiceMessage msgInfos = new ServiceMessage(target, source, "getInfos", stamp, listParams.Count());
                 msgInfos.ListParams = listParams;
                 return encodMsg.Encode(msgInfos);               
             }
