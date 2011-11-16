@@ -24,12 +24,12 @@ namespace ClientExample
             
         }
 
-        private void connexionButton_Click(object sender, EventArgs e)
+        private void registerButton_Click(object sender, EventArgs e)
         {
-            this.connexionButton.Enabled = false;
-            this.btdeconnexion.Enabled = true;
-            echo = new Echo(this.adrCatalog, Convert.ToInt32(this.portBox.Text));
-            echo.RegisterService();
+            this.registerButton.Enabled = false;
+            this.btdeconnexion.Enabled = false;
+            echo = new Echo(this.adrCatalog, Convert.ToInt32(this.portEcouteTextBox.Text));
+            echo.RegisterService(Convert.ToInt32(this.portBox.Text));
             this.backgroundWorker1.RunWorkerAsync();
         }
 
@@ -57,8 +57,9 @@ namespace ClientExample
         private void btdeconnexion_Click(object sender, EventArgs e)
         {
             echo.UnregisterService();
-            this.connexionButton.Enabled = true;
+            this.registerButton.Enabled = true;
             this.btdeconnexion.Enabled = false;
+            this.backgroundWorker1.CancelAsync();
         }
     }
 }
