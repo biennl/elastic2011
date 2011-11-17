@@ -22,7 +22,6 @@ namespace EchoService
         public MsgEncoding encoding { get; set; }
         //thread execute listeningCLient method
         public List<ISenderReceiver> sendersReceivers { get; set; }
-        string currentMsg;
         ISenderReceiver registerSender;
 
 
