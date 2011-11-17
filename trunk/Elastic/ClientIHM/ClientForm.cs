@@ -118,6 +118,7 @@ namespace ClientIHM
 
         private void btnRequest_Click(object sender, EventArgs e)
         {
+            dgvServicesInfo.Rows.Clear();
             if (isConnect)
             {
                 ServiceMessage msg = new ServiceMessage("Machine A", "Catalog Service", "getInfos", "Catalog Service Stamp",1);
@@ -165,6 +166,11 @@ namespace ClientIHM
             if (!string.IsNullOrEmpty(rtbInput.Text))
                 this.AcceptButton = btnSend;
             else this.AcceptButton = null;
+        }
+
+        private void disconnectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

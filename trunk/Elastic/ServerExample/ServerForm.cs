@@ -41,9 +41,11 @@ namespace ServerExample
             this.listener = this.networkManager.createListner("127.0.0.1", Convert.ToInt32(this.tbPort.Text));
             this.btnStart.Enabled = false;
             this.backgroundWorker.RunWorkerAsync();
+            
+            this.lbConfig.Text += " IP=127.0.0.1" + " PORT=" + tbPort.Text;
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
             {
@@ -74,7 +76,6 @@ namespace ServerExample
         {
             tbRegisteredServices.Text = "";
             List<string> services = catalog.GetInfos("");
-            int j = 0;
             for (int i = 0; i < services.Count(); i += 4)
             {
                 tbRegisteredServices.Text += services[i + 0] +

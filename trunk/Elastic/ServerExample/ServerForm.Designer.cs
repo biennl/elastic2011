@@ -30,6 +30,7 @@
         this.tbRegisteredServices = new System.Windows.Forms.RichTextBox();
         this.labelServicesList = new System.Windows.Forms.Label();
         this.btnDisplay = new System.Windows.Forms.Button();
+        this.lbConfig = new System.Windows.Forms.Label();
         this.SuspendLayout();
         // 
         // tbPort
@@ -62,20 +63,20 @@
         // backgroundWorker
         // 
         this.backgroundWorker.WorkerSupportsCancellation = true;
-        this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+        this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
         // 
         // tbRegisteredServices
         // 
-        this.tbRegisteredServices.Location = new System.Drawing.Point(2, 144);
+        this.tbRegisteredServices.Location = new System.Drawing.Point(2, 98);
         this.tbRegisteredServices.Name = "tbRegisteredServices";
-        this.tbRegisteredServices.Size = new System.Drawing.Size(270, 96);
+        this.tbRegisteredServices.Size = new System.Drawing.Size(277, 96);
         this.tbRegisteredServices.TabIndex = 5;
         this.tbRegisteredServices.Text = "";
         // 
         // labelServicesList
         // 
         this.labelServicesList.AutoSize = true;
-        this.labelServicesList.Location = new System.Drawing.Point(9, 106);
+        this.labelServicesList.Location = new System.Drawing.Point(12, 69);
         this.labelServicesList.Name = "labelServicesList";
         this.labelServicesList.Size = new System.Drawing.Size(139, 13);
         this.labelServicesList.TabIndex = 6;
@@ -83,7 +84,7 @@
         // 
         // btnDisplay
         // 
-        this.btnDisplay.Location = new System.Drawing.Point(170, 101);
+        this.btnDisplay.Location = new System.Drawing.Point(170, 69);
         this.btnDisplay.Name = "btnDisplay";
         this.btnDisplay.Size = new System.Drawing.Size(102, 23);
         this.btnDisplay.TabIndex = 7;
@@ -91,11 +92,21 @@
         this.btnDisplay.UseVisualStyleBackColor = true;
         this.btnDisplay.Click += new System.EventHandler(this.btnDisplay_Click);
         // 
+        // lbConfig
+        // 
+        this.lbConfig.AutoSize = true;
+        this.lbConfig.Location = new System.Drawing.Point(15, 221);
+        this.lbConfig.Name = "lbConfig";
+        this.lbConfig.Size = new System.Drawing.Size(99, 13);
+        this.lbConfig.TabIndex = 8;
+        this.lbConfig.Text = "CONFIGURATION:";
+        // 
         // ServerForm
         // 
         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         this.ClientSize = new System.Drawing.Size(284, 262);
+        this.Controls.Add(this.lbConfig);
         this.Controls.Add(this.btnDisplay);
         this.Controls.Add(this.labelServicesList);
         this.Controls.Add(this.tbRegisteredServices);
@@ -118,6 +129,7 @@
     private System.Windows.Forms.RichTextBox tbRegisteredServices;
     private System.Windows.Forms.Label labelServicesList;
     private System.Windows.Forms.Button btnDisplay;
+    private System.Windows.Forms.Label lbConfig;
 
   }
 }

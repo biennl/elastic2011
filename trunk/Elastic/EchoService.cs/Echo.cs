@@ -12,7 +12,7 @@ namespace EchoService
     //class represent the echo service
     public class Echo
     {
-        public String name { get; set; }
+        public string name { get; set; }
         public int port { get; set; }
         public string adress { get; set; }
         //objetcs for communication througth the network 
@@ -23,7 +23,7 @@ namespace EchoService
         //thread execute listeningCLient method
         public List<ISenderReceiver> sendersReceivers { get; set; }
         string currentMsg;
-
+        ISenderReceiver registerSender;
 
 
         public Echo(string adress, int port)
@@ -49,17 +49,17 @@ namespace EchoService
                 if (listener.pending())
                 {
                     ISenderReceiver sndr = listener.accept();
-                    this.sendersReceivers.Add(sndr);
+                    sendersReceivers.Add(sndr);
                 }
 
-                foreach (ISenderReceiver sr in this.sendersReceivers)
+                foreach (ISenderReceiver sr in sendersReceivers)
                 {
                     if (sr.available() != 0)
                     {
                         byte[] msgBytes = sr.receive();
                         ServiceMessage m = encoding.Decode(msgBytes);
 
-                        if (m.Target.Equals("echoService"))
+                        if (m.Target == ("echoService"))
                         {
                             if (m.Operation.Equals("echo"))
                             {
@@ -84,7 +84,7 @@ namespace EchoService
             }
         }
 
-        public void RegisterService(int portRegister)
+        public void RegisterService(string catalogAddress, int catalogPort)
         {
             ServiceMessage register = new ServiceMessage();
             register.Operation = "Register";
@@ -96,9 +96,8 @@ namespace EchoService
             register.ListParams.Add("echo");
             register.ListParams.Add(this.adress);
             register.ListParams.Add(this.port.ToString());
-            ISenderReceiver registerSender = this.manager.createSenderReceiver(this.adress, portRegister);
+            registerSender = this.manager.createSenderReceiver(catalogAddress, catalogPort);
             registerSender.send(this.encoding.Encode(register));
-            registerSender.close();
         }
 
         public void UnregisterService(string catalogAddress,int catalogPort)
@@ -110,9 +109,8 @@ namespace EchoService
             unregister.Stamp = "";
             unregister.ParamCount = 1;
             unregister.ListParams.Add("echo");
-            ISenderReceiver unregisterSender = this.manager.createSenderReceiver(catalogAddress, catalogPort);
-            unregisterSender.send(this.encoding.Encode(unregister));
-            unregisterSender.close();
+            registerSender = this.manager.createSenderReceiver(catalogAddress, catalogPort);
+            registerSender.send(this.encoding.Encode(unregister));
         }
     }
 }
