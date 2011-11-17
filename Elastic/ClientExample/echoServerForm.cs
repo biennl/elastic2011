@@ -17,11 +17,13 @@ namespace ClientExample
     {
         Echo echo;
         public string adrCatalog = "127.0.0.1";
+        bool isRegistered = false;
 
         public EchoServerForm()
         {
             InitializeComponent();
-            
+
+            //this.backgroundWorker.RunWorkerAsync();
         }
 
         private void registerButton_Click(object sender, EventArgs e)
@@ -29,18 +31,22 @@ namespace ClientExample
             this.btnRegister.Enabled = false;
             this.btnUnregister.Enabled = true;
             this.btnDisconnect.Enabled = false;
-            echo = new Echo(this.adrCatalog, Convert.ToInt32(this.tbPortEcoute.Text));
-            echo.RegisterService(Convert.ToInt32(this.tbPortBox.Text));
-            this.backgroundWorker.RunWorkerAsync();
+            if (echo == null)
+                echo = new Echo(this.adrCatalog, Convert.ToInt32(this.tbPortEcoute.Text));
+            echo.RegisterService("127.0.0.1", Convert.ToInt32(this.tbPortBox.Text));
+            if (!isRegistered)
+            {
+                this.backgroundWorker.RunWorkerAsync();
+                isRegistered = true;
+            }
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            echo.EchoServiceListener();
-            
+
         }
 
-        
+
         private void btdeconnexion_Click(object sender, EventArgs e)
         {
             echo.UnregisterService("127.0.0.1", Convert.ToInt32(this.tbPortBox.Text));
@@ -48,12 +54,19 @@ namespace ClientExample
             this.Close();
         }
 
-        
+
         private void btnUnregister_Click(object sender, EventArgs e)
         {
             echo.UnregisterService("127.0.0.1", Convert.ToInt32(this.tbPortBox.Text));
             this.btnUnregister.Enabled = false;
             this.btnRegister.Enabled = true;
+            isRegistered = false;
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            if (echo != null)
+                echo.EchoServiceListener();
         }
     }
 }

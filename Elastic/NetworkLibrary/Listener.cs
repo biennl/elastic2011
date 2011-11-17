@@ -11,10 +11,10 @@ namespace NetworkLibrary {
     class Listener : IListener{
 
     public TcpListener tcpListener{ get; set; }
-    public String adress { get; set; }
+    public string adress { get; set; }
     public int port { get; set; }
 
-    public Listener( String adress, int port ) 
+    public Listener( string adress, int port ) 
     {
         this.adress = adress;
         this.port=port;

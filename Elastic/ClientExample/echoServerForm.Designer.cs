@@ -23,6 +23,7 @@
     /// le contenu de cette méthode avec l'éditeur de code.
     /// </summary>
     private void InitializeComponent() {
+        this.components = new System.ComponentModel.Container();
         this.lbPortCatalog = new System.Windows.Forms.Label();
         this.tbPortBox = new System.Windows.Forms.TextBox();
         this.btnRegister = new System.Windows.Forms.Button();
@@ -31,6 +32,7 @@
         this.lbListenPort = new System.Windows.Forms.Label();
         this.tbPortEcoute = new System.Windows.Forms.TextBox();
         this.btnUnregister = new System.Windows.Forms.Button();
+        this.timer = new System.Windows.Forms.Timer(this.components);
         this.SuspendLayout();
         // 
         // lbPortCatalog
@@ -62,7 +64,6 @@
         // backgroundWorker
         // 
         this.backgroundWorker.WorkerSupportsCancellation = true;
-        this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
         // 
         // btnDisconnect
         // 
@@ -102,6 +103,11 @@
         this.btnUnregister.UseVisualStyleBackColor = true;
         this.btnUnregister.Click += new System.EventHandler(this.btnUnregister_Click);
         // 
+        // timer
+        // 
+        this.timer.Enabled = true;
+        this.timer.Tick += new System.EventHandler(this.timer_Tick);
+        // 
         // EchoServerForm
         // 
         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -131,6 +137,7 @@
     private System.Windows.Forms.Label lbListenPort;
     private System.Windows.Forms.TextBox tbPortEcoute;
     private System.Windows.Forms.Button btnUnregister;
+    private System.Windows.Forms.Timer timer;
   }
 }
 
