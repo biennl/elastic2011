@@ -23,109 +23,87 @@
     /// le contenu de cette méthode avec l'éditeur de code.
     /// </summary>
     private void InitializeComponent() {
-        this.portBox = new System.Windows.Forms.TextBox();
-        this.PortLabel = new System.Windows.Forms.Label();
-        this.connexionButton = new System.Windows.Forms.Button();
-        this.messageLabel = new System.Windows.Forms.Label();
-        this.messageReceivedLabel = new System.Windows.Forms.Label();
-        this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-        this.registeredServices = new System.Windows.Forms.RichTextBox();
-        this.label1 = new System.Windows.Forms.Label();
-        this.button1 = new System.Windows.Forms.Button();
+        this.tbPort = new System.Windows.Forms.TextBox();
+        this.lbPort = new System.Windows.Forms.Label();
+        this.btnStart = new System.Windows.Forms.Button();
+        this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
+        this.tbRegisteredServices = new System.Windows.Forms.RichTextBox();
+        this.labelServicesList = new System.Windows.Forms.Label();
+        this.btnDisplay = new System.Windows.Forms.Button();
         this.SuspendLayout();
         // 
-        // portBox
+        // tbPort
         // 
-        this.portBox.Location = new System.Drawing.Point(50, 16);
-        this.portBox.Name = "portBox";
-        this.portBox.Size = new System.Drawing.Size(89, 20);
-        this.portBox.TabIndex = 0;
-        this.portBox.TextChanged += new System.EventHandler(this.portBox_TextChanged);
+        this.tbPort.Location = new System.Drawing.Point(50, 16);
+        this.tbPort.Name = "tbPort";
+        this.tbPort.Size = new System.Drawing.Size(89, 20);
+        this.tbPort.TabIndex = 0;
+        this.tbPort.TextChanged += new System.EventHandler(this.portBox_TextChanged);
         // 
-        // PortLabel
+        // lbPort
         // 
-        this.PortLabel.AutoSize = true;
-        this.PortLabel.Location = new System.Drawing.Point(12, 19);
-        this.PortLabel.Name = "PortLabel";
-        this.PortLabel.Size = new System.Drawing.Size(32, 13);
-        this.PortLabel.TabIndex = 1;
-        this.PortLabel.Text = "Port :";
+        this.lbPort.AutoSize = true;
+        this.lbPort.Location = new System.Drawing.Point(12, 19);
+        this.lbPort.Name = "lbPort";
+        this.lbPort.Size = new System.Drawing.Size(32, 13);
+        this.lbPort.TabIndex = 1;
+        this.lbPort.Text = "Port :";
         // 
-        // connexionButton
+        // btnStart
         // 
-        this.connexionButton.Location = new System.Drawing.Point(170, 14);
-        this.connexionButton.Name = "connexionButton";
-        this.connexionButton.Size = new System.Drawing.Size(75, 23);
-        this.connexionButton.TabIndex = 2;
-        this.connexionButton.Text = "Connexion";
-        this.connexionButton.UseVisualStyleBackColor = true;
-        this.connexionButton.Click += new System.EventHandler(this.connexionButton_Click);
+        this.btnStart.Location = new System.Drawing.Point(170, 14);
+        this.btnStart.Name = "btnStart";
+        this.btnStart.Size = new System.Drawing.Size(102, 23);
+        this.btnStart.TabIndex = 2;
+        this.btnStart.Text = "Start";
+        this.btnStart.UseVisualStyleBackColor = true;
+        this.btnStart.Click += new System.EventHandler(this.connexionButton_Click);
         // 
-        // messageLabel
+        // backgroundWorker
         // 
-        this.messageLabel.AutoSize = true;
-        this.messageLabel.Location = new System.Drawing.Point(12, 62);
-        this.messageLabel.Name = "messageLabel";
-        this.messageLabel.Size = new System.Drawing.Size(80, 13);
-        this.messageLabel.TabIndex = 3;
-        this.messageLabel.Text = "Message reçu :";
+        this.backgroundWorker.WorkerSupportsCancellation = true;
+        this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
         // 
-        // messageReceivedLabel
+        // tbRegisteredServices
         // 
-        this.messageReceivedLabel.AutoSize = true;
-        this.messageReceivedLabel.Location = new System.Drawing.Point(98, 62);
-        this.messageReceivedLabel.Name = "messageReceivedLabel";
-        this.messageReceivedLabel.Size = new System.Drawing.Size(10, 13);
-        this.messageReceivedLabel.TabIndex = 4;
-        this.messageReceivedLabel.Text = "-";
+        this.tbRegisteredServices.Location = new System.Drawing.Point(2, 144);
+        this.tbRegisteredServices.Name = "tbRegisteredServices";
+        this.tbRegisteredServices.Size = new System.Drawing.Size(270, 96);
+        this.tbRegisteredServices.TabIndex = 5;
+        this.tbRegisteredServices.Text = "";
         // 
-        // backgroundWorker1
+        // labelServicesList
         // 
-        this.backgroundWorker1.WorkerSupportsCancellation = true;
-        this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+        this.labelServicesList.AutoSize = true;
+        this.labelServicesList.Location = new System.Drawing.Point(9, 106);
+        this.labelServicesList.Name = "labelServicesList";
+        this.labelServicesList.Size = new System.Drawing.Size(139, 13);
+        this.labelServicesList.TabIndex = 6;
+        this.labelServicesList.Text = "List des services enregistrés";
         // 
-        // registeredServices
+        // btnDisplay
         // 
-        this.registeredServices.Location = new System.Drawing.Point(2, 144);
-        this.registeredServices.Name = "registeredServices";
-        this.registeredServices.Size = new System.Drawing.Size(270, 96);
-        this.registeredServices.TabIndex = 5;
-        this.registeredServices.Text = "";
-        // 
-        // label1
-        // 
-        this.label1.AutoSize = true;
-        this.label1.Location = new System.Drawing.Point(9, 106);
-        this.label1.Name = "label1";
-        this.label1.Size = new System.Drawing.Size(139, 13);
-        this.label1.TabIndex = 6;
-        this.label1.Text = "List des services enregistrés";
-        // 
-        // button1
-        // 
-        this.button1.Location = new System.Drawing.Point(170, 101);
-        this.button1.Name = "button1";
-        this.button1.Size = new System.Drawing.Size(102, 23);
-        this.button1.TabIndex = 7;
-        this.button1.Text = "Display Services";
-        this.button1.UseVisualStyleBackColor = true;
-        this.button1.Click += new System.EventHandler(this.button1_Click);
+        this.btnDisplay.Location = new System.Drawing.Point(170, 101);
+        this.btnDisplay.Name = "btnDisplay";
+        this.btnDisplay.Size = new System.Drawing.Size(102, 23);
+        this.btnDisplay.TabIndex = 7;
+        this.btnDisplay.Text = "Display Services";
+        this.btnDisplay.UseVisualStyleBackColor = true;
+        this.btnDisplay.Click += new System.EventHandler(this.btnDisplay_Click);
         // 
         // ServerForm
         // 
         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         this.ClientSize = new System.Drawing.Size(284, 262);
-        this.Controls.Add(this.button1);
-        this.Controls.Add(this.label1);
-        this.Controls.Add(this.registeredServices);
-        this.Controls.Add(this.messageReceivedLabel);
-        this.Controls.Add(this.messageLabel);
-        this.Controls.Add(this.connexionButton);
-        this.Controls.Add(this.PortLabel);
-        this.Controls.Add(this.portBox);
+        this.Controls.Add(this.btnDisplay);
+        this.Controls.Add(this.labelServicesList);
+        this.Controls.Add(this.tbRegisteredServices);
+        this.Controls.Add(this.btnStart);
+        this.Controls.Add(this.lbPort);
+        this.Controls.Add(this.tbPort);
         this.Name = "ServerForm";
-        this.Text = "ServerCatalog";
+        this.Text = "Catalog Server";
         this.ResumeLayout(false);
         this.PerformLayout();
 
@@ -133,15 +111,13 @@
 
     #endregion
 
-    private System.Windows.Forms.TextBox portBox;
-    private System.Windows.Forms.Label PortLabel;
-    private System.Windows.Forms.Button connexionButton;
-    private System.Windows.Forms.Label messageLabel;
-    private System.Windows.Forms.Label messageReceivedLabel;
-    private System.ComponentModel.BackgroundWorker backgroundWorker1;
-    private System.Windows.Forms.RichTextBox registeredServices;
-    private System.Windows.Forms.Label label1;
-    private System.Windows.Forms.Button button1;
+    private System.Windows.Forms.TextBox tbPort;
+    private System.Windows.Forms.Label lbPort;
+    private System.Windows.Forms.Button btnStart;
+    private System.ComponentModel.BackgroundWorker backgroundWorker;
+    private System.Windows.Forms.RichTextBox tbRegisteredServices;
+    private System.Windows.Forms.Label labelServicesList;
+    private System.Windows.Forms.Button btnDisplay;
 
   }
 }

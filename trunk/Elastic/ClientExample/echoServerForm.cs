@@ -27,7 +27,8 @@ namespace ClientExample
         private void registerButton_Click(object sender, EventArgs e)
         {
             this.btnRegister.Enabled = false;
-            this.btnDeconnexion.Enabled = false;
+            this.btnUnregister.Enabled = true;
+            this.btnDisconnect.Enabled = false;
             echo = new Echo(this.adrCatalog, Convert.ToInt32(this.tbPortEcoute.Text));
             echo.RegisterService(Convert.ToInt32(this.tbPortBox.Text));
             this.backgroundWorker.RunWorkerAsync();
@@ -42,15 +43,17 @@ namespace ClientExample
         
         private void btdeconnexion_Click(object sender, EventArgs e)
         {
-            echo.UnregisterService();
-            this.btnRegister.Enabled = true;
-            this.btnDeconnexion.Enabled = false;
+            echo.UnregisterService("127.0.0.1", Convert.ToInt32(this.tbPortBox.Text));
             this.backgroundWorker.CancelAsync();
+            this.Close();
         }
 
-        private void MessageReceivedLabel_Click(object sender, EventArgs e)
+        
+        private void btnUnregister_Click(object sender, EventArgs e)
         {
-
+            echo.UnregisterService("127.0.0.1", Convert.ToInt32(this.tbPortBox.Text));
+            this.btnUnregister.Enabled = false;
+            this.btnRegister.Enabled = true;
         }
     }
 }

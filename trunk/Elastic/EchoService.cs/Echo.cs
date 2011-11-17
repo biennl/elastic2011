@@ -56,8 +56,9 @@ namespace EchoService
                 {
                     if (sr.available() != 0)
                     {
-                        ServiceMessage m = encoding.Decode(sr.receive());
-                        Console.WriteLine(m.ListParams[0]);
+                        byte[] msgBytes = sr.receive();
+                        ServiceMessage m = encoding.Decode(msgBytes);
+
                         if (m.Target.Equals("echoService"))
                         {
                             if (m.Operation.Equals("echo"))
@@ -65,7 +66,6 @@ namespace EchoService
                                 if (m.ListParams.Count == 1)
                                 {
                                     ServiceMessage retMsg = new ServiceMessage(m.Target, m.Source, "callbackEcho", m.Stamp, 1);
-                                    retMsg.Count = 899;
                                     retMsg.ListParams.Add(this.echoOperation(m.ListParams.ElementAt(0)));
                                     sr.send(encoding.Encode(retMsg));
                                 }
@@ -101,18 +101,18 @@ namespace EchoService
             registerSender.close();
         }
 
-        public void UnregisterService()
+        public void UnregisterService(string catalogAddress,int catalogPort)
         {
-            ServiceMessage register = new ServiceMessage();
-            register.Operation = "Unregister";
-            register.Target = "127.0.0.1";
-            register.Source = this.adress;
-            register.Stamp = "";
-            register.ParamCount = 1;
-            register.ListParams.Add("echo");
-            ISenderReceiver registerSender = this.manager.createSenderReceiver(this.adress, this.port);
-            registerSender.send(this.encoding.Encode(register));
-            registerSender.close();
+            ServiceMessage unregister = new ServiceMessage();
+            unregister.Operation = "Unregister";
+            unregister.Target = "127.0.0.1";
+            unregister.Source = this.adress;
+            unregister.Stamp = "";
+            unregister.ParamCount = 1;
+            unregister.ListParams.Add("echo");
+            ISenderReceiver unregisterSender = this.manager.createSenderReceiver(catalogAddress, catalogPort);
+            unregisterSender.send(this.encoding.Encode(unregister));
+            unregisterSender.close();
         }
     }
 }

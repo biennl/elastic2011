@@ -38,9 +38,9 @@ namespace ServerExample
 
         private void connexionButton_Click(object sender, EventArgs e)
         {
-            this.listener = this.networkManager.createListner("127.0.0.1", Convert.ToInt32(this.portBox.Text));
-            this.connexionButton.Enabled = false;
-            this.backgroundWorker1.RunWorkerAsync();
+            this.listener = this.networkManager.createListner("127.0.0.1", Convert.ToInt32(this.tbPort.Text));
+            this.btnStart.Enabled = false;
+            this.backgroundWorker.RunWorkerAsync();
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -57,67 +57,27 @@ namespace ServerExample
                     UTF8Encoding utf8Encoding = new UTF8Encoding();
                     byte[] reqMsg = senderReceiver.receive();
 
-                    //addService(reqMsg);
 
                     byte[] respMsg = catalog.analyseMessage(reqMsg);
 
                     if (respMsg != null)
                         senderReceiver.send(respMsg);
 
-
-
-                    //ServiceMessage msg =(ServiceMessage) encodMsg.Decode(reqMsg);
-                    // setText(utf8Encoding.GetString(senderReceiver.receive()));
-                    //senderReceiver.send(utf8Encoding.GetBytes(this.messageReceivedLabel.Text));
                 }
 
             }
         }
 
-        //private delegate void setTextDelegateRichBox(byte[] bytes);
-
-        private void addService(byte[] bytes)
+        
+        
+        private void btnDisplay_Click(object sender, EventArgs e)
         {
-
-            Catalog acatalog = (Catalog)catalog;
-            ServiceMessage msg = acatalog.decode(bytes);
-            setText("\n SERVICE = " + msg.ListParams[1] + " ip: " + msg.ListParams[2] + " port :" + msg.ListParams[3]);
-
-        }
-
-
-
-        private delegate void setTextDelegate(string s);
-        private void setText(string s)
-        {
-            if (messageReceivedLabel.InvokeRequired)
-            {
-                setTextDelegate sd = new setTextDelegate(setText);
-                this.Invoke(sd, new object[] { s });
-            }
-            else
-            {
-                messageReceivedLabel.Text = s;
-            }
-            if (registeredServices.InvokeRequired)
-            {
-                setTextDelegate sd = new setTextDelegate(setText);
-                this.Invoke(sd, new object[] { s });
-            }
-            else
-            {
-                registeredServices.Text = s;
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            registeredServices.Text = "";
+            tbRegisteredServices.Text = "";
             List<string> services = catalog.GetInfos("");
             int j = 0;
             for (int i = 0; i < services.Count(); i += 4)
             {
-                registeredServices.Text += services[i + 0] +
+                tbRegisteredServices.Text += services[i + 0] +
                 " " + services[i + 1] + " " + services[i + 2] + " " + services[i + 3] + " \n";
             }
         }
