@@ -89,15 +89,15 @@ namespace EchoService
             ServiceMessage register = new ServiceMessage();
             register.Operation = "Register";
             register.Target = "127.0.0.1";
-            register.Source = this.adress;
+            register.Source = adress;
             register.Stamp = "";
             register.ParamCount = 4;
             register.ListParams.Add("service");
             register.ListParams.Add("echo");
-            register.ListParams.Add(this.adress);
-            register.ListParams.Add(this.port.ToString());
-            registerSender = this.manager.createSenderReceiver(catalogAddress, catalogPort);
-            registerSender.send(this.encoding.Encode(register));
+            register.ListParams.Add(adress);
+            register.ListParams.Add(port.ToString());
+            registerSender = manager.createSenderReceiver(catalogAddress, catalogPort);
+            registerSender.send(encoding.Encode(register));
         }
 
         public void UnregisterService(string catalogAddress,int catalogPort)
