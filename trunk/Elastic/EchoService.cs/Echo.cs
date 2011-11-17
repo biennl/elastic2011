@@ -57,25 +57,25 @@ namespace EchoService
                     if (senderReceveir.available() != 0)
                     {
                         byte[] messageBytes = senderReceveir.receive();
-                        ServiceMessage m = encoding.Decode(messageBytes);
+                        ServiceMessage incomingMessage = encoding.Decode(messageBytes);
 
-                        if (m.Target == ("echoService"))
+                        if (incomingMessage.Target == ("echoService"))
                         {
-                            if (m.Operation.Equals("echo"))
+                            if (incomingMessage.Operation.Equals("echo"))
                             {
-                                if (m.ListParams.Count == 1)
+                                if (incomingMessage.ListParams.Count == 1)
                                 {
-                                    ServiceMessage retMsg = new ServiceMessage(m.Target, m.Source, "callbackEcho", m.Stamp, 1);
-                                    retMsg.ListParams.Add(this.echoOperation(m.ListParams.ElementAt(0)));
-                                    senderReceveir.send(encoding.Encode(retMsg));
+                                    ServiceMessage outcomingMessage = new ServiceMessage(incomingMessage.Target, incomingMessage.Source, "callbackEcho", incomingMessage.Stamp, 1);
+                                    outcomingMessage.ListParams.Add(this.echoOperation(incomingMessage.ListParams.ElementAt(0)));
+                                    senderReceveir.send(encoding.Encode(outcomingMessage));
                                 }
                             }
                         }
                         else
                         {
-                            ServiceMessage msgError = new ServiceMessage(this.adress, m.Source, "Diagnostic", m.Stamp, 1);
-                            msgError.ListParams.Add("we don't supply the service you want ");
-                            senderReceveir.send(encoding.Encode(msgError));
+                            ServiceMessage errorMessage = new ServiceMessage(this.adress, incomingMessage.Source, "Diagnostic", incomingMessage.Stamp, 1);
+                            errorMessage.ListParams.Add("we don't supply the service you want ");
+                            senderReceveir.send(encoding.Encode(errorMessage));
                         }
                     }
 
