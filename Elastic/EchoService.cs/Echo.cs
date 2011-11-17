@@ -52,12 +52,12 @@ namespace EchoService
                     sendersReceivers.Add(sndr);
                 }
 
-                foreach (ISenderReceiver sr in sendersReceivers)
+                foreach (ISenderReceiver senderReceveir in sendersReceivers)
                 {
-                    if (sr.available() != 0)
+                    if (senderReceveir.available() != 0)
                     {
-                        byte[] msgBytes = sr.receive();
-                        ServiceMessage m = encoding.Decode(msgBytes);
+                        byte[] messageBytes = senderReceveir.receive();
+                        ServiceMessage m = encoding.Decode(messageBytes);
 
                         if (m.Target == ("echoService"))
                         {
@@ -67,7 +67,7 @@ namespace EchoService
                                 {
                                     ServiceMessage retMsg = new ServiceMessage(m.Target, m.Source, "callbackEcho", m.Stamp, 1);
                                     retMsg.ListParams.Add(this.echoOperation(m.ListParams.ElementAt(0)));
-                                    sr.send(encoding.Encode(retMsg));
+                                    senderReceveir.send(encoding.Encode(retMsg));
                                 }
                             }
                         }
@@ -75,7 +75,7 @@ namespace EchoService
                         {
                             ServiceMessage msgError = new ServiceMessage(this.adress, m.Source, "Diagnostic", m.Stamp, 1);
                             msgError.ListParams.Add("we don't supply the service you want ");
-                            sr.send(encoding.Encode(msgError));
+                            senderReceveir.send(encoding.Encode(msgError));
                         }
                     }
 
