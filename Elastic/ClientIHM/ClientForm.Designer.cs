@@ -223,6 +223,7 @@
             this.rtbInput.Size = new System.Drawing.Size(276, 96);
             this.rtbInput.TabIndex = 1;
             this.rtbInput.Text = "";
+            this.rtbInput.TextChanged += new System.EventHandler(this.rtbInput_TextChanged);
             // 
             // rtbDisplay
             // 

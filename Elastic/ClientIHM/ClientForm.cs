@@ -120,19 +120,14 @@ namespace ClientIHM
         {
             if (isConnect)
             {
-                ServiceMessage msg = new ServiceMessage();
-                msg.Count = 899;
-                msg.Source = "Machine A";
-                msg.Target = "Catalog Service";
-                msg.Operation = "getInfos";
-                msg.Stamp = "Catalog Service Temp";
-                msg.ParamCount = 1;
-
+                ServiceMessage msg = new ServiceMessage("Machine A", "Catalog Service", "getInfos", "Catalog Service Stamp",1);
                 msg.ListParams.Add(tbService.Text);
+
                 senderReceiver.send(encode.Encode(msg));
             }
             else
             {
+                lbInfo.ForeColor = Color.Red;
                 setText("You are not connected.");
             }
         }
@@ -145,7 +140,7 @@ namespace ClientIHM
                 ConnectService(dgvServicesInfo.SelectedRows[0].Cells[2].Value.ToString(),
                     Convert.ToInt32(dgvServicesInfo.SelectedRows[0].Cells[3].Value.ToString()));
 
-                lbInfo.ForeColor = Color.Black;
+                lbInfo.ForeColor = Color.Green;
                 setText("You are connecting to the " + name + " service.");
             }
             else
@@ -157,17 +152,19 @@ namespace ClientIHM
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            ServiceMessage msg = new ServiceMessage();
-            msg.Count = 899;
-            msg.Source = "Machine A";
-            msg.Target = "echoService";
-            msg.Operation = "echo";
-            msg.Stamp = "Echo Service Stamp";
-            msg.ParamCount = 1;
-
+            ServiceMessage msg = new ServiceMessage("Machine A", "echoService", "echo", "Echo Service Stamp", 1);
             msg.ListParams.Add(rtbInput.Text);
-            senderReceiverEcho.send(encode.Encode(msg));
 
+            senderReceiverEcho.send(encode.Encode(msg));
+            rtbInput.Text = "";
+
+        }
+
+        private void rtbInput_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(rtbInput.Text))
+                this.AcceptButton = btnSend;
+            else this.AcceptButton = null;
         }
     }
 }

@@ -20,12 +20,16 @@ namespace EncodingLibrary
         /// <returns></returns>
         public byte[] Encode(ServiceMessage msg)
         {
+            // msgBytes for calculating the length of message without Count item
             List<byte> msgBytes = new List<byte>();
+
+            // msgBytesFinal including Count item.
+            List<byte> msgBytesFinal = new List<byte>();
             UTF8Encoding encoding = new UTF8Encoding();
 
             //add byte value of Count
-            byte[] count = BitConverter.GetBytes(msg.Count);
-            msgBytes.AddRange(count);
+            //byte[] count = BitConverter.GetBytes(msg.Count);
+            //msgBytes.AddRange(count);
 
             //add byte value of Source
             byte[] source = encoding.GetBytes(msg.Source);
@@ -59,8 +63,14 @@ namespace EncodingLibrary
                 byte[] param = encoding.GetBytes(p);
                 msgBytes.AddRange(param);
             }
-          
-            return msgBytes.ToArray();
+
+            msg.Count = msgBytes.Count + 4;
+            byte[] count = BitConverter.GetBytes(msg.Count);
+
+            msgBytesFinal.AddRange(count);
+            msgBytesFinal.AddRange(msgBytes);
+
+            return msgBytesFinal.ToArray();
         }
 
         /// <summary>
@@ -122,26 +132,15 @@ namespace EncodingLibrary
                 msg.ListParams.Add(parami);
                 index = index + countParami;
             }
-                //List<byte[]> paramList = msgC.ListParams;
 
-                //if (operation.Equals("register"))
-                //{
-                //    for (int i = 0; i < paramList.Count; i++)
-                //    {
-                //        int countI = BitConverter.ToInt32(paramList[i], 0);
-
-                //    }
-                //}
-                //else if (operation.Equals("unregister"))
-                //{
-
-                //}
-                //else if (operation.Equals("getinfos"))
-                //{
-
-                //}
-
+            if (msg.Count == msgBytes.Length)
+            {
                 return msg;
+            }
+            else
+            {
+                throw new Exception("Message Decoding error! ");
+            }
         }
     }
 }
