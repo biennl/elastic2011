@@ -105,12 +105,12 @@ namespace EchoService
             ServiceMessage unregister = new ServiceMessage();
             unregister.Operation = "Unregister";
             unregister.Target = "127.0.0.1";
-            unregister.Source = this.adress;
+            unregister.Source = adress;
             unregister.Stamp = "";
             unregister.ParamCount = 1;
             unregister.ListParams.Add("echo");
-            registerSender = this.manager.createSenderReceiver(catalogAddress, catalogPort);
-            registerSender.send(this.encoding.Encode(unregister));
+            registerSender = manager.createSenderReceiver(catalogAddress, catalogPort);
+            registerSender.send(encoding.Encode(unregister));
         }
     }
 }
