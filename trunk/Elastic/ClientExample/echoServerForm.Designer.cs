@@ -46,6 +46,9 @@
         // 
         // tbPortBox
         // 
+        this.tbPortBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                    | System.Windows.Forms.AnchorStyles.Left)
+                    | System.Windows.Forms.AnchorStyles.Right)));
         this.tbPortBox.Location = new System.Drawing.Point(100, 12);
         this.tbPortBox.Name = "tbPortBox";
         this.tbPortBox.Size = new System.Drawing.Size(123, 20);
@@ -54,6 +57,7 @@
         // 
         // btnRegister
         // 
+        this.btnRegister.Anchor = System.Windows.Forms.AnchorStyles.None;
         this.btnRegister.Location = new System.Drawing.Point(188, 134);
         this.btnRegister.Name = "btnRegister";
         this.btnRegister.Size = new System.Drawing.Size(82, 23);
@@ -69,6 +73,8 @@
         // 
         // btnDisconnect
         // 
+        this.btnDisconnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+        this.btnDisconnect.AutoSize = true;
         this.btnDisconnect.Enabled = false;
         this.btnDisconnect.Location = new System.Drawing.Point(188, 191);
         this.btnDisconnect.Name = "btnDisconnect";
@@ -89,6 +95,9 @@
         // 
         // tbPortEcoute
         // 
+        this.tbPortEcoute.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                    | System.Windows.Forms.AnchorStyles.Left)
+                    | System.Windows.Forms.AnchorStyles.Right)));
         this.tbPortEcoute.Location = new System.Drawing.Point(100, 38);
         this.tbPortEcoute.Name = "tbPortEcoute";
         this.tbPortEcoute.Size = new System.Drawing.Size(123, 20);
@@ -97,6 +106,7 @@
         // 
         // btnUnregister
         // 
+        this.btnUnregister.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
         this.btnUnregister.Enabled = false;
         this.btnUnregister.Location = new System.Drawing.Point(188, 162);
         this.btnUnregister.Name = "btnUnregister";
