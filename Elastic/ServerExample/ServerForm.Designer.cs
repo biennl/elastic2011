@@ -39,7 +39,6 @@
         this.tbPort.Name = "tbPort";
         this.tbPort.Size = new System.Drawing.Size(89, 20);
         this.tbPort.TabIndex = 0;
-        this.tbPort.TextChanged += new System.EventHandler(this.portBox_TextChanged);
         // 
         // lbPort
         // 
