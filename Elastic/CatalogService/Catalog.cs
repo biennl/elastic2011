@@ -5,8 +5,8 @@ using System.Text;
 using EncodingLibrary;
 using MessagesLibrary;
 
-// la librairy CatalogService reference MessageLibrary
-// et 
+// la librairie des services et le CatalogService reference MessageLibrary
+// et EncodingLibrairy 
 namespace CatalogService
 {
     public class Catalog : ICatalog
@@ -15,7 +15,7 @@ namespace CatalogService
         /// <summary>
         /// services fait correspondre un service à son adresse
         /// </summary>
-        Dictionary<string, ServiceInfo> services  ;
+        Dictionary<string, ServiceInfo> Services  ;
 
         //public Dictionary<string, ServiceInfo> getServices()
         //{
@@ -24,61 +24,58 @@ namespace CatalogService
 
         public Catalog()
         {
-            this.services = new Dictionary<string, ServiceInfo>();
-            //add a static service for tester.
-            //this.services.Add("echo1",new ServiceInfo("service","127.0.0.1","20000"));
-            //this.services.Add("echo2", new ServiceInfo("service", "127.0.0.1", "22000"));
-
+            this.Services = new Dictionary<string, ServiceInfo>();
         }
+
         public void Register(string service, string title, string address, string port)
         {
    
-            if (services.ContainsKey(title)) throw new Exception("Service registering error: no duplicate service! ");
-            services.Add(title, new ServiceInfo(service, address, port));
+            if (Services.ContainsKey(title)) throw new Exception("Service registering error: no duplicate service! ");
+            Services.Add(title, new ServiceInfo(service, address, port));
         }
 
         public void Unregister(string service)
         {
-            if (string.IsNullOrEmpty(service)) throw new Exception("unregister service : pram null");
-                services.Remove(service); 
+            if (string.IsNullOrEmpty(service)) throw new Exception("unregister service : parameter null");
+                Services.Remove(service); 
         }
 
         public List<string> GetInfos(string title)
 
         {
-            List<string> listParams = new List<string>();
+            List<string> listParameters = new List<string>();
             if (title != "")
             {
-                if (services.ContainsKey(title))
+                if (Services.ContainsKey(title))
                 {
-                    ServiceInfo serviceInfo = services[title];
-                    listParams.Add(serviceInfo.Service);
-                    listParams.Add(title);
-                    listParams.Add(serviceInfo.Address);
-                    listParams.Add(serviceInfo.Port);
+                    ServiceInfo serviceInfo = Services[title];
+                    listParameters.Add(serviceInfo.Service);
+                    listParameters.Add(title);
+                    listParameters.Add(serviceInfo.Address);
+                    listParameters.Add(serviceInfo.Port);
                 }
                 else
                 {
-                    listParams.Add("");
-                    listParams.Add("");
-                    listParams.Add("");
-                    listParams.Add("");
+                    listParameters.Add("");
+                    listParameters.Add("");
+                    listParameters.Add("");
+                    listParameters.Add("");
                 }
             }
             else
             {
-                foreach (string key in services.Keys)
+                foreach (string key in Services.Keys)
                 {
-                    ServiceInfo sInfo = services[key];
-                    listParams.Add(sInfo.Service);
-                    listParams.Add(key);
-                    listParams.Add(sInfo.Address);
-                    listParams.Add(sInfo.Port);
+                    ServiceInfo sInfo = Services[key];
+                    listParameters.Add(sInfo.Service);
+                    listParameters.Add(key);
+                    listParameters.Add(sInfo.Address);
+                    listParameters.Add(sInfo.Port);
                 }
             }
 
            // CatalogMessage msg = new CatalogMessage(listParams);
-            return listParams;
+            return listParameters;
 
         }
 
@@ -94,51 +91,51 @@ namespace CatalogService
         public byte[] analyseMessage(byte[] msgBytes)
         {
 
-            MsgEncoding encodMsg = new MsgEncoding();
-            ServiceMessage msg = (ServiceMessage)encodMsg.Decode(msgBytes);            
+            MsgEncoding encodingMessage = new MsgEncoding();
+            ServiceMessage message = (ServiceMessage)encodingMessage.Decode(msgBytes);            
 
-            int count = msg.Count;
-            string source = msg.Source;
-            string target = msg.Target;
-            string operation = (msg.Operation).ToLower();
-            string stamp = msg.Stamp;
-            int parmCount = msg.ParamCount;            
-            List<string> paramList = msg.ListParams;
+            int Count = message.Count;
+            string Source = message.Source;
+            string Target = message.Target;
+            string Operation = (message.Operation).ToLower();
+            string Stamp = message.Stamp;
+            int ParametersCount = message.ParamCount;            
+            List<string> ParametersList = message.ListParams;
                 
-            if (operation.Equals("register"))
+            if (Operation.Equals("register"))
             {
                 try
                 {
-                    this.Register(paramList[0], paramList[1], paramList[2], paramList[3]);
+                    Register(ParametersList[0], ParametersList[1], ParametersList[2], ParametersList[3]);
                     return null;
                 }
                 catch (Exception e)
                 {
-                    ServiceMessage msgError = new ServiceMessage(target, source, "Diagnostic",stamp,1);
-                     msgError.ListParams.Add(e.Message);
-                     return encodMsg.Encode(msgError);
+                    ServiceMessage messageError = new ServiceMessage(Target, Source, "Diagnostic",Stamp,1);
+                     messageError.ListParams.Add(e.Message);
+                     return encodingMessage.Encode(messageError);
                 }
             }
-            else if (operation.Equals("unregister"))
+            else if (Operation.Equals("unregister"))
             {
                 try
                 {
-                    this.Unregister(paramList[0]);
+                    this.Unregister(ParametersList[0]);
                     return null;
                 }
                 catch (Exception e)
                 {
-                    ServiceMessage msgError = new ServiceMessage(target, source, "Diagnostic", stamp, 1);
-                    msgError.ListParams.Add(e.Message);
-                    return encodMsg.Encode(msgError);
+                    ServiceMessage messageError = new ServiceMessage(Target, Source, "Diagnostic", Stamp, 1);
+                    messageError.ListParams.Add(e.Message);
+                    return encodingMessage.Encode(messageError);
                 }
             }
-            else if (operation.Equals("getinfos"))
+            else if (Operation.Equals("getinfos"))
             {                  
-                List<string> listParams = this.GetInfos(paramList[0]);
-                ServiceMessage msgInfos = new ServiceMessage(target, source, "getInfos", stamp, listParams.Count());
-                msgInfos.ListParams = listParams;
-                return encodMsg.Encode(msgInfos);               
+                List<string> listeParameters = this.GetInfos(ParametersList[0]);
+                ServiceMessage messageInformations = new ServiceMessage(Target, Source, "getInfos", Stamp, listeParameters.Count());
+                messageInformations.ListParams = listeParameters;
+                return encodingMessage.Encode(messageInformations);               
             }
             return null;
         }
