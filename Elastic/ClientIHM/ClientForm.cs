@@ -30,10 +30,16 @@ namespace ClientIHM
             encode = new MsgEncoding();
         }
 
+        private void ClientForm_Load(object sender, EventArgs e)
+        {
+            //ConnectCatalogService();
+            //backgroundWorker.RunWorkerAsync();
+        }
+
         private void connectToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ConnectCatalogService();
-
+            lbInfo.Text = "";
             backgroundWorker.RunWorkerAsync();
         }
 
@@ -121,43 +127,71 @@ namespace ClientIHM
             dgvServicesInfo.Rows.Clear();
             if (isConnect)
             {
-                ServiceMessage msg = new ServiceMessage("Machine A", "Catalog Service", "getInfos", "Catalog Service Stamp",1);
+                ServiceMessage msg = new ServiceMessage("Machine A", "Catalog Service", "getInfos", "Catalog Service Stamp", 1);
                 msg.ListParams.Add(tbService.Text);
 
                 senderReceiver.send(encode.Encode(msg));
             }
             else
             {
-                lbInfo.ForeColor = Color.Red;
-                setText("You are not connected.");
+                lbInfo.ForeColor = Color.Blue;
+                setText("You must connect to Catalog service first.");
             }
         }
 
         private void btnReach_Click(object sender, EventArgs e)
         {
-            if (dgvServicesInfo.SelectedRows.Count > 0)
+            if (dgvServicesInfo.Rows.Count == 2)
             {
-                string name = dgvServicesInfo.SelectedRows[0].Cells[1].Value.ToString();
-                ConnectService(dgvServicesInfo.SelectedRows[0].Cells[2].Value.ToString(),
-                    Convert.ToInt32(dgvServicesInfo.SelectedRows[0].Cells[3].Value.ToString()));
+                if (dgvServicesInfo.Rows[0].Cells[1].Value != null)
+                {
+                    string serviceName = dgvServicesInfo.Rows[0].Cells[1].Value.ToString();
+                    ConnectService(dgvServicesInfo.Rows[0].Cells[2].Value.ToString(),
+                        Convert.ToInt32(dgvServicesInfo.Rows[0].Cells[3].Value.ToString()));
 
-                lbInfo.ForeColor = Color.Green;
-                setText("You are connecting to the " + name + " service.");
+                    lbInfo.ForeColor = Color.Green;
+                    setText("You are connecting to the " + serviceName.ToUpper() + " service.");
+                }
+                else
+                {
+                    lbInfo.ForeColor = Color.Red;
+                    setText("No service available!");
+                }
             }
-            else
+            else if (dgvServicesInfo.Rows.Count > 2)
             {
-                lbInfo.ForeColor = Color.Red;
-                setText("You must select a service in the list.");
+                if (dgvServicesInfo.SelectedRows.Count > 0)
+                {
+                    string serviceName = dgvServicesInfo.SelectedRows[0].Cells[1].Value.ToString();
+                    ConnectService(dgvServicesInfo.SelectedRows[0].Cells[2].Value.ToString(),
+                        Convert.ToInt32(dgvServicesInfo.SelectedRows[0].Cells[3].Value.ToString()));
+
+                    lbInfo.ForeColor = Color.Green;
+                    setText("You are connecting to the " + serviceName.ToUpper() + " service.");
+                }
+                else
+                {
+                    lbInfo.ForeColor = Color.Red;
+                    setText("You must select a service in the list.");
+                }
             }
+
         }
 
         private void btnSend_Click(object sender, EventArgs e)
         {
             ServiceMessage msg = new ServiceMessage("Machine A", "echoService", "echo", "Echo Service Stamp", 1);
             msg.ListParams.Add(rtbInput.Text);
-
-            senderReceiverEcho.send(encode.Encode(msg));
-            rtbInput.Text = "";
+            try
+            {
+                senderReceiverEcho.send(encode.Encode(msg));
+                rtbInput.Text = "";
+            }
+            catch (Exception ex)
+            {
+                rtbDisplay.Text += "You are not connected.\n";
+                rtbInput.Text = "";
+            }
 
         }
 
@@ -172,5 +206,7 @@ namespace ClientIHM
         {
             this.Close();
         }
+
+
     }
 }

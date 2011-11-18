@@ -22,8 +22,6 @@ namespace ClientExample
         public EchoServerForm()
         {
             InitializeComponent();
-
-            //this.backgroundWorker.RunWorkerAsync();
         }
 
         private void registerButton_Click(object sender, EventArgs e)
@@ -43,7 +41,8 @@ namespace ClientExample
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-
+            if (echo != null)
+                echo.EchoServiceListener();
         }
 
 
@@ -63,10 +62,10 @@ namespace ClientExample
             isRegistered = false;
         }
 
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            if (echo != null)
-                echo.EchoServiceListener();
-        }
+        //private void timer_Tick(object sender, EventArgs e)
+        //{
+        //    if (echo != null)
+        //        echo.EchoServiceListener();
+        //}
     }
 }
