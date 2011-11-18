@@ -47,6 +47,7 @@ namespace MessagesLibrary
 
             return str.ToString();
         }
+
         public int Count
         {
             get { return this.count; }
