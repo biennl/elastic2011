@@ -9,18 +9,17 @@ using EncodingLibrary;
 
 namespace EchoService
 {
-    //class represent the echo service
+    // classe repreente le service Echo, il utilise le protocole Elastique via 
+    // les bibliotheques Encoding, Message, Network
+
     public class Echo
     {
         public string Name { get; set; }
         public int Port { get; set; }
         public string Adress { get; set; }
-        //objetcs for communication througth the network 
         NetworkManager Manager { get; set; }
         IListener Listener { get; set; }
-        //encoding object
         public MsgEncoding Encoding { get; set; }
-        //thread execute listeningCLient method
         public List<ISenderReceiver> SendersReceivers { get; set; }
         ISenderReceiver RegisterSender;
 
@@ -47,8 +46,8 @@ namespace EchoService
             {
                 if (Listener.pending())
                 {
-                    ISenderReceiver sndr = Listener.accept();
-                    SendersReceivers.Add(sndr);
+                    ISenderReceiver senderReceiver = Listener.accept();
+                    SendersReceivers.Add(senderReceiver);
                 }
 
                 foreach (ISenderReceiver senderReceveir in SendersReceivers)
