@@ -17,7 +17,7 @@ namespace ClientIHM
         NetworkManager NetworkManager;
         ISenderReceiver SenderReceiver;
         ISenderReceiver SenderReceiverEcho;
-        IEncoding Encode;
+        IMessageEncoding Encode;
         bool IsConnect = false;
 
         private string catalogAddress = "127.0.0.1";
