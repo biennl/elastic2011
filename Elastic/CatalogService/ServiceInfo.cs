@@ -5,10 +5,10 @@ using System.Text;
 
 namespace CatalogService
 {
+    //represente la structure de données lier a un service
     class ServiceInfo
     {
         public string Service { set; get; }
-        //public string Title   { set; get; }
         public string Address { set; get; }
         public string Port    { set; get; }
 
