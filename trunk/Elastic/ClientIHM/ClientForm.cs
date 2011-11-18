@@ -14,11 +14,11 @@ namespace ClientIHM
 {
     public partial class ClientForm : Form
     {
-        NetworkManager networkManager;
-        ISenderReceiver senderReceiver;
-        ISenderReceiver senderReceiverEcho;
-        IEncoding encode;
-        bool isConnect = false;
+        NetworkManager NetworkManager;
+        ISenderReceiver SenderReceiver;
+        ISenderReceiver SenderReceiverEcho;
+        IEncoding Encode;
+        bool IsConnect = false;
 
         private string catalogAddress = "127.0.0.1";
         private int catalogPort = 50000;
@@ -26,8 +26,8 @@ namespace ClientIHM
         public ClientForm()
         {
             InitializeComponent();
-            networkManager = new NetworkManager();
-            encode = new MsgEncoding();
+            NetworkManager = new NetworkManager();
+            Encode = new MsgEncoding();
         }
 
         private void ClientForm_Load(object sender, EventArgs e)
@@ -45,27 +45,27 @@ namespace ClientIHM
 
         private void ConnectCatalogService()
         {
-            senderReceiver = networkManager.createSenderReceiver(catalogAddress, catalogPort);
-            isConnect = true;
+            SenderReceiver = NetworkManager.createSenderReceiver(catalogAddress, catalogPort);
+            IsConnect = true;
         }
 
         private void ConnectService(string address, int port)
         {
-            senderReceiverEcho = networkManager.createSenderReceiver(address, port);
+            SenderReceiverEcho = NetworkManager.createSenderReceiver(address, port);
         }
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
             {
-                if ((this.senderReceiver != null) && (this.senderReceiver.available() != 0))
+                if ((this.SenderReceiver != null) && (this.SenderReceiver.available() != 0))
                 {
-                    displayAvailableServices(senderReceiver.receive());
+                    displayAvailableServices(SenderReceiver.receive());
                 }
 
-                if ((this.senderReceiverEcho != null) && (this.senderReceiverEcho.available() != 0))
+                if ((this.SenderReceiverEcho != null) && (this.SenderReceiverEcho.available() != 0))
                 {
-                    string str = encode.Decode(senderReceiverEcho.receive()).ListParams[0];
+                    string str = Encode.Decode(SenderReceiverEcho.receive()).ListParams[0];
                     displayText(str);
                 }
             }
@@ -83,7 +83,7 @@ namespace ClientIHM
             else
             {
                 dgvServicesInfo.Rows.Clear();
-                ServiceMessage msg = encode.Decode(repBytes);
+                ServiceMessage msg = Encode.Decode(repBytes);
                 List<string> listServices = msg.ListParams;
                 for (int i = 0; i < msg.ListParams.Count; i += 4)
                 {
@@ -125,12 +125,12 @@ namespace ClientIHM
         private void btnRequest_Click(object sender, EventArgs e)
         {
             dgvServicesInfo.Rows.Clear();
-            if (isConnect)
+            if (IsConnect)
             {
-                ServiceMessage msg = new ServiceMessage("Machine A", "Catalog Service", "getInfos", "Catalog Service Stamp", 1);
-                msg.ListParams.Add(tbService.Text);
+                ServiceMessage message = new ServiceMessage("Machine A", "Catalog Service", "getInfos", "Catalog Service Stamp", 1);
+                message.ListParams.Add(tbService.Text);
 
-                senderReceiver.send(encode.Encode(msg));
+                SenderReceiver.send(Encode.Encode(message));
             }
             else
             {
@@ -180,11 +180,11 @@ namespace ClientIHM
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            ServiceMessage msg = new ServiceMessage("Machine A", "echoService", "echo", "Echo Service Stamp", 1);
-            msg.ListParams.Add(rtbInput.Text);
+            ServiceMessage message = new ServiceMessage("Machine A", "echoService", "echo", "Echo Service Stamp", 1);
+            message.ListParams.Add(rtbInput.Text);
             try
             {
-                senderReceiverEcho.send(encode.Encode(msg));
+                SenderReceiverEcho.send(Encode.Encode(message));
                 rtbInput.Text = "";
             }
             catch (Exception ex)
