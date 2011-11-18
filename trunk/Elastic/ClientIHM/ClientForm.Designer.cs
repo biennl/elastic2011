@@ -34,9 +34,10 @@
             this.disconnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabServiceInfo = new System.Windows.Forms.TabPage();
+            this.groupBox = new System.Windows.Forms.GroupBox();
+            this.lbService = new System.Windows.Forms.Label();
             this.btnRequest = new System.Windows.Forms.Button();
             this.tbService = new System.Windows.Forms.TextBox();
-            this.lbService = new System.Windows.Forms.Label();
             this.lbInfo = new System.Windows.Forms.Label();
             this.btnReach = new System.Windows.Forms.Button();
             this.dgvServicesInfo = new System.Windows.Forms.DataGridView();
@@ -49,13 +50,12 @@
             this.rtbInput = new System.Windows.Forms.RichTextBox();
             this.rtbDisplay = new System.Windows.Forms.RichTextBox();
             this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.groupBox = new System.Windows.Forms.GroupBox();
             this.menuStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabServiceInfo.SuspendLayout();
+            this.groupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvServicesInfo)).BeginInit();
             this.tabService.SuspendLayout();
-            this.groupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -80,14 +80,14 @@
             // connectToolStripMenuItem
             // 
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.connectToolStripMenuItem.Text = "&Connect";
             this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
             // 
             // disconnectToolStripMenuItem
             // 
             this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
-            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.disconnectToolStripMenuItem.Text = "&Disconnect";
             this.disconnectToolStripMenuItem.Click += new System.EventHandler(this.disconnectToolStripMenuItem_Click);
             // 
@@ -99,7 +99,7 @@
             this.tabControl.Location = new System.Drawing.Point(0, 24);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(419, 368);
+            this.tabControl.Size = new System.Drawing.Size(419, 401);
             this.tabControl.TabIndex = 1;
             // 
             // tabServiceInfo
@@ -111,10 +111,31 @@
             this.tabServiceInfo.Location = new System.Drawing.Point(4, 22);
             this.tabServiceInfo.Name = "tabServiceInfo";
             this.tabServiceInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabServiceInfo.Size = new System.Drawing.Size(411, 342);
+            this.tabServiceInfo.Size = new System.Drawing.Size(411, 375);
             this.tabServiceInfo.TabIndex = 0;
             this.tabServiceInfo.Text = "Services Information";
             this.tabServiceInfo.UseVisualStyleBackColor = true;
+            // 
+            // groupBox
+            // 
+            this.groupBox.Controls.Add(this.lbService);
+            this.groupBox.Controls.Add(this.btnRequest);
+            this.groupBox.Controls.Add(this.tbService);
+            this.groupBox.Location = new System.Drawing.Point(8, 6);
+            this.groupBox.Name = "groupBox";
+            this.groupBox.Size = new System.Drawing.Size(395, 54);
+            this.groupBox.TabIndex = 6;
+            this.groupBox.TabStop = false;
+            this.groupBox.Text = "Requesting Service";
+            // 
+            // lbService
+            // 
+            this.lbService.AutoSize = true;
+            this.lbService.Location = new System.Drawing.Point(22, 22);
+            this.lbService.Name = "lbService";
+            this.lbService.Size = new System.Drawing.Size(74, 13);
+            this.lbService.TabIndex = 3;
+            this.lbService.Text = "Service Name";
             // 
             // btnRequest
             // 
@@ -133,15 +154,6 @@
             this.tbService.Size = new System.Drawing.Size(125, 20);
             this.tbService.TabIndex = 4;
             // 
-            // lbService
-            // 
-            this.lbService.AutoSize = true;
-            this.lbService.Location = new System.Drawing.Point(22, 22);
-            this.lbService.Name = "lbService";
-            this.lbService.Size = new System.Drawing.Size(74, 13);
-            this.lbService.TabIndex = 3;
-            this.lbService.Text = "Service Name";
-            // 
             // lbInfo
             // 
             this.lbInfo.Location = new System.Drawing.Point(136, 78);
@@ -151,7 +163,7 @@
             // 
             // btnReach
             // 
-            this.btnReach.Location = new System.Drawing.Point(8, 66);
+            this.btnReach.Location = new System.Drawing.Point(304, 330);
             this.btnReach.Name = "btnReach";
             this.btnReach.Size = new System.Drawing.Size(96, 37);
             this.btnReach.TabIndex = 1;
@@ -167,7 +179,7 @@
             this.Title,
             this.IPAddress,
             this.Port});
-            this.dgvServicesInfo.Location = new System.Drawing.Point(6, 109);
+            this.dgvServicesInfo.Location = new System.Drawing.Point(3, 94);
             this.dgvServicesInfo.MultiSelect = false;
             this.dgvServicesInfo.Name = "dgvServicesInfo";
             this.dgvServicesInfo.Size = new System.Drawing.Size(397, 227);
@@ -222,7 +234,7 @@
             this.rtbInput.Name = "rtbInput";
             this.rtbInput.Size = new System.Drawing.Size(276, 96);
             this.rtbInput.TabIndex = 1;
-            this.rtbInput.Text = "";
+            this.rtbInput.Text = "test";
             this.rtbInput.TextChanged += new System.EventHandler(this.rtbInput_TextChanged);
             // 
             // rtbDisplay
@@ -239,24 +251,12 @@
             // 
             this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
             // 
-            // groupBox
-            // 
-            this.groupBox.Controls.Add(this.lbService);
-            this.groupBox.Controls.Add(this.btnRequest);
-            this.groupBox.Controls.Add(this.tbService);
-            this.groupBox.Location = new System.Drawing.Point(8, 6);
-            this.groupBox.Name = "groupBox";
-            this.groupBox.Size = new System.Drawing.Size(395, 54);
-            this.groupBox.TabIndex = 6;
-            this.groupBox.TabStop = false;
-            this.groupBox.Text = "Requesting Service";
-            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(419, 392);
+            this.ClientSize = new System.Drawing.Size(419, 425);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.menuStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -268,10 +268,10 @@
             this.menuStrip.PerformLayout();
             this.tabControl.ResumeLayout(false);
             this.tabServiceInfo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvServicesInfo)).EndInit();
-            this.tabService.ResumeLayout(false);
             this.groupBox.ResumeLayout(false);
             this.groupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvServicesInfo)).EndInit();
+            this.tabService.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
