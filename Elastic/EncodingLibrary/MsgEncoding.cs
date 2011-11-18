@@ -7,7 +7,7 @@ using MessagesLibrary;
 namespace EncodingLibrary
 {
     /// <summary>
-    /// Object encode and decode messages
+    ///cette classe permet de coder et decoder des Messages
     /// 
     /// created by: NGUYEN Long Bien && DIALLO Ibrahima Mouctar.
     /// </summary>
@@ -16,61 +16,57 @@ namespace EncodingLibrary
         /// <summary>
         /// Encoding a message to bytes
         /// </summary>
-        /// <param name="msg"></param>
+        /// <param name="message"></param>
         /// <returns></returns>
-        public byte[] Encode(ServiceMessage msg)
+        public byte[] Encode(ServiceMessage message)
         {
             // msgBytes for calculating the length of message without Count item
-            List<byte> msgBytes = new List<byte>();
+            List<byte> messageBytes = new List<byte>();
 
             // msgBytesFinal including Count item.
-            List<byte> msgBytesFinal = new List<byte>();
+            List<byte> messageBytesFinal = new List<byte>();
             UTF8Encoding encoding = new UTF8Encoding();
 
-            //add byte value of Count
-            //byte[] count = BitConverter.GetBytes(msg.Count);
-            //msgBytes.AddRange(count);
-
             //add byte value of Source
-            byte[] source = encoding.GetBytes(msg.Source);
-            msgBytes.AddRange(BitConverter.GetBytes(source.Length));// add count to source item of the message
-            msgBytes.AddRange(source);
+            byte[] source = encoding.GetBytes(message.Source);
+            messageBytes.AddRange(BitConverter.GetBytes(source.Length));// add count to source item of the message
+            messageBytes.AddRange(source);
 
             //add byte value of Target
-            byte[] target = encoding.GetBytes(msg.Target);
-            msgBytes.AddRange(BitConverter.GetBytes(target.Length));// add count to target item of the message
-            msgBytes.AddRange(target);
+            byte[] target = encoding.GetBytes(message.Target);
+            messageBytes.AddRange(BitConverter.GetBytes(target.Length));// add count to target item of the message
+            messageBytes.AddRange(target);
 
             //add byte value of operation
-            byte[] operation = encoding.GetBytes(msg.Operation);
-            msgBytes.AddRange(BitConverter.GetBytes(operation.Length));// add count to operation item of the message
-            msgBytes.AddRange(operation);
+            byte[] operation = encoding.GetBytes(message.Operation);
+            messageBytes.AddRange(BitConverter.GetBytes(operation.Length));// add count to operation item of the message
+            messageBytes.AddRange(operation);
 
             //add byte value of stamp
-            byte[] stamp = encoding.GetBytes(msg.Stamp);
-            msgBytes.AddRange(BitConverter.GetBytes(stamp.Length));// add count to stamp item of the message
-            msgBytes.AddRange(stamp);
+            byte[] stamp = encoding.GetBytes(message.Stamp);
+            messageBytes.AddRange(BitConverter.GetBytes(stamp.Length));// add count to stamp item of the message
+            messageBytes.AddRange(stamp);
 
             //add byte value of paramCount
-            byte[] paramCount = BitConverter.GetBytes(msg.ParamCount);
-            msgBytes.AddRange(BitConverter.GetBytes(paramCount.Length));// add count to paramCount item of the message
-            msgBytes.AddRange(paramCount);
+            byte[] paramCount = BitConverter.GetBytes(message.ParamCount);
+            messageBytes.AddRange(BitConverter.GetBytes(paramCount.Length));// add count to paramCount item of the message
+            messageBytes.AddRange(paramCount);
 
 
-            foreach (string p in msg.ListParams)
+            foreach (string p in message.ListParams)
             {
-                msgBytes.AddRange(BitConverter.GetBytes(p.Length));
-                byte[] param = encoding.GetBytes(p);
-                msgBytes.AddRange(param);
+                messageBytes.AddRange(BitConverter.GetBytes(p.Length));
+                byte[] parameter = encoding.GetBytes(p);
+                messageBytes.AddRange(parameter);
             }
 
-            msg.Count = msgBytes.Count + 4;
-            byte[] count = BitConverter.GetBytes(msg.Count);
+            message.Count = messageBytes.Count + 4;
+            byte[] count = BitConverter.GetBytes(message.Count);
 
-            msgBytesFinal.AddRange(count);
-            msgBytesFinal.AddRange(msgBytes);
+            messageBytesFinal.AddRange(count);
+            messageBytesFinal.AddRange(messageBytes);
 
-            return msgBytesFinal.ToArray();
+            return messageBytesFinal.ToArray();
         }
 
         /// <summary>
@@ -82,9 +78,9 @@ namespace EncodingLibrary
         {
             int index = 0;
             const int INTEGER32_SIZE = 4;
-            ServiceMessage msg = new ServiceMessage();
+            ServiceMessage message = new ServiceMessage();
             int count = BitConverter.ToInt32(msgBytes, index);
-            msg.Count = count;
+            message.Count = count;
             index = index + INTEGER32_SIZE;
 
             UTF8Encoding decoding = new UTF8Encoding();
@@ -92,35 +88,35 @@ namespace EncodingLibrary
             int countSource = BitConverter.ToInt32(msgBytes, index);
             index = index + INTEGER32_SIZE;
             string source = decoding.GetString(msgBytes, index, countSource);
-            msg.Source = source;
+            message.Source = source;
             index = index + countSource;
 
             //read target
             int countTarget = BitConverter.ToInt32(msgBytes, index);
             index = index + INTEGER32_SIZE;
             string target = decoding.GetString(msgBytes, index, countTarget);
-            msg.Target = target;
+            message.Target = target;
             index = index + countTarget;
 
             //read operation
             int countOperation = BitConverter.ToInt32(msgBytes, index);
             index = index + INTEGER32_SIZE;
             string operation = decoding.GetString(msgBytes, index, countOperation);
-            msg.Operation = operation;
+            message.Operation = operation;
             index = index + countOperation;
 
             //read stamp
             int countStamp = BitConverter.ToInt32(msgBytes, index);
             index = index + INTEGER32_SIZE;
             string stamp = decoding.GetString(msgBytes, index, countStamp);
-            msg.Stamp = stamp;
+            message.Stamp = stamp;
             index = index + countStamp;
 
             //read paramCount
             int countParam = BitConverter.ToInt32(msgBytes, index);
             index = index + INTEGER32_SIZE;
             int paramCount = BitConverter.ToInt32(msgBytes, index);
-            msg.ParamCount = paramCount;
+            message.ParamCount = paramCount;
             index = index + INTEGER32_SIZE;
 
             //read list of param
@@ -129,13 +125,13 @@ namespace EncodingLibrary
                 int countParami = BitConverter.ToInt32(msgBytes, index);
                 index = index + INTEGER32_SIZE;
                 string parami = decoding.GetString(msgBytes, index, countParami);
-                msg.ListParams.Add(parami);
+                message.ListParams.Add(parami);
                 index = index + countParami;
             }
 
-            if (msg.Count == msgBytes.Length)
+            if (message.Count == msgBytes.Length)
             {
-                return msg;
+                return message;
             }
             else
             {
