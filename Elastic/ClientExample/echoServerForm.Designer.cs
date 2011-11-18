@@ -50,6 +50,7 @@
         this.tbPortBox.Name = "tbPortBox";
         this.tbPortBox.Size = new System.Drawing.Size(123, 20);
         this.tbPortBox.TabIndex = 1;
+        this.tbPortBox.Text = "50000";
         // 
         // btnRegister
         // 
@@ -92,6 +93,7 @@
         this.tbPortEcoute.Name = "tbPortEcoute";
         this.tbPortEcoute.Size = new System.Drawing.Size(123, 20);
         this.tbPortEcoute.TabIndex = 10;
+        this.tbPortEcoute.Text = "50001";
         // 
         // btnUnregister
         // 
