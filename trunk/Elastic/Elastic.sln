@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService", "CatalogSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EchoService.cs", "EchoService.cs\EchoService.cs.csproj", "{62BEFAD0-0D50-42A0-AD98-AB00E515B492}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogServerIHM", "ServerExample\CatalogServerIHM.csproj", "{C171E46D-AB56-4F8F-B934-A4A91C87D6E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogServiceIHM", "ServerExample\CatalogServiceIHM.csproj", "{C171E46D-AB56-4F8F-B934-A4A91C87D6E1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EchoServerIHM", "ClientExample\EchoServerIHM.csproj", "{CF066DCC-610A-42E7-9EDA-88878F8EEBA8}"
 EndProject
