@@ -11,7 +11,7 @@ namespace EncodingLibrary
     /// 
     /// created by: NGUYEN Long Bien && DIALLO Ibrahima Mouctar.
     /// </summary>
-    public class MsgEncoding : IEncoding
+    public class MsgEncoding : IMessageEncoding
     {
         /// <summary>
         /// Encoding a message to bytes
