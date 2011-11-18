@@ -19,8 +19,6 @@ namespace ServerExample
         NetworkManager networkManager;
         IListener listener;
         ISenderReceiver senderReceiver;
-
-
         ICatalog catalog;
 
 
@@ -29,11 +27,6 @@ namespace ServerExample
             InitializeComponent();
             this.networkManager = new NetworkManager();
             catalog = new Catalog();
-        }
-
-        private void portBox_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void connexionButton_Click(object sender, EventArgs e)
