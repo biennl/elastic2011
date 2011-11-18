@@ -7,7 +7,7 @@ using System.IO;
 
 namespace MessagesLibrary
 {
-    public class ServiceMessage : IMessage
+    public class ServiceMessage : IServiceMessage
     {
 
         private int count;
