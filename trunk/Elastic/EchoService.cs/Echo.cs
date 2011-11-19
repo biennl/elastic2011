@@ -23,7 +23,7 @@ namespace EchoService
         public List<Thread> SendersReceivers { get; set; }
         public Thread listenClientThread { get; set; }
         ISenderReceiver RegisterSender;
-        
+
 
 
         public Echo(string adress, int port)
@@ -60,38 +60,35 @@ namespace EchoService
             ISenderReceiver senderReceiver = (ISenderReceiver)OsenderReceiver;
             while (true)
             {
-                        
-                        byte[] messageCount = senderReceiver.receive(4);
-                        int count = BitConverter.ToInt32(messageCount,0);
 
-                        byte[] messageBytes = senderReceiver.receive(count-4);
-                        List<Byte> listBytesMessage = new List<byte>();
-                        listBytesMessage.AddRange(messageCount);
-                        listBytesMessage.AddRange(messageBytes);
-                        ServiceMessage incomingMessage = Encoding.Decode(listBytesMessage.ToArray());
+                byte[] messageCount = senderReceiver.receive(4);
+                int count = BitConverter.ToInt32(messageCount, 0);
 
-                        if (incomingMessage.Target == ("echoService"))
+                byte[] messageBytes = senderReceiver.receive(count - 4);
+                List<Byte> listBytesMessage = new List<byte>();
+                listBytesMessage.AddRange(messageCount);
+                listBytesMessage.AddRange(messageBytes);
+                ServiceMessage incomingMessage = Encoding.Decode(listBytesMessage.ToArray());
+
+
+                if (incomingMessage.Target == "echoService")
+                {
+                    if (incomingMessage.Operation == "echo")
+                    {
+                        if (incomingMessage.ListParams.Count == 1)
                         {
-                            if (incomingMessage.Operation.Equals("echo"))
-                            {
-                                if (incomingMessage.ListParams.Count == 1)
-                                {
-                                    ServiceMessage outcomingMessage = new ServiceMessage(incomingMessage.Target, incomingMessage.Source, "callbackEcho", incomingMessage.Stamp, 1);
-                                    outcomingMessage.ListParams.Add(this.echoOperation(incomingMessage.ListParams.ElementAt(0)));
-                                    senderReceiver.send(Encoding.Encode(outcomingMessage));
-                                }
-                            }
+                            ServiceMessage outgoingMessage = new ServiceMessage(incomingMessage.Target, incomingMessage.Source, "callbackEcho", incomingMessage.Stamp, 1);
+                            outgoingMessage.ListParams.Add(this.echoOperation(incomingMessage.ListParams.ElementAt(0)));
+                            senderReceiver.send(Encoding.Encode(outgoingMessage));
                         }
-                        else
-                        {
-                            ServiceMessage errorMessage = new ServiceMessage(this.Adress, incomingMessage.Source, "Diagnostic", incomingMessage.Stamp, 1);
-                            errorMessage.ListParams.Add("we don't supply the service you want ");
-                            senderReceiver.send(Encoding.Encode(errorMessage));
-                        }
-                    
-
-
-                
+                    }
+                }
+                else
+                {
+                    ServiceMessage errorMessage = new ServiceMessage(this.Adress, incomingMessage.Source, "Diagnostic", incomingMessage.Stamp, 1);
+                    errorMessage.ListParams.Add("we don't supply the service you want ");
+                    senderReceiver.send(Encoding.Encode(errorMessage));
+                }
             }
         }
 
@@ -111,7 +108,7 @@ namespace EchoService
             RegisterSender.send(Encoding.Encode(register));
         }
 
-        public void UnregisterService(string catalogAddress,int catalogPort)
+        public void UnregisterService(string catalogAddress, int catalogPort)
         {
             ServiceMessage unregister = new ServiceMessage();
             unregister.Operation = "Unregister";
