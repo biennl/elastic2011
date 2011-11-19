@@ -68,11 +68,7 @@
         this.tbPortEcoute.Size = new System.Drawing.Size(110, 20);
         this.tbPortEcoute.TabIndex = 10;
         this.tbPortEcoute.Text = "50001";
-        // 
-        // timer
-        // 
-        this.timer.Enabled = true;
-        this.timer.Tick += new System.EventHandler(this.timer_Tick);
+    
         // 
         // groupBox
         // 

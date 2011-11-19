@@ -50,12 +50,12 @@ namespace ClientExample
             }
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        /*private void timer_Tick(object sender, EventArgs e)
         {
             if (echo != null)
                 echo.EchoServiceListener();
         }
-
+        */
         private void btnStart_Click(object sender, EventArgs e)
         {
             if (btnStart.Text == "Start")
