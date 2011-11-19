@@ -20,8 +20,9 @@ namespace EchoService
         NetworkManager Manager { get; set; }
         IListener Listener { get; set; }
         public MsgEncoding Encoding { get; set; }
-        public List<ISenderReceiver> SendersReceivers { get; set; }
+        public List<Thread> SendersReceivers { get; set; }
         ISenderReceiver RegisterSender;
+        
 
 
         public Echo(string adress, int port)
@@ -32,7 +33,7 @@ namespace EchoService
             this.Encoding = new MsgEncoding();
             this.Manager = new NetworkManager();
             this.Listener = Manager.createListner(adress, port);
-            SendersReceivers = new List<ISenderReceiver>();
+            SendersReceivers = new List<Thread>();
         }
 
         public string echoOperation(string echo)
@@ -40,22 +41,31 @@ namespace EchoService
             return echo;
         }
 
-        public void EchoServiceListener()
+        public void listenClient()
         {
-            //while (true)
-            //{
-                if (Listener.pending())
-                {
-                    ISenderReceiver senderReceiver = Listener.accept();
-                    SendersReceivers.Add(senderReceiver);
-                }
+            while (true)
+            {
+                ISenderReceiver socketClient = Listener.accept();
+                Thread client = new Thread(receiveDataFromClient);
+                client.Start(socketClient);
+                SendersReceivers.Add(client);
+            }
+        }
 
-                foreach (ISenderReceiver senderReceveir in SendersReceivers)
-                {
-                    if (senderReceveir.available() != 0)
-                    {
-                        byte[] messageBytes = senderReceveir.receive();
-                        ServiceMessage incomingMessage = Encoding.Decode(messageBytes);
+        public void receiveDataFromClient(Object OsenderReceiver)
+        {
+            ISenderReceiver senderReceiver = (ISenderReceiver)OsenderReceiver;
+            while (true)
+            {
+                        
+                        byte[] messageCount = senderReceiver.receive(4);
+                        int count = Convert.ToInt32(messageCount);
+
+                        byte[] messageBytes = senderReceiver.receive(count);
+                        List<Byte> listBytesMessage = new List<byte>();
+                        listBytesMessage.AddRange(messageCount);
+                        listBytesMessage.AddRange(messageBytes);
+                        ServiceMessage incomingMessage = Encoding.Decode(listBytesMessage.ToArray());
 
                         if (incomingMessage.Target == ("echoService"))
                         {
@@ -65,7 +75,7 @@ namespace EchoService
                                 {
                                     ServiceMessage outcomingMessage = new ServiceMessage(incomingMessage.Target, incomingMessage.Source, "callbackEcho", incomingMessage.Stamp, 1);
                                     outcomingMessage.ListParams.Add(this.echoOperation(incomingMessage.ListParams.ElementAt(0)));
-                                    senderReceveir.send(Encoding.Encode(outcomingMessage));
+                                    senderReceiver.send(Encoding.Encode(outcomingMessage));
                                 }
                             }
                         }
@@ -73,13 +83,13 @@ namespace EchoService
                         {
                             ServiceMessage errorMessage = new ServiceMessage(this.Adress, incomingMessage.Source, "Diagnostic", incomingMessage.Stamp, 1);
                             errorMessage.ListParams.Add("we don't supply the service you want ");
-                            senderReceveir.send(Encoding.Encode(errorMessage));
+                            senderReceiver.send(Encoding.Encode(errorMessage));
                         }
-                    }
+                    
 
 
-                }
-            //}
+                
+            }
         }
 
         public void RegisterService(string catalogAddress, int catalogPort)
