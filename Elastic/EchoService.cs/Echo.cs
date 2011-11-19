@@ -20,7 +20,8 @@ namespace EchoService
         NetworkManager Manager { get; set; }
         IListener Listener { get; set; }
         public MsgEncoding Encoding { get; set; }
-        public List<Thread> SendersReceivers { get; set; }
+        public List<Thread> AcceptedThreadList { get; set; }
+        public List<ISenderReceiver> AcceptedSenderReceiverList { get; set; }
         public Thread listenClientThread { get; set; }
         ISenderReceiver RegisterSender;
 
@@ -34,9 +35,17 @@ namespace EchoService
             this.Encoding = new MsgEncoding();
             this.Manager = new NetworkManager();
             this.Listener = Manager.createListner(adress, port);
-            SendersReceivers = new List<Thread>();
+            AcceptedThreadList = new List<Thread>();
+            AcceptedSenderReceiverList = new List<ISenderReceiver>();
+            listenClientThread = new Thread(this.listenClient);
+        }
+
+        public void startService()
+        {
+
             listenClientThread = new Thread(this.listenClient);
             listenClientThread.Start();
+
         }
 
         public string echoOperation(string echo)
@@ -51,7 +60,8 @@ namespace EchoService
                 ISenderReceiver socketClient = Listener.accept();
                 Thread client = new Thread(receiveDataFromClient);
                 client.Start(socketClient);
-                SendersReceivers.Add(client);
+                AcceptedThreadList.Add(client);
+                AcceptedSenderReceiverList.Add(socketClient);
             }
         }
 
@@ -70,16 +80,15 @@ namespace EchoService
                 listBytesMessage.AddRange(messageBytes);
                 ServiceMessage incomingMessage = Encoding.Decode(listBytesMessage.ToArray());
 
-
-                if (incomingMessage.Target == "echoService")
+                if (incomingMessage.Target == ("echoService"))
                 {
-                    if (incomingMessage.Operation == "echo")
+                    if (incomingMessage.Operation.Equals("echo"))
                     {
                         if (incomingMessage.ListParams.Count == 1)
                         {
-                            ServiceMessage outgoingMessage = new ServiceMessage(incomingMessage.Target, incomingMessage.Source, "callbackEcho", incomingMessage.Stamp, 1);
-                            outgoingMessage.ListParams.Add(this.echoOperation(incomingMessage.ListParams.ElementAt(0)));
-                            senderReceiver.send(Encoding.Encode(outgoingMessage));
+                            ServiceMessage outcomingMessage = new ServiceMessage(incomingMessage.Target, incomingMessage.Source, "callbackEcho", incomingMessage.Stamp, 1);
+                            outcomingMessage.ListParams.Add(this.echoOperation(incomingMessage.ListParams.ElementAt(0)));
+                            senderReceiver.send(Encoding.Encode(outcomingMessage));
                         }
                     }
                 }
@@ -89,6 +98,23 @@ namespace EchoService
                     errorMessage.ListParams.Add("we don't supply the service you want ");
                     senderReceiver.send(Encoding.Encode(errorMessage));
                 }
+
+            }
+        }
+
+        public void stopService()
+        {
+            listenClientThread.Abort();
+            listenClientThread = null;
+            Listener.close();
+            foreach (Thread thread in AcceptedThreadList)
+            {
+                thread.Abort();
+
+            }
+            foreach (ISenderReceiver senderReceiver in AcceptedSenderReceiverList)
+            {
+                senderReceiver.close();
             }
         }
 
