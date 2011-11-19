@@ -24,26 +24,26 @@ namespace ClientExample
             InitializeComponent();
         }
 
-        private void registerButton_Click(object sender, EventArgs e)
-        {
-            this.btnRegister.Enabled = false;
-            this.btnUnregister.Enabled = true;
-            this.btnDisconnect.Enabled = false;
-            if (echo == null)
-                echo = new Echo(this.adrCatalog, Convert.ToInt32(this.tbPortEcoute.Text));
-            echo.RegisterService("127.0.0.1", Convert.ToInt32(this.tbPortBox.Text));
-            if (!isRegistered)
-            {
-                this.backgroundWorker.RunWorkerAsync();
-                isRegistered = true;
-            }
+        private void registerButton_Click( object sender, EventArgs e ) {
+          this.btnRegister.Enabled = false;
+          this.btnUnregister.Enabled = true;
+          this.btnDisconnect.Enabled = false;
+          if ( echo == null )
+            echo = new Echo( this.adrCatalog, Convert.ToInt32( this.tbPortEcoute.Text ) );
+          echo.RegisterService( "127.0.0.1", Convert.ToInt32( this.tbPortBox.Text ) );
+          if ( !isRegistered ) {
+            this.backgroundWorker.RunWorkerAsync();
+            isRegistered = true;
+          }
         }
 
+        /*
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             if (echo != null)
                 echo.EchoServiceListener();
         }
+        */
 
 
         private void btdeconnexion_Click(object sender, EventArgs e)
@@ -62,10 +62,10 @@ namespace ClientExample
             isRegistered = false;
         }
 
-        //private void timer_Tick(object sender, EventArgs e)
-        //{
-        //    if (echo != null)
-        //        echo.EchoServiceListener();
-        //}
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            if (echo != null)
+                echo.EchoServiceListener();
+        }
     }
 }

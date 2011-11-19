@@ -40,7 +40,7 @@ namespace ClientIHM
         {
             ConnectCatalogService();
             lbInfo.Text = "";
-            backgroundWorker.RunWorkerAsync();
+            //backgroundWorker.RunWorkerAsync();
         }
 
         private void ConnectCatalogService()
@@ -54,6 +54,7 @@ namespace ClientIHM
             SenderReceiverEcho = NetworkManager.createSenderReceiver(address, port);
         }
 
+        /*
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
@@ -70,6 +71,8 @@ namespace ClientIHM
                 }
             }
         }
+        */
+        
 
         #region Delegate methods
         private delegate void displayDelegate(byte[] repBytes);
@@ -205,6 +208,17 @@ namespace ClientIHM
         private void disconnectToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void timer1_Tick( object sender, EventArgs e ) {
+          if ( (this.SenderReceiver != null) && (this.SenderReceiver.available() != 0) ) {
+            displayAvailableServices( SenderReceiver.receive() );
+          }
+
+          if ( (this.SenderReceiverEcho != null) && (this.SenderReceiverEcho.available() != 0) ) {
+            string str = Encode.Decode( SenderReceiverEcho.receive() ).ListParams[ 0 ];
+            displayText( str );
+          }
         }
 
 
