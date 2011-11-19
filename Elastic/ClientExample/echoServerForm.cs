@@ -16,56 +16,71 @@ namespace ClientExample
     public partial class EchoServerForm : Form
     {
         Echo echo;
-        public string adrCatalog = "127.0.0.1";
-        bool isRegistered = false;
+        private string echoIP = "127.0.0.1";
+
+        const string CATALOG_ADDRESS = "127.0.0.1";
+        const int CATALOG_PORT = 50000;
 
         public EchoServerForm()
         {
             InitializeComponent();
         }
 
-        private void registerButton_Click( object sender, EventArgs e ) {
-          this.btnRegister.Enabled = false;
-          this.btnUnregister.Enabled = true;
-          this.btnDisconnect.Enabled = false;
-          if ( echo == null )
-            echo = new Echo( this.adrCatalog, Convert.ToInt32( this.tbPortEcoute.Text ) );
-          echo.RegisterService( "127.0.0.1", Convert.ToInt32( this.tbPortBox.Text ) );
-          if ( !isRegistered ) {
-            this.backgroundWorker.RunWorkerAsync();
-            isRegistered = true;
-          }
-        }
-
-        /*
-        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void registerButton_Click(object sender, EventArgs e)
         {
-            if (echo != null)
-                echo.EchoServiceListener();
-        }
-        */
-
-
-        private void btdeconnexion_Click(object sender, EventArgs e)
-        {
-            echo.UnregisterService("127.0.0.1", Convert.ToInt32(this.tbPortBox.Text));
-            this.backgroundWorker.CancelAsync();
-            this.Close();
-        }
-
-
-        private void btnUnregister_Click(object sender, EventArgs e)
-        {
-            echo.UnregisterService("127.0.0.1", Convert.ToInt32(this.tbPortBox.Text));
-            this.btnUnregister.Enabled = false;
-            this.btnRegister.Enabled = true;
-            isRegistered = false;
+            if (btnRegister.Text == "Register")
+            {
+                if (echo != null)
+                {
+                    echo.RegisterService(CATALOG_ADDRESS, CATALOG_PORT);
+                    btnRegister.Text = "Unregister";
+                    rtbLog.Text += DateTime.Now.ToShortDateString() + " ->Echo server is registered to Catalog server.\n";
+                }
+                else
+                {
+                    lbRegError.ForeColor = Color.Red;
+                    lbRegError.Text = "You must start the service first!";
+                }
+            }
+            else if (btnRegister.Text == "Unregister")
+            {
+                echo.UnregisterService(CATALOG_ADDRESS, CATALOG_PORT);
+                btnRegister.Text = "Register";
+                rtbLog.Text += DateTime.Now.ToShortDateString() + " ->Echo server is unregistered to Catalog server.\n";
+            }
         }
 
         private void timer_Tick(object sender, EventArgs e)
         {
             if (echo != null)
                 echo.EchoServiceListener();
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            if (btnStart.Text == "Start")
+            {
+                if (this.tbPortEcoute.Text != "")
+                {
+                    echo = new Echo(this.echoIP, Convert.ToInt32(this.tbPortEcoute.Text));
+                    btnStart.Text = "Stop";
+                    lbServiceError.ForeColor = Color.Green;
+                    lbServiceError.Text = "ECHO server: IP=127.0.0.1 Port=" + tbPortEcoute.Text;
+                    lbRegError.Text = "";
+                    rtbLog.Text += DateTime.Now.ToShortDateString() + " ->Echo server started.\n";
+                }
+                else
+                {
+                    lbServiceError.ForeColor = Color.Red;
+                    lbServiceError.Text = "The listen port is not correct.";
+                }
+            }
+            else if (btnStart.Text == "Stop")
+            {
+                echo.UnregisterService(CATALOG_ADDRESS, CATALOG_PORT);
+                btnStart.Text = "Start";
+                rtbLog.Text += DateTime.Now.ToShortDateString() + " ->Echo server stopped.\n";
+            }
         }
     }
 }
