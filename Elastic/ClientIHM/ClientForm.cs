@@ -61,7 +61,7 @@ namespace ClientIHM
             SenderReceiverEcho = NetworkManager.createSenderReceiver(address, port);
         }
 
-        
+
 
         #region Delegate methods
         private delegate void displayDelegate(byte[] repBytes);
@@ -196,18 +196,31 @@ namespace ClientIHM
 
         private void disconnectToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            SenderReceiverEcho.close();
             this.Close();
         }
 
-        private void timer_Tick( object sender, EventArgs e ) {
-          if ( (this.SenderReceiver != null) && (this.SenderReceiver.available() != 0) ) {
-            displayAvailableServices( SenderReceiver.receive() );
-          }
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            if ((this.SenderReceiver != null) && (this.SenderReceiver.available() != 0))
+            {
+                displayAvailableServices(SenderReceiver.receive());
+            }
 
-          if ( (this.SenderReceiverEcho != null) && (this.SenderReceiverEcho.available() != 0) ) {
-            string str = Encode.Decode( SenderReceiverEcho.receive() ).ListParams[ 0 ];
-            displayText( str );
-          }
+            if ((this.SenderReceiverEcho != null) && (this.SenderReceiverEcho.available() != 0))
+            {
+                string str = Encode.Decode(SenderReceiverEcho.receive()).ListParams[0];
+                displayText(str);
+            }
+        }
+
+        private void btnSend100_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                System.Threading.Thread.Sleep(100);
+                btnSend_Click(sender, e);
+            }
         }
 
 

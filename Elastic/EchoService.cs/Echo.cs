@@ -25,10 +25,13 @@ namespace EchoService
         public Thread listenClientThread { get; set; }
         ISenderReceiver RegisterSender;
 
+        public string History { get; set; }
+
 
 
         public Echo(string adress, int port)
         {
+            History = "";
             this.Adress = adress;
             this.Name = "echoService";
             this.Port = port;
@@ -58,9 +61,9 @@ namespace EchoService
             while (true)
             {
                 ISenderReceiver socketClient = Listener.accept();
-                Thread client = new Thread(receiveDataFromClient);
-                client.Start(socketClient);
-                AcceptedThreadList.Add(client);
+                Thread clientThread = new Thread(receiveDataFromClient);
+                clientThread.Start(socketClient);
+                AcceptedThreadList.Add(clientThread);
                 AcceptedSenderReceiverList.Add(socketClient);
             }
         }
@@ -79,6 +82,8 @@ namespace EchoService
                 listBytesMessage.AddRange(messageCount);
                 listBytesMessage.AddRange(messageBytes);
                 ServiceMessage incomingMessage = Encoding.Decode(listBytesMessage.ToArray());
+
+                History += DateTime.Now.ToLongDateString()+" ->\"" + incomingMessage.ListParams[0] + "\" received from " + incomingMessage.Source+"\n";
 
                 if (incomingMessage.Target == ("echoService"))
                 {
