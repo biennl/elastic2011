@@ -47,10 +47,10 @@
             this.IPAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Port = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabService = new System.Windows.Forms.TabPage();
-            this.btnSend = new System.Windows.Forms.Button();
             this.rtbInput = new System.Windows.Forms.RichTextBox();
             this.rtbDisplay = new System.Windows.Forms.RichTextBox();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.btnSend = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabServiceInfo.SuspendLayout();
@@ -219,16 +219,6 @@
             this.tabService.Text = "Service Action";
             this.tabService.UseVisualStyleBackColor = true;
             // 
-            // btnSend
-            // 
-            this.btnSend.Location = new System.Drawing.Point(312, 271);
-            this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(75, 60);
-            this.btnSend.TabIndex = 2;
-            this.btnSend.Text = "Send";
-            this.btnSend.UseVisualStyleBackColor = true;
-            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
-            // 
             // rtbInput
             // 
             this.rtbInput.Location = new System.Drawing.Point(9, 235);
@@ -252,6 +242,16 @@
             // 
             this.timer.Enabled = true;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // btnSend
+            // 
+            this.btnSend.Location = new System.Drawing.Point(312, 293);
+            this.btnSend.Name = "btnSend";
+            this.btnSend.Size = new System.Drawing.Size(91, 38);
+            this.btnSend.TabIndex = 2;
+            this.btnSend.Text = "Send";
+            this.btnSend.UseVisualStyleBackColor = true;
+            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
             // ClientForm
             // 
@@ -289,7 +289,6 @@
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabServiceInfo;
         private System.Windows.Forms.TabPage tabService;
-        private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.RichTextBox rtbInput;
         private System.Windows.Forms.RichTextBox rtbDisplay;
         private System.Windows.Forms.DataGridView dgvServicesInfo;
@@ -304,5 +303,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Port;
         private System.Windows.Forms.GroupBox groupBox;
         private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Button btnSend;
     }
 }
