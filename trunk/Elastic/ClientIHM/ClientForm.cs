@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 using NetworkLibrary;
 using EncodingLibrary;
 using MessagesLibrary;
@@ -33,14 +34,12 @@ namespace ClientIHM
         private void ClientForm_Load(object sender, EventArgs e)
         {
             //ConnectCatalogService();
-            //backgroundWorker.RunWorkerAsync();
         }
 
         private void connectToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ConnectCatalogService();
             lbInfo.Text = "";
-            //backgroundWorker.RunWorkerAsync();
         }
 
         private void ConnectCatalogService()
@@ -54,24 +53,6 @@ namespace ClientIHM
             SenderReceiverEcho = NetworkManager.createSenderReceiver(address, port);
         }
 
-        /*
-        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            while (true)
-            {
-                if ((this.SenderReceiver != null) && (this.SenderReceiver.available() != 0))
-                {
-                    displayAvailableServices(SenderReceiver.receive());
-                }
-
-                if ((this.SenderReceiverEcho != null) && (this.SenderReceiverEcho.available() != 0))
-                {
-                    string str = Encode.Decode(SenderReceiverEcho.receive()).ListParams[0];
-                    displayText(str);
-                }
-            }
-        }
-        */
         
 
         #region Delegate methods
