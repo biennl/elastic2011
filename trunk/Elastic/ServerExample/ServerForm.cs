@@ -37,10 +37,9 @@ namespace ServerExample
             
             this.lbConfig.Text += " IP=127.0.0.1" + " PORT=" + tbPort.Text;
         }
-      
 
-        private void timer1_Tick( object sender, EventArgs e ) {
-
+        private void displayCatalog()
+        {
             tbRegisteredServices.Text = "";
             List<string> services = catalog.GetInfos("");
             for (int i = 0; i < services.Count(); i += 4)
@@ -48,7 +47,13 @@ namespace ServerExample
                 tbRegisteredServices.Text += services[i + 0] +
                 " " + services[i + 1] + " " + services[i + 2] + " " + services[i + 3] + " \n";
             }
+        }
+      
 
+        private void timer1_Tick( object sender, EventArgs e ) {
+
+
+            displayCatalog();
 
           if ( this.listener != null ) {
             if ( this.listener.pending() == true ) {
