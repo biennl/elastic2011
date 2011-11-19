@@ -210,7 +210,7 @@ namespace ClientIHM
             this.Close();
         }
 
-        private void timer1_Tick( object sender, EventArgs e ) {
+        private void timer_Tick( object sender, EventArgs e ) {
           if ( (this.SenderReceiver != null) && (this.SenderReceiver.available() != 0) ) {
             displayAvailableServices( SenderReceiver.receive() );
           }
