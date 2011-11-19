@@ -79,6 +79,7 @@ namespace ClientExample
             {
                 echo.UnregisterService(CATALOG_ADDRESS, CATALOG_PORT);
                 btnStart.Text = "Start";
+                lbServiceError.Text = "";
                 rtbLog.Text += DateTime.Now.ToShortDateString() + " ->Echo server stopped.\n";
             }
         }
