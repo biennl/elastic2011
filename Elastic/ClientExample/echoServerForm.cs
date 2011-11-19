@@ -62,7 +62,9 @@ namespace ClientExample
             {
                 if (this.tbPortEcoute.Text != "")
                 {
-                    echo = new Echo(this.echoIP, Convert.ToInt32(this.tbPortEcoute.Text));
+                    if(echo==null)
+                        echo = new Echo(this.echoIP, Convert.ToInt32(this.tbPortEcoute.Text));
+                    echo.startService();
                     btnStart.Text = "Stop";
                     lbServiceError.ForeColor = Color.Green;
                     lbServiceError.Text = "ECHO server: IP=127.0.0.1 Port=" + tbPortEcoute.Text;
@@ -77,7 +79,8 @@ namespace ClientExample
             }
             else if (btnStart.Text == "Stop")
             {
-                echo.UnregisterService(CATALOG_ADDRESS, CATALOG_PORT);
+                //echo.UnregisterService(CATALOG_ADDRESS, CATALOG_PORT);
+                echo.stopService();
                 btnStart.Text = "Start";
                 lbServiceError.Text = "";
                 rtbLog.Text += DateTime.Now.ToShortDateString() + " ->Echo server stopped.\n";
