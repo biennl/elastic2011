@@ -21,6 +21,7 @@ namespace EchoService
         IListener Listener { get; set; }
         public MsgEncoding Encoding { get; set; }
         public List<Thread> SendersReceivers { get; set; }
+        public Thread listenClientThread { get; set; }
         ISenderReceiver RegisterSender;
         
 
@@ -34,6 +35,8 @@ namespace EchoService
             this.Manager = new NetworkManager();
             this.Listener = Manager.createListner(adress, port);
             SendersReceivers = new List<Thread>();
+            listenClientThread = new Thread(this.listenClient);
+            listenClientThread.Start();
         }
 
         public string echoOperation(string echo)
@@ -59,9 +62,9 @@ namespace EchoService
             {
                         
                         byte[] messageCount = senderReceiver.receive(4);
-                        int count = Convert.ToInt32(messageCount);
+                        int count = BitConverter.ToInt32(messageCount,0);
 
-                        byte[] messageBytes = senderReceiver.receive(count);
+                        byte[] messageBytes = senderReceiver.receive(count-4);
                         List<Byte> listBytesMessage = new List<byte>();
                         listBytesMessage.AddRange(messageCount);
                         listBytesMessage.AddRange(messageBytes);
