@@ -29,10 +29,10 @@
         this.tbPortEcoute = new System.Windows.Forms.TextBox();
         this.timer = new System.Windows.Forms.Timer(this.components);
         this.groupBox = new System.Windows.Forms.GroupBox();
+        this.btnStart = new System.Windows.Forms.Button();
         this.lbServiceError = new System.Windows.Forms.Label();
         this.gbRegister = new System.Windows.Forms.GroupBox();
         this.lbRegError = new System.Windows.Forms.Label();
-        this.btnStart = new System.Windows.Forms.Button();
         this.rtbLog = new System.Windows.Forms.RichTextBox();
         this.groupBox.SuspendLayout();
         this.gbRegister.SuspendLayout();
@@ -68,7 +68,11 @@
         this.tbPortEcoute.Size = new System.Drawing.Size(110, 20);
         this.tbPortEcoute.TabIndex = 10;
         this.tbPortEcoute.Text = "50001";
-    
+        // 
+        // timer
+        // 
+        this.timer.Enabled = true;
+        this.timer.Tick += new System.EventHandler(this.timer_Tick);
         // 
         // groupBox
         // 
@@ -82,6 +86,16 @@
         this.groupBox.TabIndex = 12;
         this.groupBox.TabStop = false;
         this.groupBox.Text = "Starting Server";
+        // 
+        // btnStart
+        // 
+        this.btnStart.Location = new System.Drawing.Point(77, 57);
+        this.btnStart.Name = "btnStart";
+        this.btnStart.Size = new System.Drawing.Size(110, 43);
+        this.btnStart.TabIndex = 13;
+        this.btnStart.Text = "Start";
+        this.btnStart.UseVisualStyleBackColor = true;
+        this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
         // 
         // lbServiceError
         // 
@@ -109,16 +123,6 @@
         this.lbRegError.Name = "lbRegError";
         this.lbRegError.Size = new System.Drawing.Size(0, 13);
         this.lbRegError.TabIndex = 12;
-        // 
-        // btnStart
-        // 
-        this.btnStart.Location = new System.Drawing.Point(77, 57);
-        this.btnStart.Name = "btnStart";
-        this.btnStart.Size = new System.Drawing.Size(110, 43);
-        this.btnStart.TabIndex = 13;
-        this.btnStart.Text = "Start";
-        this.btnStart.UseVisualStyleBackColor = true;
-        this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
         // 
         // rtbLog
         // 

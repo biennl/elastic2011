@@ -50,19 +50,22 @@ namespace ClientExample
             }
         }
 
-        /*private void timer_Tick(object sender, EventArgs e)
+        private void timer_Tick(object sender, EventArgs e)
         {
-            if (echo != null)
-                echo.EchoServiceListener();
+            if (echo != null && echo.History != "")
+            {
+                rtbLog.Text += echo.History;
+                echo.History = "";
+            }
         }
-        */
+
         private void btnStart_Click(object sender, EventArgs e)
         {
             if (btnStart.Text == "Start")
             {
                 if (this.tbPortEcoute.Text != "")
                 {
-                    if(echo==null)
+                    if (echo == null)
                         echo = new Echo(this.echoIP, Convert.ToInt32(this.tbPortEcoute.Text));
                     echo.startService();
                     btnStart.Text = "Stop";
@@ -86,5 +89,7 @@ namespace ClientExample
                 rtbLog.Text += DateTime.Now.ToShortDateString() + " ->Echo server stopped.\n";
             }
         }
+
+
     }
 }
