@@ -44,8 +44,16 @@ namespace ClientIHM
 
         private void ConnectCatalogService()
         {
-            SenderReceiver = NetworkManager.createSenderReceiver(catalogAddress, catalogPort);
-            IsConnect = true;
+            try
+            {
+                SenderReceiver = NetworkManager.createSenderReceiver(catalogAddress, catalogPort);
+                IsConnect = true;
+            }
+            catch (Exception e)
+            {
+                lbInfo.ForeColor = Color.Blue;
+                setText("Catalog server is not available.");
+            }
         }
 
         private void ConnectService(string address, int port)
