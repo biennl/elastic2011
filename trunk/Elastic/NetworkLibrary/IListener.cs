@@ -11,6 +11,8 @@ namespace NetworkLibrary
       ISenderReceiver accept();
 
       bool pending();
+
+      void close();
     
     
     }

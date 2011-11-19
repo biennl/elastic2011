@@ -34,5 +34,10 @@ namespace NetworkLibrary {
       return this.tcpListener.Pending();
     }
 
+    public void close()
+    {
+        tcpListener.Stop();
+    }
+
   }
 }
