@@ -21,6 +21,7 @@ namespace ServerExample
         ISenderReceiver senderReceiver;
         ICatalog catalog;
 
+        const int SERVER_PORT = 50000;
 
         public ServerForm()
         {
@@ -29,13 +30,20 @@ namespace ServerExample
             catalog = new Catalog();
         }
 
-        private void connexionButton_Click(object sender, EventArgs e)
+        private void btnStart_Click(object sender, EventArgs e)
         {
-            this.listener = this.networkManager.createListner("127.0.0.1", Convert.ToInt32(this.tbPort.Text));
-            this.btnStart.Enabled = false;
-            this.backgroundWorker.RunWorkerAsync();
-            
-            this.lbConfig.Text += " IP=127.0.0.1" + " PORT=" + tbPort.Text;
+            if (btnStart.Text == "Start")
+            {
+                this.listener = this.networkManager.createListner("127.0.0.1", SERVER_PORT);
+                this.lbConfig.Text += " IP=127.0.0.1" + " PORT=" + SERVER_PORT;
+
+                btnStart.Text = "Stop";
+            }
+            else
+            {
+                btnStart.Text = "Start";
+                lbConfig.Text = "CONFIGURATION:";
+            }
         }
 
         private void displayCatalog()
@@ -48,30 +56,34 @@ namespace ServerExample
                 " " + services[i + 1] + " " + services[i + 2] + " " + services[i + 3] + " \n";
             }
         }
-      
 
-        private void timer1_Tick( object sender, EventArgs e ) {
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
 
 
             displayCatalog();
 
-          if ( this.listener != null ) {
-            if ( this.listener.pending() == true ) {
-              senderReceiver = this.listener.accept();
+            if (this.listener != null)
+            {
+                if (this.listener.pending() == true)
+                {
+                    senderReceiver = this.listener.accept();
+                }
+
+                if ((this.senderReceiver != null) && (senderReceiver.available() != 0))
+                {
+                    UTF8Encoding utf8Encoding = new UTF8Encoding();
+                    byte[] reqMsg = senderReceiver.receive();
+
+
+                    byte[] respMsg = catalog.analyseMessage(reqMsg);
+
+                    if (respMsg != null)
+                        senderReceiver.send(respMsg);
+
+                }
             }
-
-            if ( (this.senderReceiver != null) && (senderReceiver.available() != 0) ) {
-              UTF8Encoding utf8Encoding = new UTF8Encoding();
-              byte[] reqMsg = senderReceiver.receive();
-
-
-              byte[] respMsg = catalog.analyseMessage( reqMsg );
-
-              if ( respMsg != null )
-                senderReceiver.send( respMsg );
-
-            }
-          }
         }
     }
 }
