@@ -42,8 +42,8 @@ namespace EchoService
 
         public void EchoServiceListener()
         {
-            while (true)
-            {
+            //while (true)
+            //{
                 if (Listener.pending())
                 {
                     ISenderReceiver senderReceiver = Listener.accept();
@@ -79,7 +79,7 @@ namespace EchoService
 
 
                 }
-            }
+            //}
         }
 
         public void RegisterService(string catalogAddress, int catalogPort)

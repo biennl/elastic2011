@@ -38,6 +38,7 @@ namespace ServerExample
             this.lbConfig.Text += " IP=127.0.0.1" + " PORT=" + tbPort.Text;
         }
 
+      /*
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
@@ -62,6 +63,7 @@ namespace ServerExample
 
             }
         }
+       */
 
         
         
@@ -74,6 +76,26 @@ namespace ServerExample
                 tbRegisteredServices.Text += services[i + 0] +
                 " " + services[i + 1] + " " + services[i + 2] + " " + services[i + 3] + " \n";
             }
+        }
+
+        private void timer1_Tick( object sender, EventArgs e ) {
+          if ( this.listener != null ) {
+            if ( this.listener.pending() == true ) {
+              senderReceiver = this.listener.accept();
+            }
+
+            if ( (this.senderReceiver != null) && (senderReceiver.available() != 0) ) {
+              UTF8Encoding utf8Encoding = new UTF8Encoding();
+              byte[] reqMsg = senderReceiver.receive();
+
+
+              byte[] respMsg = catalog.analyseMessage( reqMsg );
+
+              if ( respMsg != null )
+                senderReceiver.send( respMsg );
+
+            }
+          }
         }
     }
 }
