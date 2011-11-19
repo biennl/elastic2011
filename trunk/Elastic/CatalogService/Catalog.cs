@@ -11,15 +11,15 @@ namespace CatalogService
 {
     public class Catalog : ICatalog
     {
-     
+
         /// <summary>
         /// services fait correspondre un service à son adresse
         /// </summary>
-        Dictionary<string, ServiceInfo> Services  ;
+        Dictionary<string, ServiceInfo> Services;
 
         //public Dictionary<string, ServiceInfo> getServices()
         //{
-           //return services;
+        //return services;
         //}
 
         public Catalog()
@@ -29,7 +29,7 @@ namespace CatalogService
 
         public void Register(string service, string title, string address, string port)
         {
-   
+
             if (Services.ContainsKey(title)) throw new Exception("Service registering error: no duplicate service! ");
             Services.Add(title, new ServiceInfo(service, address, port));
         }
@@ -37,11 +37,10 @@ namespace CatalogService
         public void Unregister(string service)
         {
             if (string.IsNullOrEmpty(service)) throw new Exception("unregister service : parameter null");
-                Services.Remove(service); 
+            Services.Remove(service);
         }
 
         public List<string> GetInfos(string title)
-
         {
             List<string> listParameters = new List<string>();
             if (title != "")
@@ -74,34 +73,33 @@ namespace CatalogService
                 }
             }
 
-           // CatalogMessage msg = new CatalogMessage(listParams);
             return listParameters;
 
         }
 
-           /// <summary>
-           ///  analyseMessage permet au serveur CATALOGUE de ne pas se préocuper 
-           ///  des opérations d'encodage/décodage, exécution d'opération
-           ///  traite le tableau de bytes reçu par le server
-           ///  Elle verifie quelle est l'operation concernée, et l'éxécute.
-           ///  elle revoie un message encodé au cas échéant.
-           /// </summary>                   
-           /// <param name="msgBytes"></param>
-           /// <returns></returns>
+        /// <summary>
+        ///  analyseMessage permet au serveur CATALOGUE de ne pas se préocuper 
+        ///  des opérations d'encodage/décodage, exécution d'opération
+        ///  traite le tableau de bytes reçu par le server
+        ///  Elle verifie quelle est l'operation concernée, et l'éxécute.
+        ///  elle revoie un message encodé au cas échéant.
+        /// </summary>                   
+        /// <param name="msgBytes"></param>
+        /// <returns></returns>
         public byte[] analyseMessage(byte[] msgBytes)
         {
 
             MsgEncoding encodingMessage = new MsgEncoding();
-            ServiceMessage message = (ServiceMessage)encodingMessage.Decode(msgBytes);            
+            ServiceMessage message = (ServiceMessage)encodingMessage.Decode(msgBytes);
 
             int Count = message.Count;
             string Source = message.Source;
             string Target = message.Target;
             string Operation = (message.Operation).ToLower();
             string Stamp = message.Stamp;
-            int ParametersCount = message.ParamCount;            
+            int ParametersCount = message.ParamCount;
             List<string> ParametersList = message.ListParams;
-                
+
             if (Operation.Equals("register"))
             {
                 try
@@ -111,9 +109,9 @@ namespace CatalogService
                 }
                 catch (Exception e)
                 {
-                    ServiceMessage messageError = new ServiceMessage(Target, Source, "Diagnostic",Stamp,1);
-                     messageError.ListParams.Add(e.Message);
-                     return encodingMessage.Encode(messageError);
+                    ServiceMessage messageError = new ServiceMessage(Target, Source, "Diagnostic", Stamp, 1);
+                    messageError.ListParams.Add(e.Message);
+                    return encodingMessage.Encode(messageError);
                 }
             }
             else if (Operation.Equals("unregister"))
@@ -131,11 +129,11 @@ namespace CatalogService
                 }
             }
             else if (Operation.Equals("getinfos"))
-            {                  
+            {
                 List<string> listeParameters = this.GetInfos(ParametersList[0]);
                 ServiceMessage messageInformations = new ServiceMessage(Target, Source, "getInfos", Stamp, listeParameters.Count());
                 messageInformations.ListParams = listeParameters;
-                return encodingMessage.Encode(messageInformations);               
+                return encodingMessage.Encode(messageInformations);
             }
             return null;
         }
