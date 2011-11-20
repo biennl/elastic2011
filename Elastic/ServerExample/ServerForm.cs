@@ -17,8 +17,7 @@ namespace ServerExample
     {
 
         NetworkManager networkManager;
-        IListener listener;
-        ISenderReceiver senderReceiver;
+        
         ICatalog catalog;
 
         const int SERVER_PORT = 50000;
@@ -27,14 +26,14 @@ namespace ServerExample
         {
             InitializeComponent();
             this.networkManager = new NetworkManager();
-            catalog = new Catalog();
+            catalog = new Catalog("127.0.0.1", SERVER_PORT);
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
             if (btnStart.Text == "Start")
             {
-                this.listener = this.networkManager.createListner("127.0.0.1", SERVER_PORT);
+                catalog.startService();
                 this.lbConfig.Text += " IP=127.0.0.1" + " PORT=" + SERVER_PORT;
 
                 btnStart.Text = "Stop";
@@ -54,35 +53,6 @@ namespace ServerExample
             {
                 tbRegisteredServices.Text += services[i + 0] +
                 " " + services[i + 1] + " " + services[i + 2] + " " + services[i + 3] + " \n";
-            }
-        }
-
-
-        private void timer_Tick(object sender, EventArgs e)
-        {
-
-
-            displayCatalog();
-
-            if (this.listener != null)
-            {
-                if (this.listener.pending() == true)
-                {
-                    senderReceiver = this.listener.accept();
-                }
-
-                if ((this.senderReceiver != null) && (senderReceiver.available() != 0))
-                {
-                    UTF8Encoding utf8Encoding = new UTF8Encoding();
-                    byte[] reqMsg = senderReceiver.receive();
-
-
-                    byte[] respMsg = catalog.analyseMessage(reqMsg);
-
-                    if (respMsg != null)
-                        senderReceiver.send(respMsg);
-
-                }
             }
         }
     }
