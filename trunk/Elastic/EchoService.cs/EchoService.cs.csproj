@@ -44,6 +44,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CatalogService\CatalogService.csproj">
+      <Project>{A295BEA6-F90B-48F8-B25F-8AB84DFB4FFC}</Project>
+      <Name>CatalogService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EncodingLibrary\EncodingLibrary.csproj">
       <Project>{52D73216-A8B8-443C-88E3-076C8D42568B}</Project>
       <Name>EncodingLibrary</Name>
