@@ -26,6 +26,8 @@ namespace CatalogService
         public ISenderReceiver SenderReceiver { get; set; }
         public MsgEncoding EncodingMessage { get; set; }
         public Thread ListenClientThread { get; set; }
+        public List<Thread> AcceptedThreadList { get; set; }
+        public List<ISenderReceiver> AcceptedSenderReceiverList { get; set; }
         Dictionary<string, ServiceInfo> Services;
 
 
@@ -38,16 +40,31 @@ namespace CatalogService
             this.NetworkManager = new NetworkManager();
             this.Listener = NetworkManager.createListner(adress, port);
             this.ListenClientThread = new Thread(this.listenClient);
+            this.AcceptedSenderReceiverList = new List<ISenderReceiver>();
+            this.AcceptedThreadList = new List<Thread>();
         }
 
         public void startService()
         {
+            if (ListenClientThread == null)
+                ListenClientThread = new Thread(this.listenClient);
             ListenClientThread.Start();
         }
 
         public void stopService()
         {
+            ListenClientThread.Abort();
+            ListenClientThread = null;
+            Listener.close();
+            foreach (Thread thread in AcceptedThreadList)
+            {
+                thread.Abort();
 
+            }
+            foreach (ISenderReceiver senderReceiver in AcceptedSenderReceiverList)
+            {
+                senderReceiver.close();
+            }
         }
 
         public void listenClient()
@@ -55,8 +72,9 @@ namespace CatalogService
             while (true)
             {
                 ISenderReceiver socketClient = Listener.accept();
-                Thread threadlient = new Thread(this.analyseClientsMessage);
-                threadlient.Start((Object)socketClient);
+                Thread threadClient = new Thread(this.analyseClientsMessage);
+                threadClient.Start((Object)socketClient);
+                
             }
 
         }
@@ -73,6 +91,7 @@ namespace CatalogService
             Byte[] bytesResult = analyseMessage(messageClientComplete.ToArray());
             if(bytesResult != null)
                 socketClient.send(bytesResult);
+            socketClient.close();
         }
 
         public void Register(string service, string title, string address, string port)
@@ -195,6 +214,18 @@ namespace CatalogService
         {
             MsgEncoding encodMessage = new MsgEncoding();
             return encodMessage.Decode(bytes);
+        }
+
+        public string displayCatalog()
+        {
+            string display = " ";
+            List<string> services = GetInfos("");
+            for (int i = 0; i < services.Count(); i += 4)
+            {
+                display += services[i + 0] +
+                " " + services[i + 1] + " " + services[i + 2] + " " + services[i + 3] + " \n";
+            }
+            return display;
         }
     }
 

@@ -42,18 +42,15 @@ namespace ServerExample
             {
                 btnStart.Text = "Start";
                 lbConfig.Text = "CONFIGURATION:";
+                catalog.stopService();
             }
         }
 
-        private void displayCatalog()
+        private void timerDisplay_Tick(object sender, EventArgs e)
         {
-            tbRegisteredServices.Text = "";
-            List<string> services = catalog.GetInfos("");
-            for (int i = 0; i < services.Count(); i += 4)
-            {
-                tbRegisteredServices.Text += services[i + 0] +
-                " " + services[i + 1] + " " + services[i + 2] + " " + services[i + 3] + " \n";
-            }
+            string res = catalog.displayCatalog();
+            if(res!=null)
+                tbRegisteredServices.Text = res;
         }
     }
 }
