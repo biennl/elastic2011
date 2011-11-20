@@ -39,8 +39,8 @@ namespace EchoService
             this.EncodingMessage = new MsgEncoding();
             this.NetworkManager = new NetworkManager();
             this.Listener = NetworkManager.createListner(adress, port);
-            AcceptedThreadList = new List<Thread>();
-            AcceptedSenderReceiverList = new List<ISenderReceiver>();
+            this.AcceptedThreadList = new List<Thread>();
+            this.AcceptedSenderReceiverList = new List<ISenderReceiver>();
             ListenClientThread = new Thread(this.listenClient);
         }
 

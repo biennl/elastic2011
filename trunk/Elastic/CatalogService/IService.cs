@@ -18,6 +18,8 @@ namespace CatalogService
         IListener Listener { get; set; }
         MsgEncoding EncodingMessage { get; set; }
         Thread ListenClientThread { get; set; }
+        List<Thread> AcceptedThreadList { get; set; }
+        List<ISenderReceiver> AcceptedSenderReceiverList { get; set; }
         
 
         void startService();

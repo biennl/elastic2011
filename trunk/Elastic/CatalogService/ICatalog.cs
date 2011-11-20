@@ -11,5 +11,6 @@ namespace CatalogService
         
         List<string> GetInfos(string service);
         byte[] analyseMessage(byte[] msgBytes);
+        string displayCatalog();
     }
 }
