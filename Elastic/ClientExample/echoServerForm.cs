@@ -10,6 +10,7 @@ using NetworkLibrary;
 using MessagesLibrary;
 using EncodingLibrary;
 using EchoService;
+using CatalogService;
 
 namespace ClientExample
 {
@@ -32,7 +33,7 @@ namespace ClientExample
             {
                 if (echo != null)
                 {
-                    echo.RegisterService(CATALOG_ADDRESS, CATALOG_PORT);
+                    echo.Register(CATALOG_ADDRESS, CATALOG_PORT);
                     btnRegister.Text = "Unregister";
                     rtbLog.Text += DateTime.Now.ToShortDateString() + " ->Echo server is registered to Catalog server.\n";
                 }
@@ -44,7 +45,7 @@ namespace ClientExample
             }
             else if (btnRegister.Text == "Unregister")
             {
-                echo.UnregisterService(CATALOG_ADDRESS, CATALOG_PORT);
+                echo.Unregister(CATALOG_ADDRESS, CATALOG_PORT);
                 btnRegister.Text = "Register";
                 rtbLog.Text += DateTime.Now.ToShortDateString() + " ->Echo server is unregistered to Catalog server.\n";
             }
