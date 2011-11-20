@@ -23,12 +23,10 @@
     /// le contenu de cette méthode avec l'éditeur de code.
     /// </summary>
     private void InitializeComponent() {
-        this.components = new System.ComponentModel.Container();
         this.btnStart = new System.Windows.Forms.Button();
         this.tbRegisteredServices = new System.Windows.Forms.RichTextBox();
         this.labelServicesList = new System.Windows.Forms.Label();
         this.lbConfig = new System.Windows.Forms.Label();
-        this.timer = new System.Windows.Forms.Timer(this.components);
         this.SuspendLayout();
         // 
         // btnStart
@@ -67,11 +65,6 @@
         this.lbConfig.TabIndex = 8;
         this.lbConfig.Text = "CONFIGURATION:";
         // 
-        // timer
-        // 
-        this.timer.Enabled = true;
-        this.timer.Tick += new System.EventHandler(this.timer_Tick);
-        // 
         // ServerForm
         // 
         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -96,7 +89,6 @@
     private System.Windows.Forms.RichTextBox tbRegisteredServices;
     private System.Windows.Forms.Label labelServicesList;
     private System.Windows.Forms.Label lbConfig;
-    private System.Windows.Forms.Timer timer;
 
   }
 }
