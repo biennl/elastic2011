@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using EncodingLibrary;
 using MessagesLibrary;
+using NetworkLibrary;
+using System.Threading;
 
 // la librairie des services et le CatalogService reference MessageLibrary
 // et EncodingLibrairy 
@@ -15,16 +17,62 @@ namespace CatalogService
         /// <summary>
         /// services fait correspondre un service à son adresse
         /// </summary>
+        /// 
+        public string Name { get; set; }
+        public string Adress { get; set; }
+        public int Port { get; set; }
+        public NetworkManager NetworkManager { get; set; }
+        public IListener Listener { get; set; }
+        public ISenderReceiver SenderReceiver { get; set; }
+        public MsgEncoding EncodingMessage { get; set; }
+        public Thread ListenClientThread { get; set; }
         Dictionary<string, ServiceInfo> Services;
 
-        //public Dictionary<string, ServiceInfo> getServices()
-        //{
-        //return services;
-        //}
 
-        public Catalog()
+        public Catalog(string adress, int port)
         {
+            this.Adress = adress;
+            this.Port = port;
+            this.EncodingMessage = new MsgEncoding();
             this.Services = new Dictionary<string, ServiceInfo>();
+            this.NetworkManager = new NetworkManager();
+            this.Listener = NetworkManager.createListner(adress, port);
+            this.ListenClientThread = new Thread(this.listenClient);
+        }
+
+        public void startService()
+        {
+            ListenClientThread.Start();
+        }
+
+        public void stopService()
+        {
+
+        }
+
+        public void listenClient()
+        {
+            while (true)
+            {
+                ISenderReceiver socketClient = Listener.accept();
+                Thread threadlient = new Thread(this.analyseClientsMessage);
+                threadlient.Start((Object)socketClient);
+            }
+
+        }
+
+        public void analyseClientsMessage(Object ObjectsocketClient)
+        {
+            ISenderReceiver socketClient = (ISenderReceiver)ObjectsocketClient;
+            Byte[] countByte = socketClient.receive(4);
+            int countMessage = BitConverter.ToInt32(countByte, 0);
+            Byte[] messageClientByte = socketClient.receive(countMessage-4);
+            List<Byte> messageClientComplete = new List<Byte>();
+            messageClientComplete.AddRange(countByte);
+            messageClientComplete.AddRange(messageClientByte);
+            Byte[] bytesResult = analyseMessage(messageClientComplete.ToArray());
+            if(bytesResult != null)
+                socketClient.send(bytesResult);
         }
 
         public void Register(string service, string title, string address, string port)
@@ -89,8 +137,8 @@ namespace CatalogService
         public byte[] analyseMessage(byte[] msgBytes)
         {
 
-            MsgEncoding encodingMessage = new MsgEncoding();
-            ServiceMessage message = (ServiceMessage)encodingMessage.Decode(msgBytes);
+            
+            ServiceMessage message = (ServiceMessage)EncodingMessage.Decode(msgBytes);
 
             int Count = message.Count;
             string Source = message.Source;
@@ -111,7 +159,7 @@ namespace CatalogService
                 {
                     ServiceMessage messageError = new ServiceMessage(Target, Source, "Diagnostic", Stamp, 1);
                     messageError.ListParams.Add(e.Message);
-                    return encodingMessage.Encode(messageError);
+                    return EncodingMessage.Encode(messageError);
                 }
             }
             else if (Operation.Equals("unregister"))
@@ -125,7 +173,7 @@ namespace CatalogService
                 {
                     ServiceMessage messageError = new ServiceMessage(Target, Source, "Diagnostic", Stamp, 1);
                     messageError.ListParams.Add(e.Message);
-                    return encodingMessage.Encode(messageError);
+                    return EncodingMessage.Encode(messageError);
                 }
             }
             else if (Operation.Equals("getinfos"))
@@ -133,7 +181,7 @@ namespace CatalogService
                 List<string> listeParameters = this.GetInfos(ParametersList[0]);
                 ServiceMessage messageInformations = new ServiceMessage(Target, Source, "getInfos", Stamp, listeParameters.Count());
                 messageInformations.ListParams = listeParameters;
-                return encodingMessage.Encode(messageInformations);
+                return EncodingMessage.Encode(messageInformations);
             }
             return null;
         }
@@ -145,8 +193,9 @@ namespace CatalogService
         /// <returns></returns>
         public ServiceMessage decode(byte[] bytes)
         {
-            MsgEncoding encodMsg = new MsgEncoding();
-            return encodMsg.Decode(bytes);
+            MsgEncoding encodMessage = new MsgEncoding();
+            return encodMessage.Decode(bytes);
         }
     }
+
 }
