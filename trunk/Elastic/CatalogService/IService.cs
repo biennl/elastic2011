@@ -21,7 +21,6 @@ namespace CatalogService
         List<Thread> AcceptedThreadList { get; set; }
         List<ISenderReceiver> AcceptedSenderReceiverList { get; set; }
         
-
         void startService();
         void stopService();
     }

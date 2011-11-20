@@ -126,6 +126,7 @@
         // 
         // rtbLog
         // 
+        this.rtbLog.BackColor = System.Drawing.SystemColors.ButtonHighlight;
         this.rtbLog.Location = new System.Drawing.Point(12, 173);
         this.rtbLog.Name = "rtbLog";
         this.rtbLog.ReadOnly = true;
