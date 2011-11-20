@@ -77,6 +77,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CatalogService\CatalogService.csproj">
+      <Project>{A295BEA6-F90B-48F8-B25F-8AB84DFB4FFC}</Project>
+      <Name>CatalogService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EchoService.cs\EchoService.cs.csproj">
       <Project>{62BEFAD0-0D50-42A0-AD98-AB00E515B492}</Project>
       <Name>EchoService.cs</Name>
