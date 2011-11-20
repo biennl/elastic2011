@@ -6,10 +6,9 @@ using MessagesLibrary;
 
 namespace CatalogService
 {
-    public interface ICatalog
+    public interface ICatalog :IService
     {
-        void Register(string service, string title, string address, string port);
-        void Unregister(string service);
+        
         List<string> GetInfos(string service);
         byte[] analyseMessage(byte[] msgBytes);
     }
