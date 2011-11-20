@@ -43,6 +43,7 @@
         // 
         // tbRegisteredServices
         // 
+        this.tbRegisteredServices.ForeColor = System.Drawing.SystemColors.WindowText;
         this.tbRegisteredServices.Location = new System.Drawing.Point(3, 121);
         this.tbRegisteredServices.Name = "tbRegisteredServices";
         this.tbRegisteredServices.Size = new System.Drawing.Size(277, 136);
