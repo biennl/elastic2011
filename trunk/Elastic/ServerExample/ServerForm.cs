@@ -16,8 +16,6 @@ namespace ServerExample
     public partial class ServerForm : Form
     {
 
-        NetworkManager networkManager;
-        
         ICatalog catalog;
 
         const int SERVER_PORT = 50000;
@@ -25,7 +23,6 @@ namespace ServerExample
         public ServerForm()
         {
             InitializeComponent();
-            this.networkManager = new NetworkManager();
             catalog = new Catalog("127.0.0.1", SERVER_PORT);
         }
 
