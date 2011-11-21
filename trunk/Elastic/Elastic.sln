@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkLibrary", "NetworkLi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService", "CatalogService\CatalogService.csproj", "{A295BEA6-F90B-48F8-B25F-8AB84DFB4FFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EchoService.cs", "EchoService.cs\EchoService.cs.csproj", "{62BEFAD0-0D50-42A0-AD98-AB00E515B492}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EchoService", "EchoService.cs\EchoService.csproj", "{62BEFAD0-0D50-42A0-AD98-AB00E515B492}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogServiceIHM", "ServerExample\CatalogServiceIHM.csproj", "{C171E46D-AB56-4F8F-B934-A4A91C87D6E1}"
 EndProject
