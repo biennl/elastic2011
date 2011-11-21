@@ -34,6 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ElasticProtocolLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ElasticProtocolLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -80,14 +84,6 @@
     <ProjectReference Include="..\CatalogService\CatalogService.csproj">
       <Project>{A295BEA6-F90B-48F8-B25F-8AB84DFB4FFC}</Project>
       <Name>CatalogService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MessagesLibrary\MessagesLibrary.csproj">
-      <Project>{F0E78280-02F3-41BA-A2C6-F33DF72CC61C}</Project>
-      <Name>MessagesLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NetworkLibrary\NetworkLibrary.csproj">
-      <Project>{13FEC2C6-8E9D-4E6D-BC55-8F838B68B71D}</Project>
-      <Name>NetworkLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
