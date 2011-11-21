@@ -49,19 +49,15 @@ namespace NetworkLibrary
         /// <returns></returns>
         public byte[] receive()
         {
-            if (this.senderReceiver == null)
-            {
-                throw new SystemException("La socket a été fermée");
-            }
-            byte[] bytes = new byte[this.senderReceiver.Available];
-            int offset = 0;
-            while (offset < this.senderReceiver.Available)
-            {
-                int received = senderReceiver.Receive(bytes, offset, this.senderReceiver.Available - offset, SocketFlags.None);
-                if (received == 0) throw new SystemException("Socket déconnectée");
-                offset += received;
-            }
-            return bytes;
+            byte[] messageCount =receive(4);
+            int count = BitConverter.ToInt32(messageCount, 0);
+
+            byte[] messageBytes = receive(count - 4);
+            List<Byte> listBytesMessage = new List<byte>();
+            listBytesMessage.AddRange(messageCount);
+            listBytesMessage.AddRange(messageBytes);
+            return listBytesMessage.ToArray();
+
         }
 
         /// <summary>
@@ -69,7 +65,7 @@ namespace NetworkLibrary
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        public byte[] receive(int count)
+        private byte[] receive(int count)
         {
             if (this.senderReceiver == null)
             {
