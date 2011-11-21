@@ -82,13 +82,8 @@ namespace CatalogService
         public void analyseClientsMessage(Object ObjectsocketClient)
         {
             ISenderReceiver socketClient = (ISenderReceiver)ObjectsocketClient;
-            Byte[] countByte = socketClient.receive(4);
-            int countMessage = BitConverter.ToInt32(countByte, 0);
-            Byte[] messageClientByte = socketClient.receive(countMessage-4);
-            List<Byte> messageClientComplete = new List<Byte>();
-            messageClientComplete.AddRange(countByte);
-            messageClientComplete.AddRange(messageClientByte);
-            Byte[] bytesResult = analyseMessage(messageClientComplete.ToArray());
+            Byte[] messageClientByte = socketClient.receive();
+            Byte[] bytesResult = analyseMessage(messageClientByte);
             if(bytesResult != null)
                 socketClient.send(bytesResult);
             socketClient.close();
