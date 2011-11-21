@@ -45,9 +45,13 @@ namespace ServerExample
 
         private void timerDisplay_Tick(object sender, EventArgs e)
         {
-            string res = catalog.displayCatalog();
-            if(res!=null)
-                tbRegisteredServices.Text = res;
+            if (catalog !=null)
+            {
+                string res = catalog.displayCatalog();
+                if(res!=null)
+                    tbRegisteredServices.Text = res;
+            }
+             
         }
     }
 }
