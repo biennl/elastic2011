@@ -216,11 +216,12 @@ namespace ClientIHM
         private void btnSend100_Click(object sender, EventArgs e)
         {
             ServiceMessage message = new ServiceMessage("Machine A", "echoService", "echo", "Echo Service Stamp", 1);
-            message.ListParams.Add("Hello Test 100 times!");
+            message.ListParams.Add("Hello Test !");
             for (int i = 0; i < 100; i++)
-            {
+            {   
                 try
                 {
+                   
                     SenderReceiverEcho.send(Encode.Encode(message));
                     rtbInput.Text = "";
                 }
