@@ -9,7 +9,7 @@ namespace EncodingLibrary
     /// <summary>
     ///cette classe permet de coder et decoder des Messages
     /// 
-    /// created by: NGUYEN Long Bien && DIALLO Ibrahima Mouctar.
+    /// created by: NGUYEN Long Bien && DIALLO Ibrahima Mouctar && Griche Abdelhafid.
     /// </summary>
     public class MsgEncoding : IMessageEncoding
     {
@@ -18,11 +18,12 @@ namespace EncodingLibrary
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
+        string hache = "";
         public byte[] Encode(ServiceMessage message)
         {
+                        
             // msgBytes for calculating the length of message without Count item
             List<byte> messageBytes = new List<byte>();
-
             // msgBytesFinal including Count item.
             List<byte> messageBytesFinal = new List<byte>();
             UTF8Encoding encoding = new UTF8Encoding();
@@ -66,6 +67,11 @@ namespace EncodingLibrary
             messageBytesFinal.AddRange(count);
             messageBytesFinal.AddRange(messageBytes);
 
+            // Ajoute au tableau messageBytesFinal le tableau correspondant au message hache
+            hache = message.HashWithMD5(message.ToString());
+            byte[] messageHache = encoding.GetBytes(hache);
+            messageBytesFinal.AddRange(messageHache);
+            
             return messageBytesFinal.ToArray();
         }
 
@@ -128,15 +134,27 @@ namespace EncodingLibrary
                 message.ListParams.Add(parami);
                 index = index + countParami;
             }
+            // récupere le message hache (algo MD5) envoyé depuis la couche NetworkLibrarymessageBytesFinal
+            string MessageHacheSent = decoding.GetString(msgBytes, msgBytes.Length-32, 32);
 
-            if (message.Count == msgBytes.Length)
+            // Hache le message construit maintenant 
+            string MessageHacheControl=message.HashWithMD5(message.ToString());
+            // on enleve 32 bytes (Corespondant a la longueur du message hache) pour le message Hache
+            if (message.Count == msgBytes.Length-32)
+            {
+                
+                return message;
+            }
+            //Comparer le Hache envoyé avec le haché construit
+            else if (MessageHacheControl == MessageHacheSent)
             {
                 return message;
             }
-            else
+            else 
             {
                 throw new Exception("Message Decoding error! ");
             }
+
         }
     }
 }
