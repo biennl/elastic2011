@@ -56,7 +56,7 @@ namespace MessagesLibrary
             set { this.count = value; }
         }
 
-        public string HashWithMD5(string stringToHash)
+        public string HashMessage(string stringToHash)
         {
 
             MD5 md5HashAlgo = MD5.Create();
