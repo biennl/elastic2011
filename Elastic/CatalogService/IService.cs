@@ -23,5 +23,6 @@ namespace CatalogService
         
         void startService();
         void stopService();
+        void listenClient();
     }
 }
