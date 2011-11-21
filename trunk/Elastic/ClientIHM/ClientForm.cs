@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Threading;
 using NetworkLibrary;
 using EncodingLibrary;
 using MessagesLibrary;
@@ -216,10 +215,20 @@ namespace ClientIHM
 
         private void btnSend100_Click(object sender, EventArgs e)
         {
+            ServiceMessage message = new ServiceMessage("Machine A", "echoService", "echo", "Echo Service Stamp", 1);
+            message.ListParams.Add("Hello Test 100 times!");
             for (int i = 0; i < 100; i++)
             {
-                System.Threading.Thread.Sleep(100);
-                btnSend_Click(sender, e);
+                try
+                {
+                    SenderReceiverEcho.send(Encode.Encode(message));
+                    rtbInput.Text = "";
+                }
+                catch (Exception ex)
+                {
+                    rtbDisplay.Text += "You are not connected.\n";
+                    rtbInput.Text = "";
+                }
             }
         }
 
