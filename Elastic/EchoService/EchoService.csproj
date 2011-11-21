@@ -8,8 +8,8 @@
     <ProjectGuid>{62BEFAD0-0D50-42A0-AD98-AB00E515B492}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EchoService</RootNamespace>
-    <AssemblyName>EchoService</AssemblyName>
+    <RootNamespace>EchoService.cs</RootNamespace>
+    <AssemblyName>EchoService.cs</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EchoService" />
+    <Compile Include="EchoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
