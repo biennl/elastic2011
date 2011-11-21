@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Collections;
 
@@ -22,7 +21,7 @@ namespace NetworkLibrary
             for (int i = 0; i < listnerList.Count; i++) 
             {
 
-                l = listnerList.ElementAt(i);
+                l = listnerList[i];
                 if ((l.port == port) && (l.adress == adress)) return l;
             }
             l = new Listener(adress, port);
