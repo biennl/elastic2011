@@ -47,11 +47,11 @@
             this.IPAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Port = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabService = new System.Windows.Forms.TabPage();
+            this.btnSend100 = new System.Windows.Forms.Button();
             this.btnSend = new System.Windows.Forms.Button();
             this.rtbInput = new System.Windows.Forms.RichTextBox();
             this.rtbDisplay = new System.Windows.Forms.RichTextBox();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.btnSend100 = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabServiceInfo.SuspendLayout();
@@ -221,6 +221,16 @@
             this.tabService.Text = "Service Action";
             this.tabService.UseVisualStyleBackColor = true;
             // 
+            // btnSend100
+            // 
+            this.btnSend100.Location = new System.Drawing.Point(312, 235);
+            this.btnSend100.Name = "btnSend100";
+            this.btnSend100.Size = new System.Drawing.Size(91, 38);
+            this.btnSend100.TabIndex = 3;
+            this.btnSend100.Text = "Send 100 Hello";
+            this.btnSend100.UseVisualStyleBackColor = true;
+            this.btnSend100.Click += new System.EventHandler(this.btnSend100_Click);
+            // 
             // btnSend
             // 
             this.btnSend.Location = new System.Drawing.Point(312, 293);
@@ -254,16 +264,6 @@
             // 
             this.timer.Enabled = true;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
-            // btnSend100
-            // 
-            this.btnSend100.Location = new System.Drawing.Point(312, 235);
-            this.btnSend100.Name = "btnSend100";
-            this.btnSend100.Size = new System.Drawing.Size(91, 38);
-            this.btnSend100.TabIndex = 3;
-            this.btnSend100.Text = "Send 100s";
-            this.btnSend100.UseVisualStyleBackColor = true;
-            this.btnSend100.Click += new System.EventHandler(this.btnSend100_Click);
             // 
             // ClientForm
             // 
