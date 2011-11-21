@@ -56,6 +56,13 @@ namespace NetworkLibrary
             List<Byte> listBytesMessage = new List<byte>();
             listBytesMessage.AddRange(messageCount);
             listBytesMessage.AddRange(messageBytes);
+            
+            // Reception d'un tableau de Byte correspondant au 
+            // message hache avec la fonction MD5
+            byte[] HachMessageBytes=receive(32);
+            listBytesMessage.AddRange(HachMessageBytes);
+
+
             return listBytesMessage.ToArray();
 
         }
