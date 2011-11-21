@@ -75,14 +75,15 @@ namespace EchoService
             while (true)
             {
 
-                byte[] messageCount = senderReceiver.receive(4);
-                int count = BitConverter.ToInt32(messageCount, 0);
+                //byte[] messageCount = senderReceiver.receive();
+                //int count = BitConverter.ToInt32(messageCount, 0); 
+               
+                //List<Byte> listBytesMessage = new List<byte>();
+                //listBytesMessage.AddRange(messageCount);
+                //listBytesMessage.AddRange(messageBytes);
 
-                byte[] messageBytes = senderReceiver.receive(count - 4);
-                List<Byte> listBytesMessage = new List<byte>();
-                listBytesMessage.AddRange(messageCount);
-                listBytesMessage.AddRange(messageBytes);
-                ServiceMessage incomingMessage = EncodingMessage.Decode(listBytesMessage.ToArray());
+                byte[] messageBytes = senderReceiver.receive();
+                ServiceMessage incomingMessage = EncodingMessage.Decode(messageBytes);
 
                 History += DateTime.Now.ToLongDateString()+" ->\"" + incomingMessage.ListParams[0] + "\" received from " + incomingMessage.Source+"\n";
 
