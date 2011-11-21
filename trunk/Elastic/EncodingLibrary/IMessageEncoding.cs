@@ -10,5 +10,6 @@ namespace EncodingLibrary
     {
         byte[] Encode(ServiceMessage msg);
         ServiceMessage Decode(byte[] msgBytes);
+    
     }
 }
