@@ -68,7 +68,7 @@ namespace EncodingLibrary
             messageBytesFinal.AddRange(messageBytes);
 
             // Ajoute au tableau messageBytesFinal le tableau correspondant au message hache
-            hache = message.HashWithMD5(message.ToString());
+            hache = message.HashMessage(message.ToString());
             byte[] messageHache = encoding.GetBytes(hache);
             messageBytesFinal.AddRange(messageHache);
 
@@ -138,7 +138,7 @@ namespace EncodingLibrary
             string MessageHacheSent = decoding.GetString(msgBytes, msgBytes.Length - 32, 32);
 
             // Hache le message construit maintenant 
-            string MessageHacheControl = message.HashWithMD5(message.ToString());
+            string MessageHacheControl = message.HashMessage(message.ToString());
             // on enleve 32 bytes (Corespondant a la longueur du message hache) pour le message Hache
             //Comparer le Hache envoyé avec le haché construit
             if (message.Count == msgBytes.Length - 32 && MessageHacheControl == MessageHacheSent)
