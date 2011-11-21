@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace MessagesLibrary
 {
@@ -17,6 +18,7 @@ namespace MessagesLibrary
         public string Stamp { get; set; }
         public int ParamCount { get; set; }
         public List<string> ListParams { get; set; }
+        
 
         public ServiceMessage()
         {
@@ -52,6 +54,29 @@ namespace MessagesLibrary
         {
             get { return this.count; }
             set { this.count = value; }
+        }
+
+        public string HashWithMD5(string stringToHash)
+        {
+
+            MD5 md5HashAlgo = MD5.Create();
+
+            // Place le texte à hacher dans un tableau d'octets 
+            byte[] byteArrayToHash = Encoding.UTF8.GetBytes(stringToHash);
+
+            // Hash le texte et place le résulat dans un tableau d'octets 
+            byte[] hashResult = md5HashAlgo.ComputeHash(byteArrayToHash);
+
+            StringBuilder result = new StringBuilder();
+
+            for (int i = 0; i < hashResult.Length; i++)
+            {
+                // Affiche le Hash en hexadecimal 
+                result.Append(hashResult[i].ToString("X2"));
+            }
+
+            return result.ToString();
+            
         }
 
 
