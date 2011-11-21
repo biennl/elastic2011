@@ -21,7 +21,7 @@ namespace EncodingLibrary
         string hache = "";
         public byte[] Encode(ServiceMessage message)
         {
-                        
+
             // msgBytes for calculating the length of message without Count item
             List<byte> messageBytes = new List<byte>();
             // msgBytesFinal including Count item.
@@ -71,7 +71,7 @@ namespace EncodingLibrary
             hache = message.HashWithMD5(message.ToString());
             byte[] messageHache = encoding.GetBytes(hache);
             messageBytesFinal.AddRange(messageHache);
-            
+
             return messageBytesFinal.ToArray();
         }
 
@@ -135,22 +135,17 @@ namespace EncodingLibrary
                 index = index + countParami;
             }
             // récupere le message hache (algo MD5) envoyé depuis la couche NetworkLibrarymessageBytesFinal
-            string MessageHacheSent = decoding.GetString(msgBytes, msgBytes.Length-32, 32);
+            string MessageHacheSent = decoding.GetString(msgBytes, msgBytes.Length - 32, 32);
 
             // Hache le message construit maintenant 
-            string MessageHacheControl=message.HashWithMD5(message.ToString());
+            string MessageHacheControl = message.HashWithMD5(message.ToString());
             // on enleve 32 bytes (Corespondant a la longueur du message hache) pour le message Hache
-            if (message.Count == msgBytes.Length-32)
-            {
-                
-                return message;
-            }
             //Comparer le Hache envoyé avec le haché construit
-            else if (MessageHacheControl == MessageHacheSent)
+            if (message.Count == msgBytes.Length - 32 && MessageHacheControl == MessageHacheSent)
             {
                 return message;
             }
-            else 
+            else
             {
                 throw new Exception("Message Decoding error! ");
             }
