@@ -10,6 +10,7 @@ using NetworkLibrary;
 using EncodingLibrary;
 using MessagesLibrary;
 
+
 namespace ClientIHM
 {
     public partial class ClientForm : Form
