@@ -8,8 +8,8 @@ namespace EncodingLibrary
 {
     public interface IMessageEncoding
     {
-        byte[] Encode(ServiceMessage msg);
-        ServiceMessage Decode(byte[] msgBytes);
+        byte[] Encode(Message msg);
+        Message Decode(byte[] msgBytes);
     
     }
 }

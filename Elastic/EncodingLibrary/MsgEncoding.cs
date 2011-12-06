@@ -19,7 +19,7 @@ namespace EncodingLibrary
         /// <param name="message"></param>
         /// <returns></returns>
         string hache = "";
-        public byte[] Encode(ServiceMessage message)
+        public byte[] Encode(Message message)
         {
 
             // msgBytes for calculating the length of message without Count item
@@ -80,11 +80,11 @@ namespace EncodingLibrary
         /// </summary>
         /// <param name="msgBytes"></param>
         /// <returns></returns>
-        public ServiceMessage Decode(byte[] msgBytes)
+        public Message Decode(byte[] msgBytes)
         {
             int index = 0;
             const int INTEGER32_SIZE = 4;
-            ServiceMessage message = new ServiceMessage();
+            Message message = new Message();
             int count = BitConverter.ToInt32(msgBytes, index);
             message.Count = count;
             index = index + INTEGER32_SIZE;
