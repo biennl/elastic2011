@@ -30,7 +30,7 @@ namespace CatalogService
         public List<ISenderReceiver> AcceptedSenderReceiverList { get; set; }
         Dictionary<string, ServiceInfo> Services;
 
-
+        
         public Catalog(string adress, int port)
         {
             this.Adress = adress;
@@ -43,7 +43,12 @@ namespace CatalogService
             this.AcceptedSenderReceiverList = new List<ISenderReceiver>();
             this.AcceptedThreadList = new List<Thread>();
         }
-
+        /// <summary>
+        /// demarre le service de registration
+        /// <param ></param>
+        /// <returns></returns>
+        /// </summary>
+        
         public void startService()
         {
             if (ListenClientThread == null)
@@ -51,6 +56,7 @@ namespace CatalogService
             ListenClientThread.Start();
         }
 
+        //stop le service
         public void stopService()
         {
             ListenClientThread.Abort();
@@ -67,6 +73,8 @@ namespace CatalogService
             }
         }
 
+        //cette methode ecoute les requetes des clients 
+        //et demarre un thread de communication 
         public void listenClient()
         {
             while (true)
@@ -74,11 +82,11 @@ namespace CatalogService
                 ISenderReceiver socketClient = Listener.accept();
                 Thread threadClient = new Thread(this.analyseClientsMessage);
                 threadClient.Start((Object)socketClient);
-                
             }
-
         }
 
+        //fonction qui analyse le message envoyé par le client et se charge de lui envoyer
+        //un message correspondant a sa requete ( register , unregister , getinfos ) 
         public void analyseClientsMessage(Object ObjectsocketClient)
         {
             ISenderReceiver socketClient = (ISenderReceiver)ObjectsocketClient;
@@ -89,6 +97,10 @@ namespace CatalogService
             socketClient.close();
         }
 
+        /// <summary>
+        /// fonction qui enregistre un service
+        /// <returns></returns>
+        /// </summary>
         public void Register(string service, string title, string address, string port)
         {
 
@@ -96,12 +108,14 @@ namespace CatalogService
             Services.Add(title, new ServiceInfo(service, address, port));
         }
 
+        // desenregistre le client
         public void Unregister(string service)
         {
             if (string.IsNullOrEmpty(service)) throw new Exception("unregister service : parameter null");
             Services.Remove(service);
         }
 
+        //fournit les information sur tous les services enregistrés 
         public List<string> GetInfos(string title)
         {
             List<string> listParameters = new List<string>();
