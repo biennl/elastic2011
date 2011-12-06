@@ -11,6 +11,7 @@ namespace CatalogService
 {
     public interface IService
     {        
+        //les trois méthodes obligatoire pour un sevice de catalogue
         void startService();
         void stopService();
         void listenClient();
