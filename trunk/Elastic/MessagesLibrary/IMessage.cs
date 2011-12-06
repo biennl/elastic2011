@@ -7,7 +7,6 @@ namespace MessagesLibrary
 {
     public interface IMessage
     {
-
        string ToString();
     }
 }
