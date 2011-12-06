@@ -10,8 +10,7 @@ using CatalogService;
 
 namespace EchoService 
 {
-    // classe repreente le service Echo, il utilise le protocole Elastique via 
-    // les bibliotheques Encoding, Message, Network
+    // cette classe represente  un service d'envoie de message
 
     public class Echo : IService 
     {
@@ -25,7 +24,6 @@ namespace EchoService
         public List<ISenderReceiver> AcceptedSenderReceiverList { get; set; }
         public Thread ListenClientThread { get; set; }
         ISenderReceiver RegisterSender;
-
         public string History { get; set; }
 
 
@@ -44,19 +42,22 @@ namespace EchoService
             ListenClientThread = new Thread(this.listenClient);
         }
 
+        //fonction qui demarre le service
         public void startService()
         {
-
             ListenClientThread = new Thread(this.listenClient);
             ListenClientThread.Start();
-
         }
 
+        //fonction qui represente l'opeation du message
         public string echoOperation(string echo)
         {
             return echo;
         }
 
+        //méthode qui ecoute les requetes des client et qui creer une socket
+        //pour gérer la communication entre le client et le service
+        //cette méthode est mise dans un thread
         public void listenClient()
         {
             while (true)
@@ -69,6 +70,8 @@ namespace EchoService
             }
         }
 
+        //methode qui ecoute les requete d'un client et les affiche cette methode 
+        //mise dans un thread
         public void receiveDataFromClient(Object OsenderReceiver)
         {
             ISenderReceiver senderReceiver = (ISenderReceiver)OsenderReceiver;
@@ -102,6 +105,7 @@ namespace EchoService
             }
         }
 
+        //arrete le service
         public void stopService()
         {
             ListenClientThread.Abort();
@@ -117,6 +121,9 @@ namespace EchoService
                 senderReceiver.close();
             }
         }
+
+        //ces deux methodes apelle le serveur "register" pour s'enregistrer
+        //et ce desenregistrer 
 
         public void Register(string catalogAddress, int catalogPort)
         {
