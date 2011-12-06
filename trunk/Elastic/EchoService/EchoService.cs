@@ -75,15 +75,8 @@ namespace EchoService
             while (true)
             {
 
-                //byte[] messageCount = senderReceiver.receive();
-                //int count = BitConverter.ToInt32(messageCount, 0); 
-               
-                //List<Byte> listBytesMessage = new List<byte>();
-                //listBytesMessage.AddRange(messageCount);
-                //listBytesMessage.AddRange(messageBytes);
-
                 byte[] messageBytes = senderReceiver.receive();
-                ServiceMessage incomingMessage = EncodingMessage.Decode(messageBytes);
+                Message incomingMessage = EncodingMessage.Decode(messageBytes);
 
                 History += DateTime.Now.ToLongDateString()+" ->\"" + incomingMessage.ListParams[0] + "\" received from " + incomingMessage.Source+"\n";
 
@@ -93,7 +86,7 @@ namespace EchoService
                     {
                         if (incomingMessage.ListParams.Count == 1)
                         {
-                            ServiceMessage outcomingMessage = new ServiceMessage(incomingMessage.Target, incomingMessage.Source, "callbackEcho", incomingMessage.Stamp, 1);
+                            Message outcomingMessage = new Message(incomingMessage.Target, incomingMessage.Source, "callbackEcho", incomingMessage.Stamp, 1);
                             outcomingMessage.ListParams.Add(this.echoOperation(incomingMessage.ListParams.ElementAt(0)));
                             senderReceiver.send(EncodingMessage.Encode(outcomingMessage));
                         }
@@ -101,7 +94,7 @@ namespace EchoService
                 }
                 else
                 {
-                    ServiceMessage errorMessage = new ServiceMessage(this.Adress, incomingMessage.Source, "Diagnostic", incomingMessage.Stamp, 1);
+                    Message errorMessage = new Message(this.Adress, incomingMessage.Source, "Diagnostic", incomingMessage.Stamp, 1);
                     errorMessage.ListParams.Add("we don't supply the service you want ");
                     senderReceiver.send(EncodingMessage.Encode(errorMessage));
                 }
@@ -127,7 +120,7 @@ namespace EchoService
 
         public void Register(string catalogAddress, int catalogPort)
         {
-            ServiceMessage register = new ServiceMessage();
+            Message register = new Message();
             register.Operation = "Register";
             register.Target = "127.0.0.1";
             register.Source = Adress;
@@ -143,7 +136,7 @@ namespace EchoService
 
         public void Unregister(string catalogAddress, int catalogPort)
         {
-            ServiceMessage unregister = new ServiceMessage();
+            Message unregister = new Message();
             unregister.Operation = "Unregister";
             unregister.Target = "127.0.0.1";
             unregister.Source = Adress;
