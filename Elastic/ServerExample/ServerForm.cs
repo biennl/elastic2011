@@ -11,11 +11,13 @@ using CatalogService;
 
 namespace ServerExample
 {
+    //classe partiel qui represente l'ihm du catalogue
+    //delegue toutes les fonctions au service catalgoue instancier
     public partial class ServerForm : Form
     {
 
         ICatalog catalog;
-
+        //port par defaut 5000 
         const int SERVER_PORT = 50000;
 
         public ServerForm()
@@ -41,6 +43,7 @@ namespace ServerExample
             }
         }
 
+        //affichage de la liste des services enregistrer
         private void timerDisplay_Tick(object sender, EventArgs e)
         {
             if (catalog !=null)
