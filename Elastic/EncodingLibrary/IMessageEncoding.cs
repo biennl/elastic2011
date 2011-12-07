@@ -6,6 +6,9 @@ using MessagesLibrary;
 
 namespace EncodingLibrary
 {
+    /// <summary>
+    /// represente l'interface d'un encodeur et decodeur de message
+    /// </summary>
     public interface IMessageEncoding
     {
         byte[] Encode(Message msg);
