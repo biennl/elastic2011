@@ -44,6 +44,9 @@ namespace ClientIHM
             lbInfo.Text = "";
         }
 
+        /// <summary>
+        /// Connect to catalog server
+        /// </summary>
         private void ConnectCatalogService()
         {
             try
@@ -51,13 +54,18 @@ namespace ClientIHM
                 SenderReceiver = NetworkManager.createSenderReceiver(catalogAddress, catalogPort);
                 IsConnect = true;
             }
-            catch (Exception e)
+            catch
             {
                 lbInfo.ForeColor = Color.Blue;
                 setText("Catalog server is not available.");
             }
         }
 
+        /// <summary>
+        /// connecter au service echo
+        /// </summary>
+        /// <param name="address">adresse du server echo</param>
+        /// <param name="port">numéro porte du service echo</param>
         private void ConnectService(string address, int port)
         {
             SenderReceiverEcho = NetworkManager.createSenderReceiver(address, port);
@@ -181,7 +189,7 @@ namespace ClientIHM
                 SenderReceiverEcho.send(Encode.Encode(message));
                 rtbInput.Text = "";
             }
-            catch (Exception ex)
+            catch
             {
                 rtbDisplay.Text += "You are not connected.\n";
                 rtbInput.Text = "";
@@ -189,6 +197,11 @@ namespace ClientIHM
 
         }
 
+        /// <summary>
+        /// set button accept quand utilisateur saisie textes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void rtbInput_TextChanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(rtbInput.Text))
@@ -202,6 +215,11 @@ namespace ClientIHM
             this.Close();
         }
 
+        /// <summary>
+        /// timer l'appelera pour mettre à jour 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void timer_Tick(object sender, EventArgs e)
         {
             if ((this.SenderReceiver != null) && (this.SenderReceiver.available() != 0))
@@ -216,6 +234,11 @@ namespace ClientIHM
             }
         }
 
+        /// <summary>
+        /// action du bouton Send100: envoyer 100 fois la même chanine "Hello Test" pour tester rapidement.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSend100_Click(object sender, EventArgs e)
         {
             ServiceMessage message = new ServiceMessage("Machine A", "echoService", "echo", "Echo Service Stamp", 1);
@@ -228,7 +251,7 @@ namespace ClientIHM
                     SenderReceiverEcho.send(Encode.Encode(message));
                     rtbInput.Text = "";
                 }
-                catch (Exception ex)
+                catch
                 {
                     rtbDisplay.Text += "You are not connected.\n";
                     rtbInput.Text = "";

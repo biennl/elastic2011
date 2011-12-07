@@ -7,7 +7,9 @@ using System.Net.Sockets;
 
 namespace NetworkLibrary
 {
-
+    /// <summary>
+    /// Interface représentant une socket permettant de recevoir et d'envoyer des données
+    /// </summary>
     class SenderReceiver : ISenderReceiver
     {
 
@@ -26,7 +28,7 @@ namespace NetworkLibrary
         }
 
         /// <summary>
-        /// Sending datas specified by the parameter <paramref name="bytes" />
+        /// Envoie des données spécifié par le paramètre <paramref name="bytes" />
         /// </summary>
         /// <param name="bytes"></param>
         public void send(byte[] bytes)
@@ -35,18 +37,19 @@ namespace NetworkLibrary
             {
                 throw new SystemException("La socket a été fermée");
             }
-            int offset = 0;
-            while (offset < bytes.Length)
-            {
-                int sent = this.senderReceiver.Send(bytes, offset, bytes.Length - offset, SocketFlags.None);
-                offset += sent;
-            }
+            //int offset = 0;
+            //while (offset < bytes.Length)
+            //{
+            //    int sent = this.senderReceiver.Send(bytes, offset, bytes.Length - offset, SocketFlags.None);
+            //    offset += sent;
+            //}
+            senderReceiver.Send(bytes, SocketFlags.None);
         }
 
         /// <summary>
-        /// Receive all data containing in the socket
+        /// Reçoit toutes les données disponibles sur la socket
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Un tableau de bytes représentant les données disponibles sur la socket</returns>
         public byte[] receive()
         {
             byte[] messageCount =receive(4);
@@ -89,6 +92,10 @@ namespace NetworkLibrary
             return bytes;
         }
 
+        /// <summary>
+        /// Détermine le nombre de bytes disponible sur la socket
+        /// </summary>
+        /// <returns>Le nombre de bytes disponible sur la socket</returns>
         public int available()
         {
             return this.senderReceiver.Available;
