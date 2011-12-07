@@ -11,8 +11,11 @@ using CatalogService;
 
 namespace ServerExample
 {
-    //classe partiel qui represente l'ihm du catalogue
-    //delegue toutes les fonctions au service catalgoue instancier
+    
+    /// <summary>
+    /// classe partiel qui represente l'ihm du catalogue
+    /// delegue toutes les fonctions au service catalgoue instancier
+    /// </summary>
     public partial class ServerForm : Form
     {
 
@@ -26,6 +29,11 @@ namespace ServerExample
             catalog = new Catalog("127.0.0.1", SERVER_PORT);
         }
 
+        /// <summary>
+        /// méthode qui démmarre le service 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnStart_Click(object sender, EventArgs e)
         {
             if (btnStart.Text == "Start")
@@ -44,6 +52,12 @@ namespace ServerExample
         }
 
         //affichage de la liste des services enregistrer
+        /// <summary>
+        /// fonction qui affiche a intervalle régulier
+        /// la liste des serveurs qui sont enregistrer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void timerDisplay_Tick(object sender, EventArgs e)
         {
             if (catalog !=null)
