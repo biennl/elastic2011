@@ -9,9 +9,12 @@ using EncodingLibrary;
 
 namespace CatalogService
 {
+    /// <summary>
+    /// les trois méthodes obligatoires pour un implementer un service 
+    /// </summary>
     public interface IService
     {        
-        //les trois méthodes obligatoire pour un sevice de catalogue
+        
         void startService();
         void stopService();
         void listenClient();
