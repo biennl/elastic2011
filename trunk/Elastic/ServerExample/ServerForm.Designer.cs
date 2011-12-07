@@ -44,16 +44,16 @@
         // tbRegisteredServices
         // 
         this.tbRegisteredServices.ForeColor = System.Drawing.SystemColors.WindowText;
-        this.tbRegisteredServices.Location = new System.Drawing.Point(3, 121);
+        this.tbRegisteredServices.Location = new System.Drawing.Point(12, 121);
         this.tbRegisteredServices.Name = "tbRegisteredServices";
-        this.tbRegisteredServices.Size = new System.Drawing.Size(277, 136);
+        this.tbRegisteredServices.Size = new System.Drawing.Size(334, 199);
         this.tbRegisteredServices.TabIndex = 5;
         this.tbRegisteredServices.Text = "";
         // 
         // labelServicesList
         // 
         this.labelServicesList.AutoSize = true;
-        this.labelServicesList.Location = new System.Drawing.Point(0, 105);
+        this.labelServicesList.Location = new System.Drawing.Point(9, 105);
         this.labelServicesList.Name = "labelServicesList";
         this.labelServicesList.Size = new System.Drawing.Size(94, 13);
         this.labelServicesList.TabIndex = 6;
@@ -78,7 +78,7 @@
         // 
         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        this.ClientSize = new System.Drawing.Size(284, 262);
+        this.ClientSize = new System.Drawing.Size(358, 332);
         this.Controls.Add(this.lbConfig);
         this.Controls.Add(this.labelServicesList);
         this.Controls.Add(this.tbRegisteredServices);

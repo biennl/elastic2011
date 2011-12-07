@@ -122,9 +122,13 @@ namespace EchoService
             }
         }
 
-        //ces deux methodes apelle le serveur "register" pour s'enregistrer
-        //et ce desenregistrer 
-
+        
+        /// <summary>
+        ///ces deux methodes apelle le serveur "register" pour s'enregistrer
+        ///et ce desenregistrer 
+        /// </summary>
+        /// <param name="catalogAddress"></param>
+        /// <param name="catalogPort"></param>
         public void Register(string catalogAddress, int catalogPort)
         {
             Message register = new Message();
