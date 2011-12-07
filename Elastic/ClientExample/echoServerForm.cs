@@ -14,6 +14,11 @@ using CatalogService;
 
 namespace ClientExample
 {
+    /// <summary>
+    ///  classe qui represente l'IHM du service echo
+    ///  cette classe delegue au service toutes les operations
+    ///  demandées par l'utilisateur
+    /// </summary>
     public partial class EchoServerForm : Form
     {
         Echo echo;
@@ -27,6 +32,13 @@ namespace ClientExample
             InitializeComponent();
         }
 
+        /// <summary>
+        /// fonction qui est appelée lors d'un click 
+        /// sur le bouton register. Declenche l'enregistrement 
+        /// du service
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void registerButton_Click(object sender, EventArgs e)
         {
             if (btnRegister.Text == "Register")
@@ -51,6 +63,11 @@ namespace ClientExample
             }
         }
 
+        /// <summary>
+        /// fonction qui affiche les message recus par les utilisateurs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void timer_Tick(object sender, EventArgs e)
         {
             if (echo != null && echo.History != "")
@@ -60,6 +77,13 @@ namespace ClientExample
             }
         }
 
+        /// <summary>
+        /// methode appelée lors d'un click sur le bouton start 
+        /// provoque le demarrage du service aps son enregistrement
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnStart_Click(object sender, EventArgs e)
         {
             if (btnStart.Text == "Start")
