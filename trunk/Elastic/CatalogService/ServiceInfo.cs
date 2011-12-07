@@ -5,7 +5,12 @@ using System.Text;
 
 namespace CatalogService
 {
-    //represente la structure de données lier a un service
+    /// <summary>
+    /// represente la structure de données 
+    /// pour l'enregistrement de service.
+    /// Chaque service est representer par son adresse
+    /// IP, son port d'ecoute et le nom du service
+    /// </summary>
     class ServiceInfo
     {
         public string Service { set; get; }
