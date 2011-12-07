@@ -13,7 +13,10 @@ using MessagesLibrary;
 
 namespace ClientIHM
 {
-    //classe qui represente l'IHM d'un client du service message
+    
+    /// <summary>
+    /// classe qui represente l'IHM d'un client du service message
+    /// </summary>
     public partial class ClientForm : Form
     {
         NetworkManager NetworkManager;
