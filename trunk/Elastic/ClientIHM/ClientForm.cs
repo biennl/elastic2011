@@ -75,6 +75,10 @@ namespace ClientIHM
 
         #region Delegate methods
         private delegate void displayDelegate(byte[] repBytes);
+        /// <summary>
+        /// display 
+        /// </summary>
+        /// <param name="repBytes"></param>
         private void displayAvailableServices(byte[] repBytes)
         {
             if (dgvServicesInfo.InvokeRequired)

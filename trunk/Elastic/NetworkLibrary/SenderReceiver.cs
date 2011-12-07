@@ -52,17 +52,17 @@ namespace NetworkLibrary
         /// <returns>Un tableau de bytes représentant les données disponibles sur la socket</returns>
         public byte[] receive()
         {
-            byte[] messageCount =receive(4);
+            byte[] messageCount = receive(4);
             int count = BitConverter.ToInt32(messageCount, 0);
 
             byte[] messageBytes = receive(count - 4);
             List<Byte> listBytesMessage = new List<byte>();
             listBytesMessage.AddRange(messageCount);
             listBytesMessage.AddRange(messageBytes);
-            
+
             // Reception d'un tableau de Byte correspondant au 
             // message hache avec la fonction MD5
-            byte[] HachMessageBytes=receive(32);
+            byte[] HachMessageBytes = receive(32);
             listBytesMessage.AddRange(HachMessageBytes);
 
 
