@@ -122,7 +122,10 @@ namespace EchoService
             }
         }
 
-        //arrete le service
+        
+        /// <summary>
+        /// arrete le service
+        /// </summary>
         public void stopService()
         {
             ListenClientThread.Abort();
@@ -162,6 +165,11 @@ namespace EchoService
             RegisterSender.send(EncodingMessage.Encode(register));
         }
 
+        /// <summary>
+        /// operation qui permet  un service de se desenregistrer
+        /// </summary>
+        /// <param name="catalogAddress"></param>
+        /// <param name="catalogPort"></param>
         public void Unregister(string catalogAddress, int catalogPort)
         {
             Message unregister = new Message();
