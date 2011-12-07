@@ -13,6 +13,7 @@ using MessagesLibrary;
 
 namespace ClientIHM
 {
+    //classe qui represente l'IHM d'un client du service message
     public partial class ClientForm : Form
     {
         NetworkManager NetworkManager;
@@ -20,7 +21,8 @@ namespace ClientIHM
         ISenderReceiver SenderReceiverEcho;
         IMessageEncoding Encode;
         bool IsConnect = false;
-
+        
+        // adresse par defaut du client 
         private string catalogAddress = "127.0.0.1";
         private int catalogPort = 50000;
 
