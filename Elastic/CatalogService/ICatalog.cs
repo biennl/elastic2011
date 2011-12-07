@@ -6,10 +6,13 @@ using MessagesLibrary;
 
 namespace CatalogService
 {
-    //interface du service catalogue 
+     
+    /// <summary>
+    /// interface minimale et requise pour implementer
+    /// un service catalogue 
+    /// </summary>
     public interface ICatalog :IService
     {
-        //les trois methodes obligatoire de tout catalogue
         List<string> GetInfos(string service);
         byte[] analyseMessage(byte[] msgBytes);
         string displayCatalog();
