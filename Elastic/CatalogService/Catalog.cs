@@ -9,8 +9,10 @@ using System.Threading;
 
 // la librairie des services et le CatalogService reference MessageLibrary
 // et EncodingLibrairy 
+ 
 namespace CatalogService
-{
+{   
+
     public class Catalog : ICatalog
     {
 
@@ -48,7 +50,6 @@ namespace CatalogService
         /// <param ></param>
         /// <returns></returns>
         /// </summary>
-        
         public void startService()
         {
             if (ListenClientThread == null)
@@ -56,7 +57,10 @@ namespace CatalogService
             ListenClientThread.Start();
         }
 
-        //stop le service
+        
+        /// <summary>
+        /// stop le service 
+        /// </summary>
         public void stopService()
         {
             ListenClientThread.Abort();
@@ -73,8 +77,11 @@ namespace CatalogService
             }
         }
 
-        //cette methode ecoute les requetes des clients 
-        //et demarre un thread de communication 
+ 
+        /// <summary>
+        /// cette methode ecoute les requetes des clients 
+        /// et demarre un thread de communication
+        /// </summary>
         public void listenClient()
         {
             while (true)
@@ -85,8 +92,12 @@ namespace CatalogService
             }
         }
 
-        //fonction qui analyse le message envoyé par le client et se charge de lui envoyer
-        //un message correspondant a sa requete ( register , unregister , getinfos ) 
+
+        /// <summary>
+        /// fonction qui analyse le message envoyé par le client et se charge de lui envoyer
+        /// un message correspondant a sa requete ( register , unregister , getinfos ) 
+        /// </summary>
+        /// <param name="ObjectsocketClient"></param>
         public void analyseClientsMessage(Object ObjectsocketClient)
         {
             ISenderReceiver socketClient = (ISenderReceiver)ObjectsocketClient;
@@ -108,14 +119,23 @@ namespace CatalogService
             Services.Add(title, new ServiceInfo(service, address, port));
         }
 
-        // desenregistre le client
+        
+        /// <summary>
+        /// desenregistre le client 
+        /// </summary>
+        /// <param name="service"></param>
         public void Unregister(string service)
         {
             if (string.IsNullOrEmpty(service)) throw new Exception("unregister service : parameter null");
             Services.Remove(service);
         }
 
-        //fournit les information sur tous les services enregistrés 
+         
+        /// <summary>
+        /// fournit les information sur tous les services enregistrés
+        /// </summary>
+        /// <param name="title"></param>
+        /// <returns></returns>
         public List<string> GetInfos(string title)
         {
             List<string> listParameters = new List<string>();
@@ -158,7 +178,7 @@ namespace CatalogService
         ///  des opérations d'encodage/décodage, exécution d'opération
         ///  traite le tableau de bytes reçu par le server
         ///  Elle verifie quelle est l'operation concernée, et l'éxécute.
-        ///  elle revoie un message encodé au cas échéant.
+        ///  elle revoie un message encodé le cas échéant.
         /// </summary>                   
         /// <param name="msgBytes"></param>
         /// <returns></returns>
@@ -213,12 +233,11 @@ namespace CatalogService
             }
             return null;
         }
-        /// <summary>
-        ///  methode utilitaire : sert à déléguer le decodage à catalog
-        ///  et renvoyer le message correspondant;   
-        /// </summary>
-        /// <param name="bytes"></param>
-        /// <returns></returns>
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="bytes"></param>
+        /// <returns name="ServiceMessage"></returns>
         public ServiceMessage decode(byte[] bytes)
         {
             MsgEncoding encodMessage = new MsgEncoding();
