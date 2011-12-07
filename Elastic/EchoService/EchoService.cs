@@ -10,8 +10,10 @@ using CatalogService;
 
 namespace EchoService 
 {
-    // cette classe represente  un service d'envoie de message
-
+    /
+    /// <summary>
+    /// cette classe represente  un service d'envoie de message 
+    /// </summary>
     public class Echo : IService 
     {
         public string Name { get; set; }
@@ -42,22 +44,33 @@ namespace EchoService
             ListenClientThread = new Thread(this.listenClient);
         }
 
-        //fonction qui demarre le service
+        
+        /// <summary>
+        /// fonction qui demarre le service
+        /// </summary>
         public void startService()
         {
             ListenClientThread = new Thread(this.listenClient);
             ListenClientThread.Start();
         }
 
-        //fonction qui represente l'opeation du message
+        
+        /// <summary>
+        /// fonction qui represente l'operation echo du service message 
+        /// </summary>
+        /// <param name="echo"></param>
+        /// <returns></returns>
         public string echoOperation(string echo)
         {
             return echo;
         }
 
-        //méthode qui ecoute les requetes des client et qui creer une socket
-        //pour gérer la communication entre le client et le service
-        //cette méthode est mise dans un thread
+        
+        /// <summary>
+        /// méthode qui ecoute les requetes des client et qui creer une socket
+        /// pour gérer la communication entre le client et le service
+        /// cette méthode est mise dans un thread 
+        /// </summary>
         public void listenClient()
         {
             while (true)
@@ -70,8 +83,12 @@ namespace EchoService
             }
         }
 
-        //methode qui ecoute les requete d'un client et les affiche cette methode 
-        //mise dans un thread
+        
+        /// <summary>
+        /// methode qui ecoute les requete d'un client et les affiche cette methode 
+        /// mise dans un thread
+        /// </summary>
+        /// <param name="OsenderReceiver"></param>
         public void receiveDataFromClient(Object OsenderReceiver)
         {
             ISenderReceiver senderReceiver = (ISenderReceiver)OsenderReceiver;
