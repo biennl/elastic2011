@@ -8,6 +8,10 @@ using System.Security.Cryptography;
 
 namespace MessagesLibrary
 {
+    /// <summary>
+    /// represente la structure de données lier au message
+    /// et la fonction de calcul de hash du message
+    /// </summary>
     public class Message : IMessage
     {
 
@@ -19,12 +23,22 @@ namespace MessagesLibrary
         public int ParamCount { get; set; }
         public List<string> ListParams { get; set; }
         
-
+        /// <summary>
+        /// construction par défaut
+        /// </summary>
         public Message()
         {
             this.ListParams = new List<string>();
         }
 
+        /// <summary>
+        /// constructeur avec parametres
+        /// </summary>
+        /// <param name="Source"></param>
+        /// <param name="Target"></param>
+        /// <param name="Operation"></param>
+        /// <param name="Stamp"></param>
+        /// <param name="ParamCount"></param>
         public Message(string Source, string Target, string Operation, string Stamp, int ParamCount)
         {
             this.Source = Source;
@@ -36,7 +50,10 @@ namespace MessagesLibrary
 
         }
 
-        
+        /// <summary>
+        /// affiche les propriétés du message
+        /// </summary>
+        /// <returns></returns>
         public string ToString()
         {
             StringBuilder str = new StringBuilder();
@@ -56,6 +73,11 @@ namespace MessagesLibrary
             set { this.count = value; }
         }
 
+        /// <summary>
+        /// calcule le hash du message
+        /// </summary>
+        /// <param name="stringToHash"></param>
+        /// <returns></returns>
         public string HashMessage(string stringToHash)
         {
 
